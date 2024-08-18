@@ -3,6 +3,7 @@ import HeroImage from "../public/hero.png";
 import { AiFillLinkedin, AiOutlineGithub, AiOutlineHome } from "react-icons/ai";
 import Link from "next/link";
 import { GrProjects, GrUserFemale } from "react-icons/gr";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
@@ -71,6 +72,14 @@ export default function Home() {
               <Link href="https://github.com/gbspecapedra" target="_blank">
                 <AiOutlineGithub size={30} />
               </Link>
+            </div>
+            <div className="flex pt-2">
+              <Button
+                variant="secondary"
+                className="bg-secondary-300 hover:bg-secondary-400/80 text-xs uppercase"
+              >
+                Get my resume
+              </Button>
             </div>
           </div>
         </div>
