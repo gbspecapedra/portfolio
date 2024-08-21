@@ -39,8 +39,15 @@ export const Hero = () => {
           <Button
             variant="secondary"
             className="bg-secondary-300 hover:bg-accent-400/80 text-xs uppercase"
+            asChild
           >
-            Get my resume
+            <Link
+              href="/files/GiselePecapedraResume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Get my resume
+            </Link>
           </Button>
         </div>
       </div>
