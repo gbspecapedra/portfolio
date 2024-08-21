@@ -6,7 +6,7 @@ import { Button } from "./ui";
 
 export const FloatingNavbar = () => {
   return (
-    <nav className="absolute top-0 left-1/2 transform -translate-x-1/2 flex items-center justify-center bg-white/30 backdrop-blur-md shadow-xl rounded-full py-3 px-8 mt-4 space-x-8">
+    <nav className="absolute top-0 left-1/2 transform -translate-x-1/2 flex items-center justify-center bg-white/30 backdrop-blur-md shadow-xl rounded-full py-1.5 px-8 mt-4 space-x-8">
       <Link
         href="/"
         className="text-neutral-800 hover:text-accent hover:underline"
