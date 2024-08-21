@@ -23,11 +23,16 @@ export const Hero = () => {
           <Link
             href="https://www.linkedin.com/in/gbspecapedra/"
             target="_blank"
+            className="text-neutral-800 hover:text-accent"
           >
-            <FaLinkedin size={30} />
+            <FaLinkedin size={28} />
           </Link>
-          <Link href="https://github.com/gbspecapedra" target="_blank">
-            <FaGithub size={30} />
+          <Link
+            href="https://github.com/gbspecapedra"
+            target="_blank"
+            className="text-neutral-800 hover:text-accent"
+          >
+            <FaGithub size={28} />
           </Link>
         </div>
         <div className="flex pt-2">

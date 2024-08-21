@@ -34,29 +34,56 @@ export const ContactButton = () => {
             </p>
           </div>
           <div className="flex items-center space-x-1">
-            <MdEmail /> <span className="text-sm">hello@gisele.dev</span>
+            <MdEmail />
+            <Link
+              href="mailto:hello@gisele.dev"
+              className="text-sm text-neutral-800 hover:text-accent"
+            >
+              hello@gisele.dev
+            </Link>
           </div>
           <div className="flex items-center justify-between">
             <Link
               href="https://www.linkedin.com/in/gbspecapedra/"
               target="_blank"
+              className="text-neutral-800 hover:text-accent"
             >
-              <FaLinkedin size={30} />
+              <FaLinkedin size={28} />
             </Link>
-            <Link href="https://github.com/gbspecapedra" target="_blank">
-              <FaGithub size={30} />
+            <Link
+              href="https://github.com/gbspecapedra"
+              target="_blank"
+              className="text-neutral-800 hover:text-accent"
+            >
+              <FaGithub size={28} />
             </Link>
-            <Link href="https://wa.link/q1y70s" target="_blank">
-              <FaWhatsapp size={30} />
+            <Link
+              href="https://wa.link/q1y70s"
+              target="_blank"
+              className="text-neutral-800 hover:text-accent"
+            >
+              <FaWhatsapp size={28} />
             </Link>
-            <Link href="https://t.me/gbspecapedra" target="_blank">
-              <FaTelegram size={30} />
+            <Link
+              href="https://t.me/gbspecapedra"
+              target="_blank"
+              className="text-neutral-800 hover:text-accent"
+            >
+              <FaTelegram size={28} />
             </Link>
-            <Link href="https://discord.com/users/gbspecapedra" target="_blank">
-              <FaDiscord size={30} />
+            <Link
+              href="https://discord.com/users/gbspecapedra"
+              target="_blank"
+              className="text-neutral-800 hover:text-accent"
+            >
+              <FaDiscord size={28} />
             </Link>
-            <Link href="https://www.fiverr.com/pe/VY7g4re" target="_blank">
-              <TbBrandFiverr size={30} />
+            <Link
+              href="https://www.fiverr.com/pe/VY7g4re"
+              target="_blank"
+              className="text-neutral-800 hover:text-accent"
+            >
+              <TbBrandFiverr size={28} />
             </Link>
           </div>
         </div>
