@@ -2,7 +2,6 @@ import Link from "next/link";
 import React from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import { GrProjects, GrUserFemale } from "react-icons/gr";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { Button } from "./ui";
 
 export const FloatingNavbar = () => {
