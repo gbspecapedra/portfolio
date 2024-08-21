@@ -1,13 +1,27 @@
 import type { Config } from "tailwindcss";
+const { fontFamily } = require("tailwindcss/defaultTheme");
 
-const config: Config = {
+const config = {
+  darkMode: ["class"],
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
+  prefix: "",
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)", ...fontFamily.sans],
+      },
       colors: {
         primary: {
           DEFAULT: "#26536d",
@@ -51,37 +65,24 @@ const config: Config = {
           "900": "#552966",
           "950": "#351141",
         },
-        background: {
-          DEFAULT: "#f4f8fb",
-          "50": "#f4f8fb",
-          "100": "#e8f0f6",
-          "200": "#ccdfeb",
-          "300": "#9fc5da",
-          "400": "#6ba6c5",
-          "500": "#488caf",
-          "600": "#377092",
-          "700": "#2d5b77",
-          "800": "#294d63",
-          "900": "#264254",
-          "950": "#192b38",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
-        text: {
-          DEFAULT: "#0c1a22",
-          "50": "#f0fafb",
-          "100": "#d8f0f5",
-          "200": "#b6e1eb",
-          "300": "#84cbdc",
-          "400": "#4aabc6",
-          "500": "#2f8fab",
-          "600": "#2a7590",
-          "700": "#285f76",
-          "800": "#284f62",
-          "900": "#254354",
-          "950": "#0c1a22",
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
-  plugins: [],
-};
+  plugins: [require("tailwindcss-animate")],
+} satisfies Config;
+
 export default config;
