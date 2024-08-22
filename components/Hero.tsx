@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import HeroImage from "./../public/hero.png";
@@ -7,8 +9,14 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 export const Hero = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-4 w-full pt-16 sm:flex-row-reverse sm:pt-0">
-      <div className="relative w-72 h-72 md:w-96 md:h-96 lg:w-[600px] lg:h-[600px]">
-        <Image src={HeroImage} alt="hero" fill className="rounded-full" />
+      <div className="relative w-72 h-72 md:w-96 md:h-96 lg:w-[600px] lg:h-[600px] select-none">
+        <Image
+          src={HeroImage}
+          alt="hero"
+          fill
+          className="rounded-full select-none pointer-events-none"
+          onContextMenu={(e) => e.preventDefault()}
+        />
       </div>
       <div className="flex flex-col items-center justify-center">
         <div className="text-neutral-800 text-4xl md:text-5xl lg:text-6xl font-bold">
