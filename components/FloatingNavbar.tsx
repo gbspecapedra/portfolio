@@ -17,17 +17,15 @@ export const FloatingNavbar = () => {
         <span className="hidden text-sm sm:block">Home</span>
       </Link>
 
-      <Button variant="link" disabled className="m-0 p-0">
-        <Link
-          href="/about"
-          className="text-neutral-800 hover:text-accent hover:underline"
-        >
-          <span className="block sm:hidden">
-            <GrUserFemale size={24} />
-          </span>
-          <span className="hidden text-sm sm:block">About</span>
-        </Link>
-      </Button>
+      <Link
+        href="/about"
+        className="text-neutral-800 hover:text-accent hover:underline"
+      >
+        <span className="block sm:hidden">
+          <GrUserFemale size={24} />
+        </span>
+        <span className="hidden text-sm sm:block">About</span>
+      </Link>
 
       <Button variant="link" disabled className="m-0 p-0">
         <Link
