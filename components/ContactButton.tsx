@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import { TbBrandFiverr } from "react-icons/tb";
+import { CustomLink } from "./CustomLink";
 
 export const ContactButton = () => {
   return (
@@ -35,56 +36,42 @@ export const ContactButton = () => {
           </div>
           <div className="flex items-center space-x-1">
             <MdEmail />
-            <Link
-              href="mailto:hello@gisele.dev"
-              className="text-sm text-neutral-800 hover:text-accent"
-            >
-              hello@gisele.dev
-            </Link>
+            <CustomLink
+              title="hello@gisele.dev"
+              url="mailto:hello@gisele.dev"
+            />
           </div>
           <div className="flex items-center justify-between">
-            <Link
-              href="https://www.linkedin.com/in/gbspecapedra/"
+            <CustomLink
+              url="https://www.linkedin.com/in/gbspecapedra/"
+              icon={<FaLinkedin size={28} />}
               target="_blank"
-              className="text-neutral-800 hover:text-accent"
-            >
-              <FaLinkedin size={28} />
-            </Link>
-            <Link
-              href="https://github.com/gbspecapedra"
+            />
+            <CustomLink
+              url="https://github.com/gbspecapedra"
+              icon={<FaGithub size={28} />}
               target="_blank"
-              className="text-neutral-800 hover:text-accent"
-            >
-              <FaGithub size={28} />
-            </Link>
-            <Link
-              href="https://wa.link/q1y70s"
+            />
+            <CustomLink
+              url="https://www.fiverr.com/pe/VY7g4re"
+              icon={<TbBrandFiverr size={28} />}
               target="_blank"
-              className="text-neutral-800 hover:text-accent"
-            >
-              <FaWhatsapp size={28} />
-            </Link>
-            <Link
-              href="https://t.me/gbspecapedra"
+            />
+            <CustomLink
+              url="https://wa.link/q1y70s"
+              icon={<FaWhatsapp size={28} />}
               target="_blank"
-              className="text-neutral-800 hover:text-accent"
-            >
-              <FaTelegram size={28} />
-            </Link>
-            <Link
-              href="https://discord.com/users/gbspecapedra"
+            />
+            <CustomLink
+              url="https://t.me/gbspecapedra"
+              icon={<FaTelegram size={28} />}
               target="_blank"
-              className="text-neutral-800 hover:text-accent"
-            >
-              <FaDiscord size={28} />
-            </Link>
-            <Link
-              href="https://www.fiverr.com/pe/VY7g4re"
+            />
+            <CustomLink
+              url="https://discord.com/users/gbspecapedra"
+              icon={<FaDiscord size={28} />}
               target="_blank"
-              className="text-neutral-800 hover:text-accent"
-            >
-              <TbBrandFiverr size={28} />
-            </Link>
+            />
           </div>
         </div>
       </PopoverContent>

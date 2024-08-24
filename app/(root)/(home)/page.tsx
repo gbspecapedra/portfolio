@@ -1,4 +1,4 @@
-import { Hero } from "@/components/index";
+import { Hero, Navbar } from "@/components/index";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,6 +12,7 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#b7a5e0,transparent)]"></div>
       </div>
       <div className="h-full w-full flex">
+        <Navbar isFloating />
         <Hero />
       </div>
     </>
