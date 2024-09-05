@@ -8,7 +8,6 @@ import {
   FaTelegram,
   FaWhatsapp,
 } from "react-icons/fa";
-import Link from "next/link";
 import { TbBrandFiverr } from "react-icons/tb";
 import { CustomLink } from "./CustomLink";
 

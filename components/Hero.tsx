@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import HeroImage from "./../public/hero.png";
 import { Button } from "./ui";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { CustomLink } from "./CustomLink";
@@ -12,7 +11,7 @@ export const Hero = () => {
     <div className="flex flex-col items-center justify-center gap-4 w-full pt-16 sm:flex-row-reverse sm:pt-0">
       <div className="relative w-72 h-72 md:w-96 md:h-96 lg:w-[600px] lg:h-[600px] select-none">
         <Image
-          src={HeroImage}
+          src="/assets/images/hero.png"
           alt="hero"
           fill
           className="rounded-full select-none pointer-events-none"
@@ -47,7 +46,7 @@ export const Hero = () => {
             asChild
           >
             <Link
-              href="/files/GiselePecapedraResume.pdf"
+              href="assets/files/GiselePecapedraResume.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
