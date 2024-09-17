@@ -1,3 +1,4 @@
 export { Hero } from "./Hero";
 export { ContactButton } from "./ContactButton";
-export { FloatingNavbar } from "./FloatingNavbar";
+export { Navbar } from "./Navbar";
+export { CustomLink } from "./CustomLink";
