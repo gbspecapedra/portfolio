@@ -1,15 +1,14 @@
 "use client";
 
 import { Navbar } from "@/components/index";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { about, workExperience, education } from "@/data";
 import { skills } from "@/data/skills";
 import Image from "next/image";
 
 export default function About() {
   return (
-    <>
-      <div className="absolute inset-0 -z-10 h-screen w-full bg-white">
+    <main>
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white">
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#b7a5e0,transparent)]"></div>
       </div>
       <Navbar />
@@ -95,8 +94,38 @@ export default function About() {
               ))
               .reverse()}
           </div>
+
+          <div className="flex flex-col sm:w-1/3 border">
+            <h1 className="text-lg self-center">Education</h1>
+            {education
+              .map((e) => (
+                <div key={e.id} className="flex items-center mb-1 space-x-2">
+                  <div className="relative select-none w-8 h-8">
+                    <Image
+                      src={e.logo}
+                      alt={e.school}
+                      fill
+                      className="select-none pointer-events-none"
+                      onContextMenu={(e) => e.preventDefault()}
+                    />
+                  </div>
+                  <div className="flex flex-col w-full">
+                    <span className="text-sm">{e.school}</span>
+                    <div className="flex justify-between">
+                      <span className="text-xs">
+                        {e.degree}, {e.course}
+                      </span>
+                      <span className="text-xs">
+                        {e.start} - {e.end ? e.end : "Present"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))
+              .reverse()}
+          </div>
         </div>
       </div>
-    </>
+    </main>
   );
 }

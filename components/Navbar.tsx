@@ -10,7 +10,7 @@ export const Navbar = ({ isFloating = false }: { isFloating?: boolean }) => {
       className={`flex items-center justify-center backdrop-blur-md shadow-xl py-1.5 px-8 space-x-8 ${
         isFloating
           ? "absolute top-0 left-1/2 transform -translate-x-1/2 bg-white/30 rounded-full mt-4"
-          : "w-full bg-transparent pt-4"
+          : "w-full bg-transparent h-14 sticky"
       }`}
     >
       <CustomLink url="/" title="Home" icon={<AiOutlineHome size={14} />} />
