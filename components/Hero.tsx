@@ -1,5 +1,6 @@
 "use client";
 
+import { sendGAEvent } from "@next/third-parties/google";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui";
@@ -43,6 +44,9 @@ export const Hero = () => {
           <Button
             variant="secondary"
             className="bg-secondary-300 hover:bg-accent-400/80 text-xs uppercase"
+            onClick={() =>
+              sendGAEvent("event", "buttonClicked", { value: "resume" })
+            }
             asChild
           >
             <Link
