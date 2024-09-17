@@ -6,8 +6,9 @@ import { cn } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Gisele's Portfolio",
-  description: "UI Engineer",
+  title: "Gisele Pecapedra | UI Engineer & Designer",
+  description:
+    "Discover Gisele Pecapedra's portfolio, where innovative UI engineering meets sleek, modern design. Showcasing 8+ years of expertise in crafting user-focused web applications with cutting-edge technologies and a passion for clean, maintainable code.",
 };
 
 export default function RootLayout({
