@@ -79,8 +79,10 @@
   --ring: oklch(0.65 0.06 285);
 }
 
+/* =========================
+   DARK
+   ========================= */
 .dark {
-  /* Dark */
   --background: oklch(0.13 0.005 285);
   --foreground: oklch(0.985 0 0);
 
@@ -90,10 +92,11 @@
   --popover: oklch(0.18 0.005 285);
   --popover-foreground: oklch(0.985 0 0);
 
-  /* PRIMARY (shadcn Button default) - keep neutral */
+  /* PRIMARY = dark solid button */
   --primary: oklch(0.22 0.01 285);
   --primary-foreground: oklch(0.985 0 0);
 
+  /* Secondary slightly lighter than primary */
   --secondary: oklch(0.28 0.01 285);
   --secondary-foreground: oklch(0.985 0 0);
 
@@ -116,6 +119,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -149,7 +153,6 @@
    UTILITIES
    ========================= */
 @layer utilities {
-  /* Text gradient for hero emphasis */
   .text-gradient {
     background: linear-gradient(
       90deg,
@@ -161,7 +164,6 @@
     color: transparent;
   }
 
-  /* Signature button (used only where you want a pop) */
   .btn-sig {
     background: linear-gradient(
       90deg,
@@ -187,14 +189,12 @@
       color-mix(in oklch, var(--signature) 45%, transparent);
   }
 
-  /* Signature badge */
   .badge-sig {
     background: color-mix(in oklch, var(--signature) 16%, transparent);
     border: 1px solid color-mix(in oklch, var(--signature) 28%, transparent);
     color: color-mix(in oklch, var(--foreground) 88%, var(--signature));
   }
 
-  /* Cards hover with depth */
   .card-sig {
     transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
     border-color: color-mix(in oklch, var(--border) 75%, transparent);
@@ -208,40 +208,43 @@
       0 16px 56px -28px color-mix(in oklch, var(--signature) 35%, transparent);
   }
 
-  /* HERO BACKGROUND: reliable across light/dark (no Tailwind gradient parsing) */
-.hero-bg {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate; /* important: creates a stacking context */
-}
+  /* HERO BACKGROUND (stable + dark-safe) */
+  .hero-bg {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
 
-.hero-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0; /* stays behind content */
-  background:
-    radial-gradient(1200px circle at 20% 10%, var(--hero-grad-1), transparent 55%),
-    radial-gradient(900px circle at 80% 30%, var(--hero-grad-2), transparent 60%);
-}
+  .hero-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(1200px circle at 20% 10%, var(--hero-grad-1), transparent 55%),
+      radial-gradient(900px circle at 80% 30%, var(--hero-grad-2), transparent 60%);
+  }
 
-.hero-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0; /* stays behind content */
-  background:
-    radial-gradient(520px circle at 50% 0%, rgba(167, 139, 250, var(--hero-blob-1)), transparent 60%),
-    radial-gradient(420px circle at 92% 30%, rgba(216, 180, 254, var(--hero-blob-2)), transparent 62%);
-  filter: blur(130px);
-  transform: translate3d(0, 0, 0);
-}
+  .hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(520px circle at 50% 0%, rgba(167, 139, 250, var(--hero-blob-1)), transparent 60%),
+      radial-gradient(420px circle at 92% 30%, rgba(216, 180, 254, var(--hero-blob-2)), transparent 62%);
+    filter: blur(130px);
+    transform: translate3d(0, 0, 0);
+  }
 
-/* anything inside hero-bg sits above pseudo-elements */
-.hero-bg > * {
-  position: relative;
-  z-index: 1;
-}
+  .hero-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .reveal-pop {
+    transform: translateY(0) scale(1);
+  }
 }
