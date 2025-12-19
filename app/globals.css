@@ -1,26 +1,247 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  /* PRIMARY = neutral */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  /* ACCENT = neutral surfaces */
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+
+  /* SIGNATURE */
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
+/* =========================
+   TOKENS
+   ========================= */
+:root {
+  --radius: 0.625rem;
+
+  /* Light */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.15 0.005 285);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.005 285);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.005 285);
+
+  /* PRIMARY = neutral ink */
+  --primary: oklch(0.18 0.005 285);
+  --primary-foreground: oklch(0.985 0 0);
+
+  --secondary: oklch(0.96 0.001 286);
+  --secondary-foreground: oklch(0.18 0.005 285);
+
+  --muted: oklch(0.96 0.001 286);
+  --muted-foreground: oklch(0.55 0.01 285);
+
+  /* ACCENT = neutral */
+  --accent: oklch(0.96 0.001 286);
+  --accent-foreground: oklch(0.18 0.005 285);
+
+  --border: oklch(0.92 0.004 286);
+  --input: oklch(0.92 0.004 286);
+
+  /* Ring used for focus outline (soft purple signature) */
+  --ring: oklch(0.65 0.06 285);
+}
+
+.dark {
+  /* Dark */
+  --background: oklch(0.13 0.005 285);
+  --foreground: oklch(0.985 0 0);
+
+  --card: oklch(0.18 0.005 285);
+  --card-foreground: oklch(0.985 0 0);
+
+  --popover: oklch(0.18 0.005 285);
+  --popover-foreground: oklch(0.985 0 0);
+
+  /* PRIMARY (shadcn Button default) - keep neutral */
+  --primary: oklch(0.22 0.01 285);
+  --primary-foreground: oklch(0.985 0 0);
+
+  --secondary: oklch(0.28 0.01 285);
+  --secondary-foreground: oklch(0.985 0 0);
+
+  --muted: oklch(0.25 0.005 285);
+  --muted-foreground: oklch(0.7 0.01 285);
+
+  --accent: oklch(0.25 0.005 285);
+  --accent-foreground: oklch(0.985 0 0);
+
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+
+  --ring: oklch(0.65 0.06 285);
+}
+
+/* =========================
+   BASE + BRAND TOKENS
+   ========================= */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* signature (used for highlights only) */
+    --signature: oklch(0.72 0.12 295);
+    --signature-2: oklch(0.70 0.10 315);
+
+    /* hero background (light) */
+    --hero-grad-1: rgba(167, 139, 250, 0.16);
+    --hero-grad-2: rgba(216, 180, 254, 0.12);
+    --hero-blob-1: 0.18;
+    --hero-blob-2: 0.14;
+  }
+
+  .dark {
+    /* signature tuned for dark */
+    --signature: oklch(0.60 0.12 292);
+    --signature-2: oklch(0.58 0.10 315);
+
+    /* hero background (dark) - deeper, less washed */
+    --hero-grad-1: rgba(124, 58, 237, 0.12);
+    --hero-grad-2: rgba(168, 85, 247, 0.10);
+    --hero-blob-1: 0.10;
+    --hero-blob-2: 0.07;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =========================
+   UTILITIES
+   ========================= */
+@layer utilities {
+  /* Text gradient for hero emphasis */
+  .text-gradient {
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklch, var(--signature) 92%, white),
+      color-mix(in oklch, var(--signature-2) 92%, white)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Signature button (used only where you want a pop) */
+  .btn-sig {
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklch, var(--signature) 70%, black),
+      color-mix(in oklch, var(--signature-2) 70%, black)
+    );
+    color: white;
+    border: 1px solid color-mix(in oklch, var(--signature) 28%, transparent);
+  }
+
+  .dark .btn-sig {
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklch, var(--signature) 55%, black),
+      color-mix(in oklch, var(--signature-2) 55%, black)
+    );
+    border: 1px solid color-mix(in oklch, var(--signature) 22%, transparent);
+  }
+
+  .btn-sig:hover {
+    filter: brightness(1.05);
+    box-shadow: 0 16px 48px -28px
+      color-mix(in oklch, var(--signature) 45%, transparent);
+  }
+
+  /* Signature badge */
+  .badge-sig {
+    background: color-mix(in oklch, var(--signature) 16%, transparent);
+    border: 1px solid color-mix(in oklch, var(--signature) 28%, transparent);
+    color: color-mix(in oklch, var(--foreground) 88%, var(--signature));
+  }
+
+  /* Cards hover with depth */
+  .card-sig {
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+    border-color: color-mix(in oklch, var(--border) 75%, transparent);
+    background: color-mix(in oklch, var(--card) 92%, transparent);
+  }
+  .card-sig:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklch, var(--signature) 30%, var(--border));
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--signature) 18%, transparent),
+      0 16px 56px -28px color-mix(in oklch, var(--signature) 35%, transparent);
+  }
+
+  /* HERO BACKGROUND: reliable across light/dark (no Tailwind gradient parsing) */
+.hero-bg {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* important: creates a stacking context */
+}
+
+.hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0; /* stays behind content */
+  background:
+    radial-gradient(1200px circle at 20% 10%, var(--hero-grad-1), transparent 55%),
+    radial-gradient(900px circle at 80% 30%, var(--hero-grad-2), transparent 60%);
+}
+
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0; /* stays behind content */
+  background:
+    radial-gradient(520px circle at 50% 0%, rgba(167, 139, 250, var(--hero-blob-1)), transparent 60%),
+    radial-gradient(420px circle at 92% 30%, rgba(216, 180, 254, var(--hero-blob-2)), transparent 62%);
+  filter: blur(130px);
+  transform: translate3d(0, 0, 0);
+}
+
+/* anything inside hero-bg sits above pseudo-elements */
+.hero-bg > * {
+  position: relative;
+  z-index: 1;
+}
 }
