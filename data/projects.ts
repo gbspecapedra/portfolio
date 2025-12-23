@@ -351,7 +351,7 @@ export const projects: Project[] = [
       },
       {
         label: "Live Demo",
-        href: "https://shipflow.vercel.app",
+        href: "https://shipflow-tau.vercel.app",
       },
     ],
 
@@ -388,7 +388,7 @@ export const projects: Project[] = [
 
       process: [
         {
-          title: "3.1 Decision: Treat the Project as a Real MVP",
+          title: "3.1 Treat the Project as a Real MVP",
           bullets: [
             "Prioritized a clear happy path over exhaustive edge cases.",
             "Focused on correctness, type safety, and predictable UX states.",
@@ -399,7 +399,7 @@ export const projects: Project[] = [
         },
 
         {
-          title: "3.2 Decision: Next.js App Router with Colocated API Routes",
+          title: "3.2 Next.js App Router with Colocated API Routes",
           bullets: [
             "Used Next.js App Router with API routes for address verification, rates, and label purchase.",
             "Shared types between frontend and backend.",
@@ -410,7 +410,7 @@ export const projects: Project[] = [
         },
 
         {
-          title: "3.3 Decision: Zod as a Single Source of Truth",
+          title: "3.3 Zod as a Single Source of Truth",
           bullets: [
             "Used Zod schemas for form validation, API input validation, and type inference.",
             "Explicitly modeled domain constraints (US-only addresses, parcel attributes).",
@@ -421,7 +421,7 @@ export const projects: Project[] = [
         },
 
         {
-          title: "3.4 Decision: Explicit Domain Model for the Flow",
+          title: "3.4 Explicit Domain Model for the Flow",
           bullets: [
             "Modeled the entire label creation process as a single domain object (from, to, parcel).",
             "Mapped internal models to EasyPost payloads via explicit mapper functions.",
@@ -432,7 +432,7 @@ export const projects: Project[] = [
         },
 
         {
-          title: "3.5 Decision: Step-Based UX with Explicit State",
+          title: "3.5 Step-Based UX with Explicit State",
           bullets: [
             "Implemented a numbered, step-based flow aligned with real shipping workflows.",
             "Clear progression: addresses → parcel → rates → preview/print.",
@@ -443,7 +443,7 @@ export const projects: Project[] = [
         },
 
         {
-          title: "3.6 Decision: Happy Path First, Minimal Error UI",
+          title: "3.6 Happy Path First, Minimal Error UI",
           bullets: [
             "Avoided over-handling ambiguous EasyPost purchase responses.",
             "Removed misleading error UI when labels could still be generated successfully.",
@@ -454,7 +454,7 @@ export const projects: Project[] = [
         },
 
         {
-          title: "3.7 Decision: PDF Preview via iframe",
+          title: "3.7 PDF Preview via iframe",
           bullets: [
             "Used an iframe for label preview instead of parsing or rendering PDFs.",
           ],
