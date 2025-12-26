@@ -50,7 +50,7 @@ export function ProjectCard({
 
             <div className="flex flex-nowrap items-center gap-2 pt-1">
               <span
-                className="inline-flex items-center rounded-md px-2.5 py-1.5 text-xs font-medium bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+                className="inline-flex items-center rounded-md px-3 py-1.5 text-sm font-medium bg-primary text-primary-foreground hover:opacity-70 transition-opacity"
                 onClick={(e) => {
                   e.stopPropagation();
                   router.push(`/projects/${project.slug}`);

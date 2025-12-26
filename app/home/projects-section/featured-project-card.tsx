@@ -60,14 +60,12 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
               ) : null}
             </div>
 
-            {/* ✅ botões em uma linha */}
             <div className="flex flex-nowrap items-center gap-2 sm:justify-end">
-              {/* Case study (interno) */}
               <span
                 className={[
                   "inline-flex items-center rounded-md px-3 py-2 text-sm font-medium",
                   "bg-primary text-primary-foreground",
-                  "hover:opacity-90 transition-opacity",
+                  "hover:opacity-70 transition-opacity",
                 ].join(" ")}
                 onClick={(e) => {
                   e.stopPropagation();

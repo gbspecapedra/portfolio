@@ -32,13 +32,6 @@ export function ProjectLinks({ links, size = "default", className }: Props) {
           asChild
           size={size}
           variant="outline"
-          className={[
-            "border-foreground/15",
-            "hover:border-foreground/35",
-            "hover:bg-foreground/10",
-            "dark:hover:bg-foreground/15",
-            "transition-colors",
-          ].join(" ")}
           onClick={(e) => e.stopPropagation()}
           onMouseDown={(e) => e.stopPropagation()}
         >
