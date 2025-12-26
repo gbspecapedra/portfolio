@@ -19,9 +19,9 @@ export function ExperienceSection() {
           <div>
             <h2 className="text-xl font-semibold sm:text-2xl">Experience</h2>
             <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-              Front-End Engineer with a strong focus on design systems,
-              accessibility, performance, testing, and clean component
-              architecture.
+              Front-End Engineer (6+ years) focused on design systems,
+              accessibility (WCAG/ARIA), performance, testing, and clean
+              component architecture.
             </p>
           </div>
 
@@ -35,7 +35,11 @@ export function ExperienceSection() {
 
       <div className="mt-6 space-y-4">
         {experience.map((item, idx) => (
-          <Reveal key={item.company} trigger="inView" delay={140 + idx * 140}>
+          <Reveal
+            key={`${item.company}-${item.title}`}
+            trigger="inView"
+            delay={140 + idx * 140}
+          >
             <Card className="card-sig">
               <CardContent className="p-6">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">

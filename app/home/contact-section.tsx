@@ -1,17 +1,20 @@
 import { contactInfo } from "@/data/contact-info";
 import Link from "next/link";
+
 import { Reveal } from "@/components/reveal";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CopyEmailButton } from "@/components/copy-email-button";
+import { SiLinkedin, SiGithub } from "react-icons/si";
 
 export function ContactSection() {
-  const { email, location, availability, linkedinUrl, githubUrl } = contactInfo;
+  const { email, location, availability, linkedinUrl, githubUrl, resumeUrl } =
+    contactInfo;
 
   const outlineHover =
-    "border-foreground/15 bg-background/40 hover:bg-foreground/10 hover:border-foreground/30 " +
-    "dark:bg-white/5 dark:hover:bg-white/10 dark:hover:border-white/30 transition-colors";
+    "border-foreground/15 bg-background/40 hover:bg-foreground/10 hover:border-foreground/35 " +
+    "dark:bg-white/5 dark:hover:bg-white/10 dark:hover:border-white/35 transition-colors";
 
   return (
     <section id="contact" className="pt-20">
@@ -21,15 +24,19 @@ export function ContactSection() {
             <h2 className="text-xl font-semibold sm:text-2xl">
               Let&apos;s talk
             </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              If you&apos;re hiring, I can jump in quickly and deliver polished
-              UI with strong engineering fundamentals.
+            <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+              Interested in working together or discussing a frontend challenge?
+              I&apos;m always open to thoughtful conversations about products,
+              UX, and engineering tradeoffs.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-2">
-            <Badge variant="secondary">{availability}</Badge>
-            <Badge variant="secondary">{location}</Badge>
+            {availability ? (
+              <Badge variant="secondary">{availability}</Badge>
+            ) : null}
+            {location ? <Badge variant="secondary">{location}</Badge> : null}
+            <Badge className="badge-sig">PST</Badge>
           </div>
         </div>
       </Reveal>
@@ -41,10 +48,6 @@ export function ContactSection() {
             <CardContent className="p-6">
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <p className="text-sm text-muted-foreground">
-                    Preferred contact
-                  </p>
-
                   <div className="flex flex-wrap items-center gap-2">
                     <a
                       href={`mailto:${email}`}
@@ -57,46 +60,72 @@ export function ContactSection() {
                   </div>
 
                   <p className="text-sm text-muted-foreground">
-                    For interviews, take-homes, or to talk about a role and what
-                    you need shipped.
+                    For interviews, take-homes, or aligning on what needs to
+                    ship next.
                   </p>
                 </div>
 
                 <div className="flex flex-wrap gap-2 pt-1">
                   <Button asChild className="btn-sig">
-                    <a href={`mailto:${email}?subject=Let%27s%20talk`}>
+                    <a
+                      href={`mailto:${email}?subject=${encodeURIComponent(
+                        "Let's talk — Frontend role"
+                      )}`}
+                    >
                       Email me
                     </a>
                   </Button>
 
-                  <Button asChild variant="outline" className={outlineHover}>
-                    <a
-                      href={linkedinUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label="Open LinkedIn profile"
+                  {linkedinUrl ? (
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="icon"
+                      className="
+      border-foreground/15
+      hover:bg-foreground/5
+      hover:border-foreground/30
+      transition-colors
+    "
                     >
-                      LinkedIn
-                    </a>
-                  </Button>
+                      <a
+                        href={linkedinUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="LinkedIn profile"
+                      >
+                        <SiLinkedin className="h-4 w-4" />
+                      </a>
+                    </Button>
+                  ) : null}
 
-                  <Button asChild variant="outline" className={outlineHover}>
-                    <a
-                      href={githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label="Open GitHub profile"
+                  {githubUrl ? (
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="icon"
+                      className="border-foreground/15
+      hover:bg-foreground/5
+      hover:border-foreground/30
+      transition-colors
+    "
                     >
-                      GitHub
-                    </a>
-                  </Button>
+                      <a
+                        href={githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="GitHub profile"
+                      >
+                        <SiGithub className="h-4 w-4" />
+                      </a>
+                    </Button>
+                  ) : null}
                 </div>
               </div>
             </CardContent>
           </Card>
         </Reveal>
 
-        {/* Secondary: what you can help with */}
         <Reveal trigger="inView" delay={260}>
           <Card className="card-sig">
             <CardContent className="p-6">
@@ -109,37 +138,38 @@ export function ContactSection() {
                     UI that feels premium and stays maintainable
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    I care about clarity, accessibility, and performance.
-                    I&apos;m comfortable shaping requirements and making
-                    tradeoffs.
+                    I optimize for clarity first, then performance and polish.
+                    Comfortable shaping requirements and making tradeoffs.
                   </p>
                 </div>
 
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex gap-2">
-                    <span className="mt-1 h-2 w-2 rounded-full bg-[color:var(--signature)]" />
+                    <span className="mt-1.5 h-2 w-2 rounded-full bg-[color:var(--signature)]" />
                     Design systems + component architecture
                   </li>
                   <li className="flex gap-2">
-                    <span className="mt-1 h-2 w-2 rounded-full bg-[color:var(--signature)]" />
+                    <span className="mt-1.5 h-2 w-2 rounded-full bg-[color:var(--signature)]" />
                     Complex flows: validation, edge cases, UX states
                   </li>
                   <li className="flex gap-2">
-                    <span className="mt-1 h-2 w-2 rounded-full bg-[color:var(--signature)]" />
-                    Performance, a11y, and clean refactors
+                    <span className="mt-1.5 h-2 w-2 rounded-full bg-[color:var(--signature)]" />
+                    Performance, accessibility, and clean refactors
                   </li>
                 </ul>
 
                 <div className="flex flex-wrap gap-2 pt-1">
                   <Button asChild variant="secondary">
-                    <Link href="/#projects">View projects</Link>
+                    <Link href="/#projects">Explore projects</Link>
                   </Button>
 
-                  <Button asChild variant="outline" className={outlineHover}>
-                    <a href="/resume.pdf" target="_blank" rel="noreferrer">
-                      Resume
-                    </a>
-                  </Button>
+                  {resumeUrl ? (
+                    <Button asChild variant="outline" className={outlineHover}>
+                      <a href={resumeUrl} target="_blank" rel="noreferrer">
+                        Resume
+                      </a>
+                    </Button>
+                  ) : null}
                 </div>
               </div>
             </CardContent>

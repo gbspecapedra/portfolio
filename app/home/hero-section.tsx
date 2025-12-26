@@ -41,10 +41,10 @@ export function HeroSection() {
       <Reveal trigger="mount" delay={1200}>
         <div className="flex flex-wrap gap-3 pt-2">
           <Button asChild className="btn-sig">
-            <a href="#projects">View projects</a>
+            <a href="#projects">Explore projects</a>
           </Button>
           <Button asChild variant="secondary">
-            <a href="#contact">Contact</a>
+            <a href="#contact">Let&apos;s talk</a>
           </Button>
         </div>
       </Reveal>
