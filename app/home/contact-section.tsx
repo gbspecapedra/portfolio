@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CopyEmailButton } from "@/components/copy-email-button";
 import { SiLinkedin, SiGithub } from "react-icons/si";
+import { NavButton } from "@/components/navigation/nav-button";
 
 export function ContactSection() {
   const { email, location, availability, linkedinUrl, githubUrl, resumeUrl } =
@@ -77,48 +78,19 @@ export function ContactSection() {
                   </Button>
 
                   {linkedinUrl ? (
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="icon"
-                      className="
-      border-foreground/15
-      hover:bg-foreground/5
-      hover:border-foreground/30
-      transition-colors
-    "
-                    >
-                      <a
-                        href={linkedinUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label="LinkedIn profile"
-                      >
-                        <SiLinkedin className="h-4 w-4" />
-                      </a>
-                    </Button>
+                    <NavButton
+                      href={linkedinUrl}
+                      label="LinkedIn profile"
+                      icon={<SiLinkedin className="h-4 w-4" />}
+                    />
                   ) : null}
 
                   {githubUrl ? (
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="icon"
-                      className="border-foreground/15
-      hover:bg-foreground/5
-      hover:border-foreground/30
-      transition-colors
-    "
-                    >
-                      <a
-                        href={githubUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label="GitHub profile"
-                      >
-                        <SiGithub className="h-4 w-4" />
-                      </a>
-                    </Button>
+                    <NavButton
+                      href={githubUrl}
+                      label="GitHub profile"
+                      icon={<SiGithub className="h-4 w-4" />}
+                    />
                   ) : null}
                 </div>
               </div>

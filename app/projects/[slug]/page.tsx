@@ -10,6 +10,14 @@ import { Reveal } from "@/components/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { FiArrowLeft } from "react-icons/fi";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { NavButton } from "@/components/navigation/nav-button";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -106,6 +114,14 @@ export default async function ProjectPage({ params }: Props) {
         <div className="relative z-10 mx-auto max-w-5xl px-4 py-14 sm:py-18">
           {/* Header */}
           <section className="space-y-5">
+            {/* Back to projects */}
+            <Reveal trigger="mount" delay={0}>
+              <div className="mb-4">
+                <NavButton />
+              </div>
+            </Reveal>
+
+            {/* Meta badges */}
             <Reveal trigger="mount" delay={0}>
               <div className="flex flex-wrap items-center gap-2">
                 {meta.type && <Badge className="badge-sig">{meta.type}</Badge>}
@@ -117,6 +133,7 @@ export default async function ProjectPage({ params }: Props) {
               </div>
             </Reveal>
 
+            {/* Title & subtitle */}
             <Reveal trigger="mount" delay={d(1)}>
               <div className="space-y-2">
                 <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -128,6 +145,7 @@ export default async function ProjectPage({ params }: Props) {
               </div>
             </Reveal>
 
+            {/* Tags */}
             <Reveal trigger="mount" delay={d(2)}>
               <div className="flex flex-wrap gap-2">
                 {tags.map((t) => (
@@ -222,16 +240,10 @@ export default async function ProjectPage({ params }: Props) {
             <SectionBlock {...sections.technologies} delay={d(7)} />
           </section>
 
-          {/* Back */}
+          {/* Back to projects */}
           <section className="mt-10">
             <Reveal trigger="inView" delay={d(2)}>
-              <Button
-                asChild
-                variant="outline"
-                className="border-foreground/10"
-              >
-                <Link href="/#projects">Back to projects</Link>
-              </Button>
+              <NavButton variant="text" />
             </Reveal>
           </section>
         </div>
