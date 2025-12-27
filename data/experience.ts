@@ -13,7 +13,7 @@ export const experience: Experience[] = [
     company: "WineDirect Ecommerce",
     title: "Frontend Engineer",
     location: "Remote",
-    dates: "Jan 2022 – Jan 2025",
+    dates: "Jan 2022 - Jan 2025",
     summary:
       "Built and maintained React + React Native experiences used by thousands of merchants, with a focus on UI quality, reliability, and scalable component architecture.",
     impact: [
@@ -36,7 +36,7 @@ export const experience: Experience[] = [
     company: "Up Learn",
     title: "Frontend Engineer",
     location: "Remote",
-    dates: "Apr 2021 – Nov 2021",
+    dates: "Apr 2021 - Nov 2021",
     summary:
       "Shipped responsive, accessible learning experiences while improving performance and migrating a production codebase to TypeScript.",
     impact: [
@@ -44,13 +44,13 @@ export const experience: Experience[] = [
       "Delivered responsive, accessible learning modules with WCAG/ARIA-friendly patterns.",
       "Improved load performance by ~15% through architectural enhancements.",
     ],
-    skills: ["Next.js", "React", "TypeScript", "Performance", "A11y"],
+    skills: ["React", "JavaScript", "TypeScript", "Performance", "A11y"],
   },
   {
     company: "Laboratório Bridge",
     title: "Full Stack Engineer",
     location: "Remote",
-    dates: "Mar 2020 – Mar 2021",
+    dates: "Mar 2020 - Mar 2021",
     summary:
       "Redesigned a healthcare UI (React + Java) used by 500k+ professionals, improving clarity and usability for complex workflows.",
     impact: [
@@ -59,5 +59,26 @@ export const experience: Experience[] = [
       "Improved accessibility and responsiveness across nationwide systems.",
     ],
     skills: ["React", "Design Systems", "UI Engineering", "Accessibility"],
+  },
+  {
+    company: "FEESC (Fundação de Ensino e Engenharia de Santa Catarina)",
+    title: "Full Stack Developer",
+    location: "Florianópolis, Brazil (On-site)",
+    dates: "Apr 2015 - Feb 2020",
+    summary:
+      "Full-stack engineer responsible for maintaining and evolving large internal systems supporting hundreds of research projects and stakeholders nationwide.",
+    impact: [
+      "Maintained and evolved internal platforms supporting 400+ active projects across 18+ Brazilian states.",
+      "Improved usability and workflow efficiency for 800+ research groups, streamlining complex administrative processes.",
+      "Delivered long-term system improvements through better coding standards, documentation, and gradual refactors.",
+      "Collaborated closely with non-technical stakeholders to translate institutional requirements into reliable, shippable solutions.",
+    ],
+    skills: [
+      "Full-Stack Development",
+      "UI Engineering",
+      "Complex Workflows",
+      "Long-term Maintenance",
+      "Stakeholder Collaboration",
+    ],
   },
 ];
