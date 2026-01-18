@@ -500,6 +500,162 @@ export const projects: Project[] = [
       },
     },
   },
+  // Coinpay UI
+  {
+    slug: "coinpay",
+    title: "Coinpay UI",
+    subtitle:
+      "A fintech UI prototype showcasing interactions, motion, and theme-aware components in a realistic product scenario.",
+    tags: ["UI Engineering", "Interactions", "Animations", "Design System"],
+
+    meta: {
+      role: "Frontend Engineer",
+      type: "Assessment",
+      duration: "2-3 days",
+      year: "2026",
+    },
+
+    links: [
+      { label: "Live Demo", href: "https://coinpay-ui.vercel.app" },
+      { label: "GitHub", href: "https://github.com/coinpay-ui" },
+    ],
+
+    card: {
+      eyebrow: "UI Take-Home",
+      pitch:
+        "Sleek fintech UI prototype built to showcase interaction quality, motion, and theme-aware components under a 2–3 day deadline. Emphasizes design-system fidelity and production-like structure with realistic data.",
+      tech: ["Next.js", "TypeScript", "Animations"],
+      highlights: [
+        "Role: Frontend Engineer",
+        "Focus: Motion + UI states",
+        "Outcome: Polished, reviewable prototype",
+      ],
+    },
+
+    sections: {
+      challenge: {
+        title: "1. Challenge",
+        body: [
+          "Build 2-3 screens from a provided fintech design system to demonstrate how I bring UI, interactions, and animations to life in a product-like frontend implementation.",
+          "The experience needed to feel sleek, modern, intuitive, and fun — including navigation between pages and realistic UI components (loaders, buttons, states).",
+        ],
+      },
+
+      context: {
+        title: "2. Context & Constraints",
+        bullets: [
+          "Time-boxed take-home (2-3 days).",
+          "Implement at least 2 pages with navigation between them.",
+          "Design system provided (tokens, typography, components, variants).",
+          "Light and dark themes required.",
+          "UI-focused scope: no real backend/API contract.",
+        ],
+      },
+
+      process: [
+        {
+          title: "3.1 Client-side Data Generation (Faker)",
+          body: [
+            "Decision: Generate transactional, balance, and category data on the client using @faker-js/faker.",
+            "Why: No backend contract, but realistic data makes the UI feel closer to a real product and enables multiple meaningful states quickly.",
+            "Trade-off: Data regenerates on refresh unless seeded. Not production-ready, but ideal for prototyping and UI validation. Some formatting helpers were removed in newer faker versions, so formatting is handled manually.",
+          ],
+        },
+        {
+          title: "3.2 Shared Domain Dataset Across Pages",
+          body: [
+            "Decision: Centralize fake data generation so both pages consume the same underlying dataset.",
+            "Why: Ensures consistency (totals on Home match breakdown on Spending) and mimics real apps where multiple screens reflect the same domain data.",
+            "Trade-off: Requires slightly more structure than page-local mocks and clearer boundaries between data generation and presentation.",
+          ],
+        },
+        {
+          title: "3.3 Component Splitting Strategy",
+          body: [
+            "Decision: Extract reusable UI blocks into focused components (summary cards, chart section, category selector, transaction list, month selector).",
+            "Why: Improves readability, encourages reuse, and supports iteration without creating monolithic page components.",
+            "Trade-off: More files and prop design overhead, especially while data is still mocked.",
+          ],
+        },
+        {
+          title: "3.4 Layout Strategy (Desktop-first, Responsive Constraints)",
+          body: [
+            "Decision: Optimize for desktop web (information density, multi-column layout), while supporting smaller breakpoints for readability.",
+            "Why: The product reads as a web app, not a mobile-first web experience; desktop structure improves scannability and hierarchy.",
+            "Trade-off: Mobile is functional but not fully parity-optimized for a native mobile model (intentional given scope).",
+          ],
+        },
+        {
+          title: "3.5 Design Tokens + CSS Variables",
+          body: [
+            "Decision: Rely on design tokens and CSS variables (theme-aware) rather than hard-coded colors.",
+            "Why: Keeps light/dark mode predictable, scales better, and aligns with real design system practices.",
+            "Trade-off: Some fine-grained matching required minor overrides and occasionally more verbose classnames.",
+          ],
+        },
+        {
+          title: "3.6 Chart Implementation (No Chart Library)",
+          body: [
+            "Decision: Build the weekly chart with simple div-based layout instead of a charting dependency.",
+            "Why: The goal was UI, layout, and interaction quality, not data visualization tooling; this kept dependencies low and control high.",
+            "Trade-off: Not interactive/animated and wouldn't scale to complex analytics (acceptable for prototype scope).",
+          ],
+        },
+        {
+          title: "3.7 Navigation & State via URL (Month Selection)",
+          body: [
+            "Decision: Reflect month selection in the URL and keep it shared between pages.",
+            "Why: Enables deep linking, predictable navigation, and sync between screens without adding global state libraries.",
+            "Trade-off: Requires client components and careful handling of useSearchParams (including Suspense boundaries in Next.js).",
+          ],
+        },
+        {
+          title: "3.8 Mocked Auth (No Real Side Effects)",
+          body: [
+            "Decision: Keep login mocked and redirect directly to Home.",
+            "Why: Auth is out of scope for a UI-focused challenge and would add backend complexity without increasing signal for the intended evaluation.",
+            "Trade-off: Not representative of real auth flows; assumes a trusted environment.",
+          ],
+        },
+      ],
+
+      solution: {
+        title: "4. Solution",
+        bullets: [
+          "Theme-aware UI implementation aligned to the provided design system.",
+          "Navigation between pages with shared URL-based state (month selection).",
+          "Product-like UI states (components, loaders, and realistic data).",
+        ],
+      },
+
+      outcome: {
+        title: "5. Outcome",
+        body: [
+          "Delivered a polished prototype that demonstrates UI engineering judgment: design-system fidelity, predictable navigation/state, and interaction quality under a 2–3 day deadline.",
+        ],
+      },
+
+      takeaways: {
+        title: "6. Key Takeaways",
+        bullets: [
+          "Strong signal in UI execution without overbuilding infrastructure.",
+          "Theme/token discipline keeps complex UI consistent across modes.",
+          "URL-based state is a clean, product-like approach for deep links and predictable flows.",
+        ],
+      },
+
+      technologies: {
+        title: "7. Technologies & Skills",
+        bullets: [
+          "Next.js (App Router), React, TypeScript",
+          "Design tokens + CSS variables (theme-aware)",
+          "UI component composition and variants",
+          "Client-side data generation (faker)",
+          "Animation and interaction patterns (subtle, intentional motion)",
+        ],
+      },
+    },
+  },
 ];
 
 export function getProjectBySlug(slug: string) {

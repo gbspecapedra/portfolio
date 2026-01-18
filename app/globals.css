@@ -247,4 +247,11 @@
   .reveal-pop {
     transform: translateY(0) scale(1);
   }
+
+  /* Thin horizontal scrollbar */
+  .scrollbar-width {
+    scrollbar-width: none;
+  }
+
+  
 }

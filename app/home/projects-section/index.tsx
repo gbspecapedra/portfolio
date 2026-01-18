@@ -30,7 +30,7 @@ export function ProjectsSection() {
         </div>
       ) : null}
 
-      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {secondary.map((p, idx) => (
           <ProjectCard key={p.slug} project={p} delay={260 + idx * 180} />
         ))}
