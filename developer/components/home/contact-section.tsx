@@ -1,13 +1,13 @@
-import { contactInfo } from "@/data/contact-info";
+import { contactInfo } from "@/developer/data/contact-info";
 import Link from "next/link";
 
-import { Reveal } from "@/components/reveal";
+import { Reveal } from "@/developer/components/reveal";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CopyEmailButton } from "@/components/copy-email-button";
+import { CopyEmailButton } from "@/developer/components/copy-email-button";
 import { SiLinkedin, SiGithub } from "react-icons/si";
-import { NavButton } from "@/components/navigation/nav-button";
+import { NavButton } from "@/developer/components/navigation/nav-button";
 
 export function ContactSection() {
   const { email, location, availability, linkedinUrl, githubUrl, resumeUrl } =

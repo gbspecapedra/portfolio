@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
-import { Button } from "@/components/ui/button";
 
-export default function NotFound() {
+import { Button } from "@/components/ui/button";
+import { Footer } from "@/developer/components/footer";
+import { Navbar } from "@/developer/components/navbar";
+
+export function DeveloperProjectNotFoundPage() {
   return (
     <>
       <Navbar />

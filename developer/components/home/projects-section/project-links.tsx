@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import type { ProjectLink } from "@/data/projects";
+import type { ProjectLink } from "@/developer/data/projects";
 
 type Props = {
   links?: ProjectLink[];

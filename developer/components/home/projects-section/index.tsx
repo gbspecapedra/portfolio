@@ -1,5 +1,5 @@
-import { projects } from "@/data/projects";
-import { Reveal } from "@/components/reveal";
+import { projects } from "@/developer/data/projects";
+import { Reveal } from "@/developer/components/reveal";
 
 import { FeaturedProjectCard } from "./featured-project-card";
 import { ProjectCard } from "./project-card";

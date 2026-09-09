@@ -1,4 +1,4 @@
-import type { Project } from "@/data/projects";
+import type { Project } from "@/developer/data/projects";
 
 export function getFeaturedAndSecondary(all: Project[]) {
   const list = all

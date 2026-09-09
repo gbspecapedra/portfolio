@@ -1,7 +1,7 @@
-import { Reveal } from "@/components/reveal";
+import { Reveal } from "@/developer/components/reveal";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { experience } from "@/data/experience";
+import { experience } from "@/developer/data/experience";
 import {
   Accordion,
   AccordionContent,

@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Reveal } from "@/components/reveal";
+import { Reveal } from "@/developer/components/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import type { Project } from "@/data/projects";
+import type { Project } from "@/developer/data/projects";
 import { ProjectLinks } from "./project-links";
 
 export function ProjectCard({
@@ -21,7 +21,7 @@ export function ProjectCard({
     <Reveal trigger="inView" delay={delay}>
       <Card
         className="card-sig h-full cursor-pointer hover:shadow-md transition-shadow"
-        onClick={() => router.push(`/projects/${project.slug}`)}
+        onClick={() => router.push(`/developer/projects/${project.slug}`)}
       >
         <CardContent className="p-5 flex h-full flex-col">
           <div className="relative">
@@ -59,7 +59,7 @@ export function ProjectCard({
                 className="inline-flex items-center rounded-md px-3 py-1.5 text-sm font-medium bg-primary text-primary-foreground hover:opacity-80 transition-opacity"
                 onClick={(e) => {
                   e.stopPropagation();
-                  router.push(`/projects/${project.slug}`);
+                  router.push(`/developer/projects/${project.slug}`);
                 }}
                 onMouseDown={(e) => e.stopPropagation()}
                 role="link"

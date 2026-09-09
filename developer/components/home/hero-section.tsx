@@ -1,4 +1,4 @@
-import { Reveal } from "@/components/reveal";
+import { Reveal } from "@/developer/components/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import React from "react";

@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Reveal } from "@/components/reveal";
+import { Reveal } from "@/developer/components/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import type { Project } from "@/data/projects";
+import type { Project } from "@/developer/data/projects";
 import { ProjectLinks } from "./project-links";
 
 export function FeaturedProjectCard({ project }: { project: Project }) {
@@ -21,7 +21,7 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
           "transition-shadow",
           "hover:shadow-md",
         ].join(" ")}
-        onClick={() => router.push(`/projects/${project.slug}`)}
+        onClick={() => router.push(`/developer/projects/${project.slug}`)}
       >
         <CardContent className="p-6">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
@@ -69,7 +69,7 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
                 ].join(" ")}
                 onClick={(e) => {
                   e.stopPropagation();
-                  router.push(`/projects/${project.slug}`);
+                  router.push(`/developer/projects/${project.slug}`);
                 }}
                 onMouseDown={(e) => e.stopPropagation()}
                 role="link"

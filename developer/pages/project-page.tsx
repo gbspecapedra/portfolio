@@ -1,15 +1,15 @@
-import { notFound } from "next/navigation";
 import Image from "next/image";
 import React from "react";
+import { notFound } from "next/navigation";
 
-import { projects, getProjectBySlug } from "@/data/projects";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
-import { Reveal } from "@/components/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { NavButton } from "@/components/navigation/nav-button";
+import { Footer } from "@/developer/components/footer";
+import { Navbar } from "@/developer/components/navbar";
+import { NavButton } from "@/developer/components/navigation/nav-button";
+import { Reveal } from "@/developer/components/reveal";
+import { getProjectBySlug } from "@/developer/data/projects";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -71,11 +71,7 @@ function SectionBlock({
   );
 }
 
-export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
-}
-
-export default async function ProjectPage({ params }: Props) {
+export async function DeveloperProjectPage({ params }: Props) {
   const { slug } = await params;
 
   const project = getProjectBySlug(slug);
@@ -84,7 +80,6 @@ export default async function ProjectPage({ params }: Props) {
   const { title, subtitle, tags, meta, links, heroImage, sections, card } =
     project;
 
-  // Consistent link order
   const linkOrder: Record<LinkLabel, number> = {
     "Live Demo": 0,
     GitHub: 1,
@@ -104,16 +99,13 @@ export default async function ProjectPage({ params }: Props) {
 
       <main className="hero-bg bg-background">
         <div className="relative z-10 mx-auto max-w-5xl px-4 py-14 sm:py-18">
-          {/* Header */}
           <section className="space-y-5">
-            {/* Back to projects */}
             <Reveal trigger="mount" delay={0}>
               <div className="mb-4">
                 <NavButton />
               </div>
             </Reveal>
 
-            {/* Meta badges */}
             <Reveal trigger="mount" delay={0}>
               <div className="flex flex-wrap items-center gap-2">
                 {meta.type && <Badge className="badge-sig">{meta.type}</Badge>}
@@ -125,7 +117,6 @@ export default async function ProjectPage({ params }: Props) {
               </div>
             </Reveal>
 
-            {/* Title & subtitle */}
             <Reveal trigger="mount" delay={d(1)}>
               <div className="space-y-2">
                 <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -137,7 +128,6 @@ export default async function ProjectPage({ params }: Props) {
               </div>
             </Reveal>
 
-            {/* Tags */}
             <Reveal trigger="mount" delay={d(2)}>
               <div className="flex flex-wrap gap-2">
                 {tags.map((t) => (
@@ -148,7 +138,6 @@ export default async function ProjectPage({ params }: Props) {
               </div>
             </Reveal>
 
-            {/* Highlights */}
             {card?.highlights?.length ? (
               <Reveal trigger="mount" delay={d(3)}>
                 <div className="flex flex-wrap gap-2 pt-1">
@@ -165,7 +154,6 @@ export default async function ProjectPage({ params }: Props) {
               </Reveal>
             ) : null}
 
-            {/* Links */}
             {sortedLinks.length ? (
               <Reveal trigger="mount" delay={d(4)}>
                 <div className="flex flex-wrap gap-2 pt-2">
@@ -177,7 +165,6 @@ export default async function ProjectPage({ params }: Props) {
             ) : null}
           </section>
 
-          {/* Hero media */}
           {heroImage?.src ? (
             <section className="mt-8">
               <Reveal trigger="inView" delay={d(1)}>
@@ -197,7 +184,6 @@ export default async function ProjectPage({ params }: Props) {
             </section>
           ) : null}
 
-          {/* Content */}
           <section className="mt-10 space-y-4">
             <SectionBlock {...sections.challenge} delay={0} />
 
@@ -205,7 +191,6 @@ export default async function ProjectPage({ params }: Props) {
               <SectionBlock {...sections.context} delay={d(1)} />
             )}
 
-            {/* Process */}
             <Reveal trigger="inView" delay={d(2)}>
               <div className="pt-2">
                 <h2 className="text-lg font-semibold sm:text-xl">
@@ -232,7 +217,6 @@ export default async function ProjectPage({ params }: Props) {
             <SectionBlock {...sections.technologies} delay={d(7)} />
           </section>
 
-          {/* Back to projects */}
           <section className="mt-10">
             <Reveal trigger="inView" delay={d(2)}>
               <NavButton variant="text" />

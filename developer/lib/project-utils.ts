@@ -1,4 +1,4 @@
-import type { Project } from "@/data/projects";
+import type { Project } from "@/developer/data/projects";
 
 export function groupLinks(links: Project["links"] | undefined) {
   const byLabel = new Map<string, string>();
