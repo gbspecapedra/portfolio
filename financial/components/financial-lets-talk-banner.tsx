@@ -2,13 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 type TalkBannerProps = {
-  eyebrown: string;
+  eyebrow?: string;
   title: string;
   subtitle: string;
 };
 
 export function FinancialLetsTalkBanner({
-  eyebrown,
+  eyebrow = "",
   title,
   subtitle,
 }: TalkBannerProps) {
@@ -33,7 +33,7 @@ export function FinancialLetsTalkBanner({
       <div className="relative mx-auto min-h-[24rem] max-w-7xl px-4 py-12 sm:min-h-[25rem] sm:px-6 lg:min-h-[29rem] lg:px-8 lg:py-14">
         <div className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#526f46] sm:text-sm">
-            {eyebrown}
+            {eyebrow}
           </p>
           <h2
             id="financial-lets-talk-title"

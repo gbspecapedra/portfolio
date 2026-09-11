@@ -1,8 +1,8 @@
 import { financialMetadata } from "@/financial/data/metadata";
-import { FinancialAdvisorPage } from "@/financial/pages/financial-advisor-page";
+import { FinancialHomePage } from "@/financial/pages/financial-home-page";
 
 export const metadata = financialMetadata;
 
 export default function FinancialPage() {
-  return <FinancialAdvisorPage />;
+  return <FinancialHomePage />;
 }

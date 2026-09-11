@@ -20,7 +20,7 @@ const audiences = [
     title: "Newcomers to Canada",
     anchorId: "newcomers-to-canada",
     description: "Guidance to help you build a secure future in your new home.",
-    href: "/financial#contact",
+    href: "/financial/who-i-help/newcomers-to-canada",
     icon: Leaf,
   },
 ];

@@ -1,5 +1,5 @@
 import { FinancialNavigation } from "@/financial/components/financial-navigation";
-import { FinancialHero } from "@/financial/components/home/financial-hero";
+import { FinancialHomeHero } from "@/financial/components/home/financial-home-hero";
 import { FinancialServicesSection } from "@/financial/components/home/financial-services-section";
 import { FinancialWhoIHelpSection } from "@/financial/components/home/financial-who-i-help-section";
 import { FinancialLanguageSection } from "@/financial/components/home/financial-language-section";
@@ -11,12 +11,12 @@ import { FinancialClientReviewsSection } from "@/financial/components/home/finan
 import { FinancialFinalCtaBanner } from "@/financial/components/home/financial-final-cta-banner";
 import { FinancialFooter } from "@/financial/components/financial-footer";
 
-export function FinancialAdvisorPage() {
+export function FinancialHomePage() {
   return (
     <div className="min-h-screen bg-white text-[#10213b]">
       <FinancialNavigation />
       <main>
-        <FinancialHero />
+        <FinancialHomeHero />
         <FinancialServicesSection />
         <FinancialWhoIHelpSection />
         <FinancialLanguageSection />

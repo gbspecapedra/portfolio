@@ -50,7 +50,10 @@ const navItems = [
     label: "Who I Help",
     href: "/financial#who-i-help",
     items: [
-      { label: "Newcomers to Canada", href: "/financial#newcomers-to-canada" },
+      {
+        label: "Newcomers to Canada",
+        href: "/financial/who-i-help/newcomers-to-canada",
+      },
       {
         label: "Portuguese-speaking Clients",
         href: "/financial#portuguese-speaking-clients",
@@ -64,7 +67,7 @@ const navItems = [
     items: [
       { label: "Blog", href: "/financial#resources" },
       { label: "Guides", href: "/financial#resources" },
-      { label: "FAQs", href: "/financial/contact#faqs" },
+      { label: "FAQs", href: "/financial/resources/faqs" },
     ],
   },
   { label: "Contact", href: "/financial/contact" },
@@ -76,6 +79,9 @@ const navLinkClass =
 
 export function FinancialNavigation() {
   const pathname = usePathname();
+  const isActive = (href: string) => !href.includes("#") && pathname === href;
+  const isGroupActive = (item: NavItem) =>
+    isActive(item.href) || item.items?.some((child) => isActive(child.href));
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#d9dfd5] bg-white/95 text-[#10213b] shadow-[0_8px_28px_rgba(16,33,59,0.06)] backdrop-blur-md">
@@ -101,7 +107,7 @@ export function FinancialNavigation() {
             item.items ? (
               <DropdownMenu key={item.label}>
                 <DropdownMenuTrigger
-                  className={`${navLinkClass} inline-flex items-center gap-1 after:scale-x-0 hover:after:scale-x-100 data-[state=open]:text-[#49633f] data-[state=open]:after:scale-x-100`}
+                  className={`${navLinkClass} inline-flex items-center gap-1 data-[state=open]:text-[#49633f] data-[state=open]:after:scale-x-100 ${isGroupActive(item) ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100"}`}
                 >
                   {item.label}
                   <ChevronDown
@@ -130,7 +136,7 @@ export function FinancialNavigation() {
               <Link
                 key={item.label}
                 href={item.href}
-                className={`${navLinkClass} ${pathname === item.href ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100"}`}
+                className={`${navLinkClass} ${isActive(item.href) ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100"}`}
               >
                 {item.label}
               </Link>

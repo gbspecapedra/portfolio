@@ -3,6 +3,7 @@ import { FinancialLetsTalkBanner } from "@/financial/components/financial-lets-t
 import { FinancialMyStorySection } from "@/financial/components/about/financial-my-story-section";
 import { FinancialNavigation } from "@/financial/components/financial-navigation";
 import { FinancialValuesSection } from "@/financial/components/about/financial-values-section";
+import { FinancialFooter } from "../components/financial-footer";
 
 export function FinancialAboutPage() {
   return (
@@ -13,11 +14,12 @@ export function FinancialAboutPage() {
         <FinancialMyStorySection />
         <FinancialValuesSection />
         <FinancialLetsTalkBanner
-          eyebrown="Let's Talk"
+          eyebrow="Let's Talk"
           title="Ready to Plan Your Future?"
           subtitle="I'd love to learn more about your goals and how I can help. Book a free consultation and let's take the next step together."
         />
       </main>
+      <FinancialFooter />
     </div>
   );
 }

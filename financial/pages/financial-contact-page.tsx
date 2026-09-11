@@ -4,6 +4,7 @@ import { FinancialContactHero } from "@/financial/components/contact/financial-c
 import { FinancialContactConsultation } from "../components/contact/financial-contact-consultation";
 import { FinancialContactFaqs } from "../components/contact/financial-contact-faqs";
 import { FinancialLetsTalkBanner } from "../components/financial-lets-talk-banner";
+import { FinancialFooter } from "../components/financial-footer";
 
 export function FinancialContactPage() {
   return (
@@ -15,11 +16,12 @@ export function FinancialContactPage() {
         <FinancialContactConsultation />
         <FinancialContactFaqs />
         <FinancialLetsTalkBanner
-          eyebrown="Let's Talk"
+          eyebrow="Let's Talk"
           title="Your future starts with a conversation."
           subtitle="Let's take the next step together."
         />
       </main>
+      <FinancialFooter />
     </div>
   );
 }
