@@ -4,18 +4,21 @@ import { ArrowRight, BriefcaseBusiness, Leaf, UsersRound } from "lucide-react";
 const audiences = [
   {
     title: "Families",
+    anchorId: "families",
     description: "Protect your loved ones now and plan for tomorrow.",
     href: "/financial#contact",
     icon: UsersRound,
   },
   {
     title: "Professionals",
+    anchorId: "professionals",
     description: "Solutions for your career, lifestyle and long-term goals.",
     href: "/financial#contact",
     icon: BriefcaseBusiness,
   },
   {
     title: "Newcomers to Canada",
+    anchorId: "newcomers-to-canada",
     description: "Guidance to help you build a secure future in your new home.",
     href: "/financial#contact",
     icon: Leaf,
@@ -25,7 +28,7 @@ const audiences = [
 export function FinancialWhoIHelpSection() {
   return (
     <section
-      id="about"
+      id="who-i-help"
       aria-labelledby="who-i-help-title"
       className="bg-[#fbfcfa] px-4 py-16 sm:px-6 lg:px-8 lg:py-20"
     >
@@ -49,6 +52,7 @@ export function FinancialWhoIHelpSection() {
             return (
               <article
                 key={audience.title}
+                id={audience.anchorId}
                 className="group flex min-h-44 gap-5 rounded-md border border-[#dfe6dc] bg-white p-6 shadow-[0_16px_40px_rgba(16,33,59,0.05)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#c8d2c3] hover:shadow-[0_22px_54px_rgba(16,33,59,0.08)] sm:p-7"
               >
                 <div className="flex size-14 shrink-0 items-center justify-center text-[#526f46] sm:size-16">

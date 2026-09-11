@@ -21,14 +21,14 @@ const highlights = [
     icon: ShieldCheck,
   },
   {
-    label: "Bilingual Service",
-    description: "English & Portuguese.",
-    icon: MessageCircle,
-  },
-  {
     label: "Based in British Columbia",
     description: "Proudly serving B.C. communities.",
     icon: MapPin,
+  },
+  {
+    label: "Bilingual Service",
+    description: "English & Portuguese.",
+    icon: MessageCircle,
   },
 ];
 
@@ -118,28 +118,26 @@ export function FinancialHero() {
         </div>
 
         <div className="pointer-events-none absolute bottom-8 right-[6vw] z-10 hidden md:block lg:bottom-10 xl:right-[7.5vw]">
-          <div className="w-60 rounded-md border border-white/80 bg-white/70 p-3 shadow-[0_18px_48px_rgba(16,33,59,0.14)] backdrop-blur-md lg:w-72 xl:w-80">
-            <Image
-              src="/financial/logo-signature-cropped.png"
-              alt="Gisele Pecapedra, Financial Advisor"
-              width={1393}
-              height={451}
-              sizes="(min-width: 1280px) 20rem, (min-width: 1024px) 18rem, 15rem"
-              className="h-auto w-full"
-            />
-          </div>
+          <Image
+            src="/financial/logo-signature-cropped.png"
+            alt="Gisele Pecapedra, Financial Advisor"
+            width={1393}
+            height={451}
+            sizes="(min-width: 1280px) 20rem, (min-width: 1024px) 18rem, 15rem"
+            className="h-auto w-full opacity-90"
+          />
         </div>
       </div>
 
       <div className="bg-white/95">
-        <div className="mx-auto grid max-w-7xl gap-5 px-4 py-6 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-5 px-4 py-6 sm:grid-cols-2 lg:grid-cols-4">
           {highlights.map((item) => {
             const Icon = item.icon;
 
             return (
               <div key={item.label} className="flex min-w-0 items-start gap-4">
                 <Icon
-                  className="mt-1 size-9 shrink-0 text-[#6f835f]"
+                  className="mt-1 size-8 shrink-0 text-[#6f835f]"
                   aria-hidden="true"
                 />
                 <div>

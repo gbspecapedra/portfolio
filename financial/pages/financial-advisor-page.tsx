@@ -1,14 +1,14 @@
 import { FinancialNavigation } from "@/financial/components/financial-navigation";
-import { FinancialHero } from "@/financial/components/financial-hero";
-import { FinancialServicesSection } from "@/financial/components/financial-services-section";
-import { FinancialWhoIHelpSection } from "@/financial/components/financial-who-i-help-section";
-import { FinancialLanguageSection } from "@/financial/components/financial-language-section";
-import { FinancialAboutSection } from "@/financial/components/financial-about-section";
-import { FinancialHowItWorksSection } from "@/financial/components/financial-how-it-works-section";
-import { FinancialTravelBanner } from "@/financial/components/financial-travel-banner";
-import { FinancialLatestArticlesSection } from "@/financial/components/financial-latest-articles-section";
-import { FinancialClientReviewsSection } from "@/financial/components/financial-client-reviews-section";
-import { FinancialFinalCtaBanner } from "@/financial/components/financial-final-cta-banner";
+import { FinancialHero } from "@/financial/components/home/financial-hero";
+import { FinancialServicesSection } from "@/financial/components/home/financial-services-section";
+import { FinancialWhoIHelpSection } from "@/financial/components/home/financial-who-i-help-section";
+import { FinancialLanguageSection } from "@/financial/components/home/financial-language-section";
+import { FinancialAboutSection } from "@/financial/components/about/financial-about-section";
+import { FinancialHowItWorksSection } from "@/financial/components/home/financial-how-it-works-section";
+import { FinancialTravelBanner } from "@/financial/components/home/financial-travel-banner";
+import { FinancialLatestArticlesSection } from "@/financial/components/home/financial-latest-articles-section";
+import { FinancialClientReviewsSection } from "@/financial/components/home/financial-client-reviews-section";
+import { FinancialFinalCtaBanner } from "@/financial/components/home/financial-final-cta-banner";
 import { FinancialFooter } from "@/financial/components/financial-footer";
 
 export function FinancialAdvisorPage() {

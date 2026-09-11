@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Plane } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function FinancialTravelBanner() {
   return (
@@ -16,11 +16,6 @@ export function FinancialTravelBanner() {
 
         <div
           className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,49,74,0.18)_0%,rgba(13,49,74,0.72)_54%,rgba(13,49,74,0.9)_100%),linear-gradient(90deg,rgba(13,49,74,0.05)_0%,rgba(13,49,74,0.28)_36%,rgba(13,49,74,0.9)_68%,rgba(13,49,74,0.96)_100%)] lg:bg-[linear-gradient(90deg,rgba(13,49,74,0.02)_0%,rgba(13,49,74,0.22)_38%,rgba(13,49,74,0.86)_62%,rgba(13,49,74,0.96)_100%)]"
-          aria-hidden="true"
-        />
-
-        <Plane
-          className="absolute right-8 top-8 hidden size-14 -rotate-12 text-white/20 sm:block lg:right-20 lg:top-10 lg:size-20"
           aria-hidden="true"
         />
 
@@ -46,10 +41,6 @@ export function FinancialTravelBanner() {
               <ArrowRight className="size-5" aria-hidden="true" />
             </Link>
           </div>
-
-          <p className="absolute bottom-8 right-6 hidden max-w-48 font-serif text-3xl italic leading-tight text-white/76 md:block lg:bottom-12 lg:right-14">
-            Explore today. Travel with peace of mind.
-          </p>
         </div>
       </div>
     </section>

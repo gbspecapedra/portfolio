@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 export function FinancialLanguageSection() {
   return (
     <section
+      id="portuguese-speaking-clients"
       className="overflow-hidden border-y border-[#dfe6dc] bg-[#f4f8f1]"
       aria-labelledby="financial-language-title"
     >

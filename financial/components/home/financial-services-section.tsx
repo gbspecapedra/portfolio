@@ -12,6 +12,7 @@ import {
 const services = [
   {
     title: "Life Insurance",
+    anchorId: "life-insurance",
     description: "Protect your loved ones and ensure financial security.",
     action: "Learn More",
     href: "/financial#contact",
@@ -19,6 +20,7 @@ const services = [
   },
   {
     title: "Critical Illness Insurance",
+    anchorId: "critical-illness-insurance",
     description: "Financial support when you need it most.",
     action: "Learn More",
     href: "/financial#contact",
@@ -26,6 +28,7 @@ const services = [
   },
   {
     title: "Disability Insurance",
+    anchorId: "disability-insurance",
     description: "Help keep your income and lifestyle on track.",
     action: "Learn More",
     href: "/financial#contact",
@@ -33,6 +36,7 @@ const services = [
   },
   {
     title: "Travel Insurance",
+    anchorId: "travel-insurance",
     description: "Coverage for a worry-free journey, wherever life takes you.",
     action: "Get a Quote",
     href: "/financial#contact",
@@ -40,6 +44,7 @@ const services = [
   },
   {
     title: "RESP & Education Planning",
+    anchorId: "resp-education-planning",
     description: "Help build a brighter future for the next generation.",
     action: "Learn More",
     href: "/financial#contact",
@@ -47,6 +52,7 @@ const services = [
   },
   {
     title: "Financial Solutions",
+    anchorId: "financial-solutions",
     description: "Personalized strategies for your short- and long-term goals.",
     action: "Learn More",
     href: "/financial#contact",
@@ -78,6 +84,7 @@ export function FinancialServicesSection() {
             return (
               <article
                 key={service.title}
+                id={service.anchorId}
                 className="group flex min-h-48 gap-5 rounded-md border border-[#dfe6dc] bg-white p-6 shadow-[0_16px_40px_rgba(16,33,59,0.05)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#c8d2c3] hover:shadow-[0_22px_54px_rgba(16,33,59,0.08)]"
               >
                 <div className="flex size-14 shrink-0 items-center justify-center text-[#526f46] sm:size-16">
