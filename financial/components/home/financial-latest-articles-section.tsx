@@ -7,7 +7,7 @@ import { latestArticles } from "@/financial/data/latest-articles";
 export function FinancialLatestArticlesSection() {
   return (
     <section
-      id="resources"
+      id="articles"
       aria-labelledby="latest-articles-title"
       className="bg-white px-4 py-16 sm:px-6 lg:px-8 lg:py-20"
     >
@@ -30,10 +30,10 @@ export function FinancialLatestArticlesSection() {
           </div>
 
           <Link
-            href="/financial#resources"
+            href="/financial#articles"
             className="inline-flex w-fit items-center gap-3 text-base font-semibold text-[#234a61] transition-colors hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
           >
-            View All Resources
+            View All
             <ArrowRight className="size-5" aria-hidden="true" />
           </Link>
         </div>

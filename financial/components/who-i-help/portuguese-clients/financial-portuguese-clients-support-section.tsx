@@ -1,36 +1,80 @@
-import { BookOpen, GraduationCap, Plane, UsersRound } from "lucide-react";
+import Link from "next/link";
+import {
+  Activity,
+  ArrowRight,
+  GraduationCap,
+  Heart,
+  House,
+  Plane,
+  Sprout,
+  UsersRound,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 type SupportItem = {
   title: string;
   description: string;
+  href: string;
   icon: LucideIcon;
+  layout: "standard" | "wide";
 };
 
 const supportItems: SupportItem[] = [
   {
-    title: "Understand Insurance in Canada",
+    title: "Seguro de vida",
     description:
-      "Learn how insurance works in Canada and what you really need.",
-    icon: BookOpen,
+      "Proteção financeira para quem você ama, hoje e no futuro.",
+    href: "/financial/services/life-insurance",
+    icon: Heart,
+    layout: "standard",
   },
   {
-    title: "Protect Your Family",
+    title: "Doenças graves",
     description:
-      "Find the right coverage to keep your loved ones safe and secure.",
-    icon: UsersRound,
+      "Suporte financeiro em caso de diagnóstico de uma doença grave.",
+    href: "/financial/services/critical-illness",
+    icon: Activity,
+    layout: "standard",
   },
   {
-    title: "Travel & Visitor Insurance",
+    title: "Seguro viagem",
     description:
-      "Get the right protection for your visits, travel or while family members come to Canada.",
+      "Viaje com mais tranquilidade, sabendo que você e sua família estão protegidos.",
+    href: "/financial/services/travel-insurance",
     icon: Plane,
+    layout: "standard",
   },
   {
-    title: "Plan for Your Children's Future",
+    title: "Seguro para visitantes / Super Visa",
     description:
-      "Explore education savings options like RESPs and long-term financial planning.",
+      "Proteção para seus familiares que vêm te visitar no Canadá.",
+    href: "/financial/services/travel-insurance",
+    icon: UsersRound,
+    layout: "standard",
+  },
+  {
+    title: "RESP e planejamento educacional",
+    description:
+      "Ajude seus filhos a construírem um futuro com mais oportunidades no Canadá.",
+    href: "/financial/services/resp",
     icon: GraduationCap,
+    layout: "wide",
+  },
+  {
+    title: "Proteção financeira familiar",
+    description:
+      "Soluções que trazem estabilidade e tranquilidade para todas as fases da vida.",
+    href: "/financial/contact",
+    icon: House,
+    layout: "wide",
+  },
+  {
+    title: "Soluções para newcomers (quando aplicável)",
+    description:
+      "Orientação para quem está começando uma nova vida no Canadá, incluindo proteção financeira e planejamento de longo prazo.",
+    href: "/financial/who-i-help/newcomers-to-canada",
+    icon: Sprout,
+    layout: "wide",
   },
 ];
 
@@ -38,45 +82,59 @@ export function FinancialPortugueseClientsSupportSection() {
   return (
     <section
       aria-labelledby="portuguese-clients-support-title"
-      className="border-b border-[#dfe6dc] bg-white px-4 py-14 sm:px-6 lg:px-8 lg:py-16"
+      className="border-b border-[#dfe6dc] bg-white px-4 py-12 sm:px-6 lg:px-8 lg:py-14"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#526f46] sm:text-sm">
-            How I Help Newcomers
+        <div className="mx-auto max-w-5xl text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#526f46] sm:text-sm">
+            Em que posso ajudar sua família
           </p>
           <h2
             id="portuguese-clients-support-title"
-            className="mt-3 font-serif text-3xl leading-[1.08] text-[#10213b] sm:text-4xl lg:text-5xl"
+            className="mt-2 font-serif text-3xl leading-[1.08] text-[#1f2f75] sm:text-4xl lg:text-5xl"
           >
-            Practical Support for Your New Beginning
+            Soluções para cada etapa da sua jornada no Canadá
           </h2>
-          <p className="mt-3 text-base leading-7 text-[#617087] sm:text-lg">
-            Moving to a new country is a big step. I provide personalized
-            guidance to help you understand your options, protect what matters,
-            and build a secure future in Canada.
+          <p className="mx-auto mt-3 max-w-4xl text-base leading-7 text-[#617087] sm:text-lg">
+            Conheça as principais áreas em que posso te apoiar. Cada família
+            tem uma história única, e meu papel é ajudar você a encontrar as
+            soluções certas, com informações claras e um atendimento
+            personalizado.
           </p>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-12 lg:gap-5">
           {supportItems.map((item) => {
             const Icon = item.icon;
 
             return (
               <article
                 key={item.title}
-                className="rounded-md bg-[#f7f7f3] p-6 shadow-[0_12px_34px_rgba(16,33,59,0.045)] sm:p-7"
+                className={`group flex min-h-44 flex-col rounded-md bg-[#f7f7f3] p-5 shadow-[0_12px_34px_rgba(16,33,59,0.045)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_rgba(16,33,59,0.085)] sm:p-6 ${
+                  item.layout === "wide" ? "lg:col-span-4" : "lg:col-span-3"
+                }`}
               >
-                <Icon
-                  className="size-10 text-[#526f46] sm:size-11"
-                  aria-hidden="true"
-                />
-                <h3 className="mt-5 max-w-[13rem] font-serif text-2xl font-semibold leading-[1.05] text-[#10213b]">
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#526f46] text-white sm:size-14">
+                  <Icon className="size-7 stroke-[1.9]" aria-hidden="true" />
+                </div>
+                <h3 className="mt-4 max-w-[17rem] font-serif text-xl font-semibold leading-[1.08] text-[#1f2f75] sm:text-2xl">
                   {item.title}
                 </h3>
-                <p className="mt-5 text-base leading-7 text-[#617087]">
+                <p className="mt-3 text-base leading-6 text-[#617087]">
                   {item.description}
                 </p>
+
+                <Link
+                  href={item.href}
+                  className="mt-auto inline-flex w-fit items-center gap-3 pt-4 text-base font-semibold text-[#526f46] transition-colors hover:text-[#234a61] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                  aria-label={`Saiba mais sobre ${item.title}`}
+                >
+                  Saiba mais
+                  <ArrowRight
+                    className="size-5 transition-transform group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </Link>
               </article>
             );
           })}

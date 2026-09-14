@@ -6,14 +6,14 @@ const audiences = [
     title: "Families",
     anchorId: "families",
     description: "Protect your loved ones now and plan for tomorrow.",
-    href: "/financial#contact",
+    href: "/financial/who-i-help/families",
     icon: UsersRound,
   },
   {
     title: "Professionals",
     anchorId: "professionals",
     description: "Solutions for your career, lifestyle and long-term goals.",
-    href: "/financial#contact",
+    href: "/financial/who-i-help/professionals",
     icon: BriefcaseBusiness,
   },
   {
@@ -41,7 +41,7 @@ export function FinancialWhoIHelpSection() {
             id="who-i-help-title"
             className="mt-3 text-3xl font-semibold leading-tight tracking-normal text-[#10213b] sm:text-4xl lg:text-5xl"
           >
-            Financial Guidance Built Around Real Life
+            Financial Guidance for the Life You&apos;re Building
           </h2>
         </div>
 

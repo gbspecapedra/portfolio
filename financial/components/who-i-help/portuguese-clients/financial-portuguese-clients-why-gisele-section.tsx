@@ -9,21 +9,21 @@ type ExpectationItem = {
 
 const expectations: ExpectationItem[] = [
   {
-    title: "Listen to Your Goals",
+    title: "Entendo a sua situação",
     description:
-      "I take the time to understand your unique situation, needs and aspirations.",
+      "Conversamos sobre os seus objetivos, sua família e o que é mais importante para você neste momento.",
     icon: MessageCircle,
   },
   {
-    title: "Explain Your Options Clearly",
+    title: "Explico suas opções com clareza",
     description:
-      "You'll get honest, easy-to-understand advice with no pressure.",
+      "Apresento as alternativas de forma simples e honesta, em português, para que você se sinta seguro para decidir.",
     icon: FileText,
   },
   {
-    title: "Help You Move Forward",
+    title: "Te ajudo a seguir em frente",
     description:
-      "Together, we'll find the right solutions so you can feel confident about what's next.",
+      "Com o plano certo, você ganha mais tranquilidade e confiança para o futuro.",
     icon: Sprout,
   },
 ];
@@ -37,18 +37,14 @@ export function FinancialPortugueseClientsWhyGiseleSection() {
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#526f46] sm:text-sm">
-            Why Work With Gisele
+            Como funciona
           </p>
           <h2
             id="portuguese-clients-why-gisele-title"
             className="mt-2 font-serif text-3xl leading-[1.08] text-[#10213b] sm:text-4xl"
           >
-            What You Can Expect
+            Um processo simples e acolhedor
           </h2>
-          <p className="mt-3 text-base leading-7 text-[#617087] sm:text-lg">
-            A supportive, personalized approach, from our first conversation to
-            your next steps.
-          </p>
         </div>
 
         <div className="mt-10 grid gap-7 md:grid-cols-3 md:gap-0">

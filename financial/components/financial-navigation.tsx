@@ -34,15 +34,29 @@ const navItems = [
     label: "Services",
     href: "/financial#services",
     items: [
-      { label: "Life Insurance", href: "/financial#life-insurance" },
+      {
+        label: "Life Insurance",
+        href: "/financial/services/life-insurance",
+      },
       {
         label: "Critical Illness Insurance",
-        href: "/financial#critical-illness-insurance",
+        href: "/financial/services/critical-illness-insurance",
       },
-      { label: "Travel Insurance", href: "/financial#travel-insurance" },
+      {
+        label: "Disability Insurance",
+        href: "/financial/services/disability-insurance",
+      },
+      {
+        label: "Travel Insurance",
+        href: "/financial/services/travel-insurance",
+      },
       {
         label: "RESP / Education Planning",
-        href: "/financial#resp-education-planning",
+        href: "/financial/services/resp",
+      },
+      {
+        label: "Financial Solutions",
+        href: "/financial/services/financial-solutions",
       },
     ],
   },
@@ -51,12 +65,20 @@ const navItems = [
     href: "/financial#who-i-help",
     items: [
       {
+        label: "Families",
+        href: "/financial/who-i-help/families",
+      },
+      {
+        label: "Professionals",
+        href: "/financial/who-i-help/professionals",
+      },
+      {
         label: "Newcomers to Canada",
         href: "/financial/who-i-help/newcomers-to-canada",
       },
       {
         label: "Portuguese-speaking Clients",
-        href: "/financial#portuguese-speaking-clients",
+        href: "/financial/who-i-help/portuguese-speaking-clients",
       },
     ],
   },
@@ -65,9 +87,8 @@ const navItems = [
     label: "Resources",
     href: "/financial#resources",
     items: [
-      { label: "Blog", href: "/financial#resources" },
-      { label: "Guides", href: "/financial#resources" },
-      { label: "FAQs", href: "/financial/resources/faqs" },
+      { label: "Guides", href: "/financial/resources/guides" },
+      { label: "FAQ", href: "/financial/resources/faq" },
     ],
   },
   { label: "Contact", href: "/financial/contact" },

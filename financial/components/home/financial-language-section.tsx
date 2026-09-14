@@ -43,7 +43,7 @@ export function FinancialLanguageSection() {
             </p>
 
             <Link
-              href="/financial#contact"
+              href="/financial/who-i-help/portuguese-speaking-clients"
               className="mt-7 inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-[#526f46] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(82,111,70,0.24)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             >
               Serviços em Português

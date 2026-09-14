@@ -1,11 +1,11 @@
 import { FinancialFooter } from "@/financial/components/financial-footer";
+import { FinancialLetsTalkBanner } from "@/financial/components/financial-lets-talk-banner";
 import { FinancialNavigation } from "@/financial/components/financial-navigation";
-import { FinancialPortugueseClientsHero } from "@/financial/components/who-i-help/portuguese-clients/financial-portuguese-clients-hero";
 import { FinancialPortugueseClientsConcernsBanner } from "@/financial/components/who-i-help/portuguese-clients/financial-portuguese-clients-concerns-banner";
-import { FinancialPortugueseClientsServicesSection } from "@/financial/components/who-i-help/portuguese-clients/financial-portuguese-clients-services-section";
+import { FinancialPortugueseClientsFaqs } from "@/financial/components/who-i-help/portuguese-clients/financial-portuguese-clients-faqs";
+import { FinancialPortugueseClientsHero } from "@/financial/components/who-i-help/portuguese-clients/financial-portuguese-clients-hero";
 import { FinancialPortugueseClientsSupportSection } from "@/financial/components/who-i-help/portuguese-clients/financial-portuguese-clients-support-section";
 import { FinancialPortugueseClientsWhyGiseleSection } from "@/financial/components/who-i-help/portuguese-clients/financial-portuguese-clients-why-gisele-section";
-import { FinancialLetsTalkBanner } from "@/financial/components/financial-lets-talk-banner";
 
 export function FinancialPortugueseClientsPage() {
   return (
@@ -14,13 +14,13 @@ export function FinancialPortugueseClientsPage() {
       <main>
         <FinancialPortugueseClientsHero />
         <FinancialPortugueseClientsSupportSection />
-        <FinancialPortugueseClientsServicesSection />
         <FinancialPortugueseClientsConcernsBanner />
         <FinancialPortugueseClientsWhyGiseleSection />
+        <FinancialPortugueseClientsFaqs />
         <FinancialLetsTalkBanner
-          eyebrow="Let's take the next step"
-          title="Ready to Build Your Future in Canada?"
-          subtitle="I'd love to learn more about your goals and how I can help. Book a free consultation and let's create a brighter tomorrow, together."
+          eyebrow="Vamos conversar"
+          title="Vamos conversar sobre o que é importante para você e sua família."
+          subtitle="Agende uma conversa gratuita e dê o próximo passo com mais tranquilidade."
         />
       </main>
       <FinancialFooter />

@@ -1,4 +1,3 @@
-import { FinancialContactDetails } from "@/financial/components/contact/financial-contact-details";
 import { FinancialNavigation } from "@/financial/components/financial-navigation";
 import { FinancialContactHero } from "@/financial/components/contact/financial-contact-hero";
 import { FinancialContactConsultation } from "../components/contact/financial-contact-consultation";
@@ -12,7 +11,6 @@ export function FinancialContactPage() {
       <FinancialNavigation />
       <main>
         <FinancialContactHero />
-        <FinancialContactDetails />
         <FinancialContactConsultation />
         <FinancialContactFaqs />
         <FinancialLetsTalkBanner

@@ -22,7 +22,7 @@ export function FinancialNewcomersConcernsBanner() {
             alt="A newcomer family smiling together near the Vancouver waterfront"
             fill
             sizes="(min-width: 1024px) 42vw, 100vw"
-            className="object-cover object-[72%_center]"
+            className="object-cover object-[80%_center]"
             priority={false}
           />
           <div
@@ -54,11 +54,11 @@ export function FinancialNewcomersConcernsBanner() {
                 You&apos;re Not Alone
               </h2>
               <p className="mt-5 text-base leading-7 text-[#617087] sm:text-lg">
-                Starting a new chapter in Canada can bring many questions,
-                from understanding how things work, to finding the right
-                protection for your family, to planning for the future. I&apos;m
-                here to make the process simpler, clearer and less
-                overwhelming, so you can move forward with confidence.
+                Starting a new chapter in Canada can bring many questions, from
+                understanding how things work, to finding the right protection
+                for your family, to planning for the future. I&apos;m here to
+                make the process simpler, clearer and less overwhelming, so you
+                can move forward with confidence.
               </p>
             </div>
 

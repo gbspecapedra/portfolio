@@ -80,7 +80,7 @@ export function ContactWhatToExpect() {
           })}
         </div>
 
-        <div className="mt-9 border-t border-[#dfe6dc] pt-6">
+        <div className="mt-4 pt-6">
           <p
             className="relative mx-auto w-fit rotate-[-4deg] pr-12 font-[cursive] text-2xl italic leading-tight text-[#526f46]"
             aria-hidden="true"

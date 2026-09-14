@@ -1,26 +1,27 @@
-import { Languages, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
+import { MapPin, MessageCircle, ShieldCheck, UsersRound } from "lucide-react";
 
-import { FinancialHero } from "../../financial-hero";
+import { FinancialHero } from "@/financial/components/financial-hero";
 
 const highlights = [
   {
-    label: "Atendimento em Português",
-    description: "Converse sobre suas mestas financeiras no seu idioma",
+    label: "Atendimento em português",
+    description: "Converse sobre suas dúvidas e objetivos no seu idioma.",
     icon: MessageCircle,
   },
   {
-    label: "Clareza e Confiança",
-    description: "Explicações simples e honestas, sem complicações.",
-    icon: Languages,
+    label: "Clareza e confiança",
+    description: "Explicações simples e honestas, sem complicação.",
+    icon: UsersRound,
   },
   {
-    label: "Soluções para Famílias",
-    description: "Proteção e tranquilidade para seus entes queridos.",
+    label: "Suporte para famílias",
+    description: "Soluções que protegem o que mais importa para você.",
     icon: ShieldCheck,
   },
   {
-    label: "Baseado na Colúmbia Britânica",
-    description: "Apoiando orgulhosamente os recém-chegados em B.C.",
+    label: "Atendimento na Colúmbia Britânica",
+    description:
+      "Com orgulho, atendendo brasileiros e famílias de língua portuguesa em toda a B.C.",
     icon: MapPin,
   },
 ];
@@ -28,16 +29,20 @@ const highlights = [
 export function FinancialPortugueseClientsHero() {
   return (
     <FinancialHero
-      eyebrow="Clientes que falam Português"
-      title="Orientação Financeira em Português"
+      eyebrow="Clientes de língua portuguesa"
+      title="Atendimento em português para brasileiros e outras famílias de língua portuguesa no Canadá."
       description={
         <p className="mt-4 max-w-2xl text-base leading-7 text-[#617087] sm:text-lg">
-          Eu ajudo famílias brasileiras e de língua portuguesa, profissionais e
-          recém-chegados no Canadá a entenderem soluções de seguros e
-          financeiras com clareza e confiança - no seu idioma, para um amanhã
-          mais brilhante.
+          Decisões sobre seguros e planejamento financeiro ficam mais simples
+          quando podemos conversar no seu próprio idioma. Eu ajudo você e sua
+          família com clareza, cuidado e orientação personalizada - em
+          português.
         </p>
       }
+      primaryButtonLabel="Agendar uma consulta"
+      primaryButtonHref="/financial/contact"
+      secondaryButtonLabel="Explorar serviços"
+      secondaryButtonHref="#servicos"
       highlights={highlights}
     />
   );

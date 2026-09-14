@@ -5,17 +5,24 @@ import { ReactNode } from "react";
 
 type HeroHighlight = {
   label: string;
+  value?: string;
   description: string;
   icon: LucideIcon;
 };
 
 type FinancialHeroProps = {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description: ReactNode;
   values?: HeroHighlight[];
   highlights?: HeroHighlight[];
-  isCTAbuttonVisible?: boolean;
+  isPrimaryButtonVisible?: boolean;
+  primaryButtonLabel?: string;
+  primaryButtonHref?: string;
+  isSecondaryButtonVisible?: boolean;
+  secondaryButtonLabel?: string;
+  secondaryButtonHref?: string;
+  isSupportingDescriptionVisible?: boolean;
 };
 
 export function FinancialHero({
@@ -24,7 +31,13 @@ export function FinancialHero({
   description,
   values = [],
   highlights = [],
-  isCTAbuttonVisible = true,
+  isPrimaryButtonVisible = true,
+  primaryButtonLabel = "Book a Free Consultation",
+  primaryButtonHref = "/financial/contact",
+  isSecondaryButtonVisible = true,
+  secondaryButtonLabel = "Explore Services",
+  secondaryButtonHref = "/financial#services",
+  isSupportingDescriptionVisible = true,
 }: FinancialHeroProps) {
   return (
     <section
@@ -51,9 +64,11 @@ export function FinancialHero({
 
         <div className="relative mx-auto flex min-h-[32rem] max-w-7xl items-start px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
           <div className="max-w-3xl">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#8d7442] sm:text-sm">
-              {eyebrow}
-            </p>
+            {eyebrow && (
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#8d7442] sm:text-sm">
+                {eyebrow}
+              </p>
+            )}
 
             <h1
               id="financial-hero-title"
@@ -64,45 +79,48 @@ export function FinancialHero({
 
             {description}
 
-            {isCTAbuttonVisible && (
+            {(isPrimaryButtonVisible || isSecondaryButtonVisible) && (
               <>
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                  <Link
-                    href="/financial#contact"
-                    className="inline-flex min-h-12 items-center justify-center rounded-md bg-[#075f78] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(7,95,120,0.24)] transition-colors hover:bg-[#054e63] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-                  >
-                    Book a Free Consultation
-                  </Link>
+                  {isPrimaryButtonVisible && (
+                    <Link
+                      href={primaryButtonHref}
+                      className="inline-flex min-h-12 items-center justify-center rounded-md bg-[#075f78] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(7,95,120,0.24)] transition-colors hover:bg-[#054e63] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                    >
+                      {primaryButtonLabel}
+                      <ArrowRight className="ml-2 size-4" aria-hidden="true" />
+                    </Link>
+                  )}
 
-                  <Link
-                    href="/financial#services"
-                    className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md border border-[#c8d2c3] bg-white/82 px-6 text-base font-semibold text-[#10213b] shadow-sm transition-colors hover:bg-white hover:text-[#49633f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-                  >
-                    Explore Services
-                    <ArrowRight
-                      className="size-5 text-[#526f46]"
-                      aria-hidden="true"
-                    />
-                  </Link>
+                  {isSecondaryButtonVisible && (
+                    <Link
+                      href={secondaryButtonHref}
+                      className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md border border-[#c8d2c3] bg-white/82 px-6 text-base font-semibold text-[#10213b] shadow-sm transition-colors hover:bg-white hover:text-[#49633f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                    >
+                      {secondaryButtonLabel}
+                    </Link>
+                  )}
                 </div>
 
-                <div className="mt-6 flex flex-col gap-3 text-sm font-semibold text-[#526175] sm:flex-row sm:items-center sm:text-base">
-                  <span className="inline-flex items-center gap-2">
-                    <MapPin
-                      className="size-5 text-[#49633f]"
-                      aria-hidden="true"
-                    />
-                    Serving clients across British Columbia
-                  </span>
-                  <span className="hidden h-1.5 w-1.5 rounded-full bg-[#8d7442] sm:block" />
-                  <span className="inline-flex items-center gap-2">
-                    <Languages
-                      className="size-5 text-[#49633f]"
-                      aria-hidden="true"
-                    />
-                    English & Portuguese
-                  </span>
-                </div>
+                {isSupportingDescriptionVisible && (
+                  <div className="mt-6 flex flex-col gap-3 text-sm font-semibold text-[#526175] sm:flex-row sm:items-center sm:text-base">
+                    <span className="inline-flex items-center gap-2">
+                      <MapPin
+                        className="size-5 text-[#49633f]"
+                        aria-hidden="true"
+                      />
+                      Serving clients across British Columbia
+                    </span>
+                    <span className="hidden h-1.5 w-1.5 rounded-full bg-[#8d7442] sm:block" />
+                    <span className="inline-flex items-center gap-2">
+                      <Languages
+                        className="size-5 text-[#49633f]"
+                        aria-hidden="true"
+                      />
+                      English & Portuguese
+                    </span>
+                  </div>
+                )}
               </>
             )}
 
@@ -167,6 +185,11 @@ export function FinancialHero({
                     <h2 className="text-base font-semibold text-[#10213b]">
                       {item.label}
                     </h2>
+                    {item.value && (
+                      <p className="mt-1 text-base font-semibold leading-snug text-[#10213b]">
+                        {item.value}
+                      </p>
+                    )}
                     <p className="mt-1 text-sm leading-6 text-[#617087]">
                       {item.description}
                     </p>

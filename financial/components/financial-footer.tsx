@@ -1,16 +1,47 @@
 import Link from "next/link";
-import { Linkedin, Mail, MapPin } from "lucide-react";
+import { Mail, MapPin, Globe } from "lucide-react";
 
 const services = [
-  "Life Insurance",
-  "Critical Illness Insurance",
-  "Disability Insurance",
-  "Travel Insurance",
-  "RESP & Education Planning",
-  "Financial Solutions",
+  {
+    label: "Life Insurance",
+    href: "/financial/services/life-insurance",
+  },
+  {
+    label: "Critical Illness Insurance",
+    href: "/financial/services/critical-illness-insurance",
+  },
+  {
+    label: "Disability Insurance",
+    href: "/financial/services/disability-insurance",
+  },
+  {
+    label: "Travel Insurance",
+    href: "/financial/services/travel-insurance",
+  },
+  {
+    label: "RESP & Education Planning",
+    href: "/financial/services/resp",
+  },
+  {
+    label: "Financial Solutions",
+    href: "/financial/services/financial-solutions",
+  },
 ];
 
-const resources = ["Articles", "Tools", "FAQ", "Glossary"];
+const resources = [
+  {
+    label: "Guides",
+    href: "/financial/resources/guides",
+  },
+  {
+    label: "Tools",
+    href: "/financial/resources/tools",
+  },
+  {
+    label: "FAQ",
+    href: "/financial/resources/faq",
+  },
+];
 
 const contactLinks = [
   {
@@ -20,13 +51,13 @@ const contactLinks = [
   },
   {
     label: "Email",
-    href: "/financial#contact",
+    href: "mailto:teampecapedra@gmail.com",
     icon: Mail,
   },
   {
     label: "LinkedIn",
-    href: "/financial#contact",
-    icon: Linkedin,
+    href: "https://www.linkedin.com/in/giselepecapedra/",
+    icon: Globe,
   },
 ];
 
@@ -105,12 +136,12 @@ export function FinancialFooter() {
             <h2 className="text-base font-semibold text-white">Services</h2>
             <ul className="mt-4 space-y-2 text-base text-white/70">
               {services.map((service) => (
-                <li key={service}>
+                <li key={service.label}>
                   <Link
-                    href="/financial#services"
+                    href={service.href}
                     className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d314a]"
                   >
-                    {service}
+                    {service.label}
                   </Link>
                 </li>
               ))}
@@ -121,12 +152,12 @@ export function FinancialFooter() {
             <h2 className="text-base font-semibold text-white">Resources</h2>
             <ul className="mt-4 space-y-2 text-base text-white/70">
               {resources.map((resource) => (
-                <li key={resource}>
+                <li key={resource.label}>
                   <Link
-                    href="/financial#resources"
+                    href={resource.href}
                     className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d314a]"
                   >
-                    {resource}
+                    {resource.label}
                   </Link>
                 </li>
               ))}
@@ -144,6 +175,8 @@ export function FinancialFooter() {
                     <li key={item.label}>
                       <Link
                         href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="inline-flex items-center gap-3 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d314a]"
                       >
                         <span className="flex size-8 items-center justify-center rounded-md border border-white/15 text-white/72">

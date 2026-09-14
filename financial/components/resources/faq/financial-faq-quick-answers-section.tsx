@@ -60,7 +60,8 @@ const faqs = [
   },
   {
     id: "visitor-travel-insurance",
-    question: "Can you help with travel insurance for visitors or family members?",
+    question:
+      "Can you help with travel insurance for visitors or family members?",
     answer:
       "Yes! I can help you find travel insurance for visitors to Canada, family members, or your own trips abroad. I'll explain the options, coverage details, and help you choose a plan that fits your needs.",
     category: "Travel Insurance",
@@ -228,7 +229,7 @@ export function FinancialFaqQuickAnswersSection() {
               className="object-cover object-[47%_center]"
             />
             <div
-              className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.02),rgba(255,255,255,0.56))]"
+              className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.08),rgba(255,255,255,0.32)_62%,rgba(255,255,255,0.62))]"
               aria-hidden="true"
             />
             <p
@@ -250,8 +251,8 @@ export function FinancialFaqQuickAnswersSection() {
             </h3>
             <p className="mt-3 text-base leading-7 text-[#617087]">
               I&apos;m here to help. If you couldn&apos;t find the answer
-              you&apos;re looking for, feel free to reach out. I&apos;d be
-              happy to chat and provide the information you need.
+              you&apos;re looking for, feel free to reach out. I&apos;d be happy
+              to chat and provide the information you need.
             </p>
 
             <div className="mt-5 grid gap-3">

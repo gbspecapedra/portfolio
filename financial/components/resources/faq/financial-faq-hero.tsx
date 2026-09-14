@@ -37,6 +37,7 @@ export function FinancialFaqHero() {
           your financial journey.
         </p>
       }
+      secondaryButtonLabel="Contact Me"
       highlights={highlights}
     />
   );

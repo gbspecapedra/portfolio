@@ -30,14 +30,20 @@ const expectations: ExpectationItem[] = [
 
 type FinancialWhatToExpectSectionProps = {
   eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  items?: ExpectationItem[];
 };
 
 export function FinancialWhatToExpectSection({
   eyebrow,
+  title = "What You Can Expect",
+  subtitle = "A supportive, personalized approach, from our first conversation to your next steps.",
+  items = expectations,
 }: FinancialWhatToExpectSectionProps) {
   return (
     <section
-      aria-labelledby="newcomers-why-gisele-title"
+      aria-labelledby="financial-what-to-expect-title"
       className="border-b border-[#dfe6dc] bg-white px-4 py-12 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-7xl">
@@ -48,19 +54,18 @@ export function FinancialWhatToExpectSection({
             </p>
           )}
           <h2
-            id="newcomers-why-gisele-title"
+            id="financial-what-to-expect-title"
             className="mt-2 font-serif text-3xl leading-[1.08] text-[#10213b] sm:text-4xl"
           >
-            What You Can Expect
+            {title}
           </h2>
           <p className="mt-3 text-base leading-7 text-[#617087] sm:text-lg">
-            A supportive, personalized approach, from our first conversation to
-            your next steps.
+            {subtitle}
           </p>
         </div>
 
         <div className="mt-10 grid gap-7 md:grid-cols-3 md:gap-0">
-          {expectations.map((item, index) => {
+          {items.map((item, index) => {
             const Icon = item.icon;
 
             return (

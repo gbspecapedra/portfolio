@@ -15,7 +15,7 @@ const services = [
     anchorId: "life-insurance",
     description: "Protect your loved ones and ensure financial security.",
     action: "Learn More",
-    href: "/financial#contact",
+    href: "/financial/services/life-insurance",
     icon: Umbrella,
   },
   {
@@ -23,7 +23,7 @@ const services = [
     anchorId: "critical-illness-insurance",
     description: "Financial support when you need it most.",
     action: "Learn More",
-    href: "/financial#contact",
+    href: "/financial/services/critical-illness-insurance",
     icon: HeartPulse,
   },
   {
@@ -31,7 +31,7 @@ const services = [
     anchorId: "disability-insurance",
     description: "Help keep your income and lifestyle on track.",
     action: "Learn More",
-    href: "/financial#contact",
+    href: "/financial/services/disability-insurance",
     icon: UserRoundCheck,
   },
   {
@@ -39,7 +39,7 @@ const services = [
     anchorId: "travel-insurance",
     description: "Coverage for a worry-free journey, wherever life takes you.",
     action: "Get a Quote",
-    href: "/financial#contact",
+    href: "/financial/services/travel-insurance",
     icon: Plane,
   },
   {
@@ -47,7 +47,7 @@ const services = [
     anchorId: "resp-education-planning",
     description: "Help build a brighter future for the next generation.",
     action: "Learn More",
-    href: "/financial#contact",
+    href: "/financial/services/resp",
     icon: GraduationCap,
   },
   {
@@ -55,14 +55,17 @@ const services = [
     anchorId: "financial-solutions",
     description: "Personalized strategies for your short- and long-term goals.",
     action: "Learn More",
-    href: "/financial#contact",
+    href: "/financial/services/financial-solutions",
     icon: ChartColumnIncreasing,
   },
 ];
 
 export function FinancialServicesSection() {
   return (
-    <section id="services" className="bg-white px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+    <section
+      id="services"
+      className="bg-white px-4 py-16 sm:px-6 lg:px-8 lg:py-20"
+    >
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-4xl text-center">
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#6f835f] sm:text-sm">

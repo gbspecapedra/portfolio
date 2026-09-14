@@ -33,7 +33,7 @@ export function FinancialAboutHero() {
         </p>
       }
       values={values}
-      isCTAbuttonVisible={false}
+      isSupportingDescriptionVisible={false}
     />
   );
 }
