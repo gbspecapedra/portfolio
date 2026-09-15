@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ConsultationBookingButton from "./calendar/consultation-booking-button";
 
 type TalkBannerProps = {
   eyebrow?: string;
@@ -45,12 +46,9 @@ export function FinancialLetsTalkBanner({
             {subtitle}
           </p>
 
-          <Link
-            href="/financial#contact"
-            className="mt-8 inline-flex min-h-14 items-center justify-center rounded-md bg-[#526f46] px-8 text-base font-semibold text-white shadow-[0_14px_30px_rgba(82,111,70,0.24)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:text-lg"
-          >
+          <ConsultationBookingButton className="mt-8 inline-flex min-h-14 items-center justify-center rounded-md bg-[#526f46] px-8 text-base font-semibold text-white shadow-[0_14px_30px_rgba(82,111,70,0.24)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:text-lg">
             Book a Free Consultation
-          </Link>
+          </ConsultationBookingButton>
         </div>
 
         <p

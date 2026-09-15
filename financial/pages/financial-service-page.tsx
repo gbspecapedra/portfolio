@@ -7,6 +7,8 @@ import { FinancialHero } from "@/financial/components/financial-hero";
 import { FinancialNavigation } from "@/financial/components/financial-navigation";
 import { FinancialQuestionAccordionList } from "@/financial/components/financial-question-accordion-list";
 import { FinancialFinalCtaBanner } from "../components/financial-final-cta-banner";
+import { ReactNode } from "react";
+import ConsultationBookingButton from "../components/calendar/consultation-booking-button";
 
 type ServiceHighlight = {
   label: string;
@@ -137,9 +139,21 @@ export type FinancialServicePageContent = {
 
 type FinancialServicePageProps = {
   content: FinancialServicePageContent;
+  heroPrimaryButton?: (props: {
+    className: string;
+    children: ReactNode;
+  }) => ReactNode;
+  heroSecondaryButton?: (props: {
+    className: string;
+    children: ReactNode;
+  }) => ReactNode;
 };
 
-export function FinancialServicePage({ content }: FinancialServicePageProps) {
+export function FinancialServicePage({
+  content,
+  heroPrimaryButton,
+  heroSecondaryButton,
+}: FinancialServicePageProps) {
   const {
     hero,
     overview,
@@ -167,12 +181,14 @@ export function FinancialServicePage({ content }: FinancialServicePageProps) {
           }
           highlights={hero.highlights}
           values={hero.values}
-          primaryButtonLabel={hero.primaryButtonLabel ?? "Get a Quote"}
-          primaryButtonHref={hero.primaryButtonHref ?? "/financial/contact"}
+          primaryButtonLabel={hero.primaryButtonLabel}
+          primaryButtonHref={hero.primaryButtonHref}
+          primaryButton={heroPrimaryButton}
           secondaryButtonLabel={
-            hero.secondaryButtonLabel ?? "Book a Consultation"
+            hero.secondaryButtonLabel ?? "Book a Free Consultation"
           }
-          secondaryButtonHref={hero.secondaryButtonHref ?? "/financial/contact"}
+          secondaryButtonHref={hero.secondaryButtonHref}
+          secondaryButton={heroSecondaryButton}
         />
 
         <section
@@ -427,14 +443,7 @@ export function FinancialServicePage({ content }: FinancialServicePageProps) {
 
         {relatedGuides && <RelatedGuidesSection guides={relatedGuides} />}
 
-        <FinancialFinalCtaBanner
-          title={cta?.title}
-          subtitle={cta?.subtitle}
-          primaryButtonLabel={cta?.primaryButtonLabel}
-          primaryButtonHref={cta?.primaryButtonHref}
-          secondaryButtonLabel={cta?.secondaryButtonLabel}
-          secondaryButtonHref={cta?.secondaryButtonHref}
-        />
+        <FinancialFinalCtaBanner title={cta?.title} subtitle={cta?.subtitle} />
       </main>
       <FinancialFooter />
     </div>

@@ -1,6 +1,7 @@
 import { MapPin, MessageCircle, ShieldCheck, UsersRound } from "lucide-react";
 
 import { FinancialHero } from "@/financial/components/financial-hero";
+import ConsultationBookingButton from "../../calendar/consultation-booking-button";
 
 const highlights = [
   {
@@ -40,7 +41,11 @@ export function FinancialPortugueseClientsHero() {
         </p>
       }
       primaryButtonLabel="Agendar uma consulta"
-      primaryButtonHref="/financial/contact"
+      primaryButton={({ className, children }) => (
+        <ConsultationBookingButton className={className}>
+          {children}
+        </ConsultationBookingButton>
+      )}
       secondaryButtonLabel="Explorar serviços"
       secondaryButtonHref="#servicos"
       highlights={highlights}

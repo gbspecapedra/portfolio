@@ -1,10 +1,6 @@
-import {
-  MapPin,
-  MessageCircle,
-  ShieldCheck,
-  UsersRound,
-} from "lucide-react";
+import { MapPin, MessageCircle, ShieldCheck, UsersRound } from "lucide-react";
 import { FinancialHero } from "../financial-hero";
+import ConsultationBookingButton from "../calendar/consultation-booking-button";
 
 const highlights = [
   {
@@ -48,6 +44,11 @@ export function FinancialHomeHero() {
           </p>
         </>
       }
+      primaryButton={({ className, children }) => (
+        <ConsultationBookingButton className={className}>
+          {children}
+        </ConsultationBookingButton>
+      )}
       highlights={highlights}
     />
   );

@@ -78,8 +78,8 @@ export const lifeInsuranceServicePageContent = {
     title: "Protect the people who depend on you.",
     description:
       "Life insurance provides financial security for your loved ones, helping them stay protected through life's uncertainty. I'll help you find the right coverage for your unique situation with clear advice and personalized support.",
-    primaryButtonLabel: "Get a Quote",
-    secondaryButtonLabel: "Book a Consultation",
+    primaryButtonLabel: "Get a Life Insurance Quote",
+    secondaryButtonLabel: "Book a Free Consultation",
     highlights: [
       {
         label: "Personalized Guidance",
@@ -387,10 +387,6 @@ export const lifeInsuranceServicePageContent = {
     title: "Let's find the right coverage for your family",
     subtitle:
       "Get personalized advice and a quote today - no pressure, just support",
-    primaryButtonLabel: "Get a Life Insurance Quote",
-    primaryButtonHref: "/financial#contact",
-    secondaryButtonLabel: "Talk to Gisele",
-    secondaryButtonHref: "/financial#contact",
   },
 } satisfies FinancialServicePageContent;
 
@@ -428,7 +424,7 @@ export const criticalIllnessServicePageContent = {
     ],
     primaryButtonLabel: "Get a Critical Illness Quote",
     primaryButtonHref: "/contact?service=critical-illness",
-    secondaryButtonLabel: "Book a Consultation",
+    secondaryButtonLabel: "Book a Free Consultation",
     secondaryButtonHref: "/contact",
   },
 
@@ -768,9 +764,9 @@ export const travelInsuranceServicePageContent = {
       },
     ],
     primaryButtonLabel: "Get a Travel Insurance Quote",
-    primaryButtonHref: "/contact?service=travel-insurance",
-    secondaryButtonLabel: "Talk to Gisele",
-    secondaryButtonHref: "/contact",
+    primaryButtonHref: "/financial/services/travel-insurance/get-a-quote",
+    secondaryButtonLabel: "Book a Free Consultation",
+    secondaryButtonHref: "/financial/contact",
   },
 
   overview: {
@@ -1135,7 +1131,7 @@ export const respServicePageContent = {
     ],
     primaryButtonLabel: "Start an RESP Conversation",
     primaryButtonHref: "/contact?service=resp",
-    secondaryButtonLabel: "Book a Consultation",
+    secondaryButtonLabel: "Explore How It Works",
     secondaryButtonHref: "/contact",
   },
 
@@ -1489,7 +1485,7 @@ export const disabilityInsuranceServicePageContent = {
     ],
     primaryButtonLabel: "Get a Disability Insurance Quote",
     primaryButtonHref: "/contact?service=disability-insurance",
-    secondaryButtonLabel: "Book a Consultation",
+    secondaryButtonLabel: "Book a Free Consultation",
     secondaryButtonHref: "/contact",
   },
 

@@ -39,7 +39,7 @@ const services = [
     anchorId: "travel-insurance",
     description: "Coverage for a worry-free journey, wherever life takes you.",
     action: "Get a Quote",
-    href: "/financial/services/travel-insurance",
+    href: "/financial/services/travel-insurance/get-a-quote",
     icon: Plane,
   },
   {

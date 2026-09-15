@@ -1,6 +1,7 @@
 import { Leaf, MapPin, MessageCircle, UsersRound } from "lucide-react";
 
 import { FinancialHero } from "@/financial/components/financial-hero";
+import ConsultationBookingButton from "../../calendar/consultation-booking-button";
 
 const highlights = [
   {
@@ -38,6 +39,11 @@ export function FinancialProfessionalsHero() {
         </p>
       }
       primaryButtonLabel="Book a Professional Consultation"
+      primaryButton={({ className, children }) => (
+        <ConsultationBookingButton className={className}>
+          {children}
+        </ConsultationBookingButton>
+      )}
       secondaryButtonLabel="Explore Services"
       highlights={highlights}
     />

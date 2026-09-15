@@ -1,23 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import ConsultationBookingButton from "./calendar/consultation-booking-button";
 
 type FinancialFinalCtaBannerProps = {
   title?: string;
   subtitle?: string;
-  primaryButtonLabel?: string;
-  primaryButtonHref?: string;
-  secondaryButtonLabel?: string;
-  secondaryButtonHref?: string;
 };
 
 export function FinancialFinalCtaBanner({
   title = "Let's Talk About Your Financial Goals",
   subtitle = "No pressure, no obligation, just a conversation.",
-  primaryButtonLabel = "Book a Free Consultation",
-  primaryButtonHref = "/financial#contact",
-  secondaryButtonLabel = "Send Me a Message",
-  secondaryButtonHref = "/financial/contact",
 }: FinancialFinalCtaBannerProps) {
   return (
     <section
@@ -52,20 +44,15 @@ export function FinancialFinalCtaBanner({
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <Link
-            href={primaryButtonHref}
-            className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-[#526f46] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(82,111,70,0.22)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-          >
-            {primaryButtonLabel}
-            <ArrowRight className="size-5" aria-hidden="true" />
-          </Link>
+          <ConsultationBookingButton className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-[#526f46] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(82,111,70,0.22)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+            Book a Free Consultation
+          </ConsultationBookingButton>
 
           <Link
-            href={secondaryButtonHref}
+            href="/financial/contact#book-consultation"
             className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md px-2 text-base font-semibold text-[#234a61] transition-colors hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
           >
-            {secondaryButtonLabel}
-            <ArrowRight className="size-5" aria-hidden="true" />
+            Send Me a Message
           </Link>
         </div>
       </div>

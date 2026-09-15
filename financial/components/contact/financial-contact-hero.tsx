@@ -1,5 +1,6 @@
 import { MapPin, Globe2, Mail, Phone } from "lucide-react";
 import { FinancialHero } from "../financial-hero";
+import ConsultationBookingButton from "../calendar/consultation-booking-button";
 
 const highlights = [
   {
@@ -41,9 +42,14 @@ export function FinancialContactHero() {
           listen and help you find the right solutions for your unique journey.
         </p>
       }
+      primaryButton={({ className, children }) => (
+        <ConsultationBookingButton className={className}>
+          {children}
+        </ConsultationBookingButton>
+      )}
       highlights={highlights}
       secondaryButtonLabel="Get in Touch"
-      secondaryButtonHref="#contact-details"
+      secondaryButtonHref="#book-consultation"
     />
   );
 }

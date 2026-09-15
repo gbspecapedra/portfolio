@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Languages, LucideIcon, MapPin } from "lucide-react";
+import { Languages, LucideIcon, MapPin } from "lucide-react";
 import { ReactNode } from "react";
 
 type HeroHighlight = {
@@ -8,6 +8,11 @@ type HeroHighlight = {
   value?: string;
   description: string;
   icon: LucideIcon;
+};
+
+type HeroButtonRenderProps = {
+  className: string;
+  children: ReactNode;
 };
 
 type FinancialHeroProps = {
@@ -19,11 +24,19 @@ type FinancialHeroProps = {
   isPrimaryButtonVisible?: boolean;
   primaryButtonLabel?: string;
   primaryButtonHref?: string;
+  primaryButton?: (props: HeroButtonRenderProps) => ReactNode;
   isSecondaryButtonVisible?: boolean;
   secondaryButtonLabel?: string;
   secondaryButtonHref?: string;
   isSupportingDescriptionVisible?: boolean;
+  secondaryButton?: (props: HeroButtonRenderProps) => ReactNode;
 };
+
+const primaryButtonClassName =
+  "inline-flex min-h-12 items-center justify-center rounded-md bg-[#075f78] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(7,95,120,0.24)] transition-colors hover:bg-[#054e63] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
+
+const secondaryButtonClassName =
+  "inline-flex min-h-12 items-center justify-center gap-3 rounded-md border border-[#c8d2c3] bg-white/82 px-6 text-base font-semibold text-[#10213b] shadow-sm transition-colors hover:bg-white hover:text-[#49633f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
 
 export function FinancialHero({
   eyebrow,
@@ -34,9 +47,11 @@ export function FinancialHero({
   isPrimaryButtonVisible = true,
   primaryButtonLabel = "Book a Free Consultation",
   primaryButtonHref = "/financial/contact",
+  primaryButton,
   isSecondaryButtonVisible = true,
   secondaryButtonLabel = "Explore Services",
   secondaryButtonHref = "/financial#services",
+  secondaryButton,
   isSupportingDescriptionVisible = true,
 }: FinancialHeroProps) {
   return (
@@ -82,24 +97,35 @@ export function FinancialHero({
             {(isPrimaryButtonVisible || isSecondaryButtonVisible) && (
               <>
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                  {isPrimaryButtonVisible && (
-                    <Link
-                      href={primaryButtonHref}
-                      className="inline-flex min-h-12 items-center justify-center rounded-md bg-[#075f78] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(7,95,120,0.24)] transition-colors hover:bg-[#054e63] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-                    >
-                      {primaryButtonLabel}
-                      <ArrowRight className="ml-2 size-4" aria-hidden="true" />
-                    </Link>
-                  )}
+                  {isPrimaryButtonVisible &&
+                    (primaryButton ? (
+                      primaryButton({
+                        className: primaryButtonClassName,
+                        children: <>{primaryButtonLabel}</>,
+                      })
+                    ) : (
+                      <Link
+                        href={primaryButtonHref}
+                        className={primaryButtonClassName}
+                      >
+                        {primaryButtonLabel}
+                      </Link>
+                    ))}
 
-                  {isSecondaryButtonVisible && (
-                    <Link
-                      href={secondaryButtonHref}
-                      className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md border border-[#c8d2c3] bg-white/82 px-6 text-base font-semibold text-[#10213b] shadow-sm transition-colors hover:bg-white hover:text-[#49633f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-                    >
-                      {secondaryButtonLabel}
-                    </Link>
-                  )}
+                  {isSecondaryButtonVisible &&
+                    (secondaryButton ? (
+                      secondaryButton({
+                        className: secondaryButtonClassName,
+                        children: <>{secondaryButtonLabel}</>,
+                      })
+                    ) : (
+                      <Link
+                        href={secondaryButtonHref}
+                        className={secondaryButtonClassName}
+                      >
+                        {secondaryButtonLabel}
+                      </Link>
+                    ))}
                 </div>
 
                 {isSupportingDescriptionVisible && (

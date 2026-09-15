@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { disabilityInsuranceServicePageContent } from "@/financial/data/service-pages";
 import { FinancialServicePage } from "@/financial/pages/financial-service-page";
+import ConsultationBookingButton from "@/financial/components/calendar/consultation-booking-button";
 
 export const metadata: Metadata = {
   title: "Disability Insurance",
@@ -11,6 +12,13 @@ export const metadata: Metadata = {
 
 export default function FinancialDisabilityInsuranceRoute() {
   return (
-    <FinancialServicePage content={disabilityInsuranceServicePageContent} />
+    <FinancialServicePage
+      content={disabilityInsuranceServicePageContent}
+      heroSecondaryButton={({ className, children }) => (
+        <ConsultationBookingButton className={className}>
+          {children}
+        </ConsultationBookingButton>
+      )}
+    />
   );
 }

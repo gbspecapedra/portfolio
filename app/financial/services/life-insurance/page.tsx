@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { lifeInsuranceServicePageContent } from "@/financial/data/service-pages";
 import { FinancialServicePage } from "@/financial/pages/financial-service-page";
+import ConsultationBookingButton from "@/financial/components/calendar/consultation-booking-button";
 
 export const metadata: Metadata = {
   title: "Life Insurance",
@@ -10,5 +11,14 @@ export const metadata: Metadata = {
 };
 
 export default function FinancialLifeInsuranceRoute() {
-  return <FinancialServicePage content={lifeInsuranceServicePageContent} />;
+  return (
+    <FinancialServicePage
+      content={lifeInsuranceServicePageContent}
+      heroSecondaryButton={({ className, children }) => (
+        <ConsultationBookingButton className={className}>
+          {children}
+        </ConsultationBookingButton>
+      )}
+    />
+  );
 }

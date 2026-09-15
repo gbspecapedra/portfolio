@@ -18,6 +18,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import ConsultationBookingButton from "@/financial/components/calendar/consultation-booking-button";
 
 type NavItem = {
   label: string;
@@ -94,7 +95,6 @@ const navItems = [
   { label: "Contact", href: "/financial/contact" },
 ] satisfies NavItem[];
 
-const consultationHref = "/financial/contact";
 const navLinkClass =
   "relative whitespace-nowrap px-0.5 py-2 text-[0.9rem] font-semibold text-[#10213b] transition-colors after:absolute after:inset-x-0.5 after:bottom-0 after:h-px after:bg-[#49633f] after:transition-transform hover:text-[#49633f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
 
@@ -166,12 +166,9 @@ export function FinancialNavigation() {
         </nav>
 
         <div className="hidden justify-end lg:flex">
-          <Link
-            href={consultationHref}
-            className="inline-flex h-12 items-center justify-center whitespace-nowrap rounded-md bg-[#526f46] px-5 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(82,111,70,0.2)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white xl:px-6"
-          >
+          <ConsultationBookingButton className="inline-flex h-12 items-center justify-center whitespace-nowrap rounded-md bg-[#526f46] px-5 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(82,111,70,0.2)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white xl:px-6">
             Book a Free Consultation
-          </Link>
+          </ConsultationBookingButton>
         </div>
 
         <Sheet>
@@ -227,12 +224,9 @@ export function FinancialNavigation() {
             </nav>
             <div className="mt-auto border-t border-[#e6ebe2] p-6">
               <SheetClose asChild>
-                <Link
-                  href={consultationHref}
-                  className="inline-flex min-h-12 w-full items-center justify-center rounded-md bg-[#526f46] px-5 text-center text-sm font-semibold text-white shadow-[0_12px_28px_rgba(82,111,70,0.22)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-                >
+                <ConsultationBookingButton className="inline-flex min-h-12 w-full items-center justify-center rounded-md bg-[#526f46] px-5 text-center text-sm font-semibold text-white shadow-[0_12px_28px_rgba(82,111,70,0.22)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white">
                   Book a Free Consultation
-                </Link>
+                </ConsultationBookingButton>
               </SheetClose>
             </div>
           </SheetContent>

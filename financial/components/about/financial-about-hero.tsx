@@ -1,5 +1,6 @@
 import { ShieldCheck, Sprout, UsersRound } from "lucide-react";
 import { FinancialHero } from "../financial-hero";
+import ConsultationBookingButton from "../calendar/consultation-booking-button";
 
 const values = [
   {
@@ -32,6 +33,11 @@ export function FinancialAboutHero() {
           personalized so you can focus on what truly matters.
         </p>
       }
+      primaryButton={({ className, children }) => (
+        <ConsultationBookingButton className={className}>
+          {children}
+        </ConsultationBookingButton>
+      )}
       values={values}
       isSupportingDescriptionVisible={false}
     />
