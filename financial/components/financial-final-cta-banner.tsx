@@ -44,13 +44,13 @@ export function FinancialFinalCtaBanner({
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <ConsultationBookingButton className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-[#526f46] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(82,111,70,0.22)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+          <ConsultationBookingButton className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-[#526f46] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(82,111,70,0.22)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white">
             Book a Free Consultation
           </ConsultationBookingButton>
 
           <Link
             href="/financial/contact#book-consultation"
-            className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md px-2 text-base font-semibold text-[#234a61] transition-colors hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md px-2 text-base font-semibold text-[#234a61] transition-colors hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
           >
             Send Me a Message
           </Link>

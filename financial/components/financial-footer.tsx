@@ -64,19 +64,19 @@ const contactLinks = [
 const legalLinks = [
   {
     label: "Privacy Policy",
-    href: "/privacy-policy",
+    href: "/financial/legal/privacy-policy",
   },
   {
     label: "Regulatory Disclosures",
-    href: "/regulatory-disclosures",
+    href: "/financial/legal/regulatory-disclosures",
   },
   {
     label: "Terms of Use",
-    href: "/terms-of-use",
+    href: "/financial/legal/terms-of-use",
   },
   {
     label: "Cookie Policy",
-    href: "/cookie-policy",
+    href: "/financial/legal/cookie-policy",
   },
   {
     label: "Manage Cookies",
@@ -84,11 +84,11 @@ const legalLinks = [
   },
   {
     label: "Internet Security",
-    href: "/internet-security",
+    href: "/financial/legal/internet-security",
   },
   {
     label: "Accessibility",
-    href: "/accessibility",
+    href: "/financial/legal/accessibility",
   },
 ];
 
@@ -101,13 +101,13 @@ export function FinancialFooter() {
             <Link
               href="/financial"
               className="inline-flex flex-col"
-              aria-label="Gisele Pecapedra Insurance and Financial Solutions home"
+              aria-label="Gisele Pecapedra Insurance and Investments home"
             >
               <span className="text-2xl font-semibold tracking-normal">
                 Gisele Pecapedra
               </span>
               <span className="mt-1 text-base font-medium text-white/62">
-                Insurance &amp; Financial Solutions
+                Insurance &amp; Investments
               </span>
             </Link>
 
@@ -191,15 +191,16 @@ export function FinancialFooter() {
             </nav>
           </div>
         </div>
-        <div className="mt-12 flex flex-col gap-5 border-t border-white/10 pt-7 text-xs leading-6 text-white/56 lg:flex-row lg:items-center lg:justify-between">
-          <p className="max-w-4xl">
-            Information is for general educational purposes only and does not
-            constitute financial advice. Please consult a licensed professional
-            for personalized guidance. Services and coverage availability may
-            vary by province.
-          </p>
-          <p className="shrink-0">
-            &copy; 2026 Gisele Pecapedra. All rights reserved.
+        <div className="mt-12 flex gap-5 border-t border-white/10 pt-7 text-xs leading-6 text-white/56">
+          <p className="max-w">
+            Information on this website is for general educational purposes only
+            and does not constitute personalized insurance, financial, legal, or
+            tax advice. Gisele Pecapedra is licensed in British Columbia as a
+            Life Insurance and Accident & Sickness Insurance agent, and
+            processes her insurance-related business through a Managing General
+            Agent (MGA). Insurance products are subject to eligibility,
+            underwriting, availability, terms, conditions, exclusions, and
+            approval by the applicable insurer.
           </p>
         </div>
         <nav
@@ -216,6 +217,22 @@ export function FinancialFooter() {
             </Link>
           ))}
         </nav>
+        <div className="mt-6 flex flex-col items-center text-xs leading-6 text-white/56">
+          <p className="shrink-0">
+            &copy; 2026 Gisele Pecapedra. All rights reserved.
+          </p>
+          <p>
+            Proudly developed by{" "}
+            <a
+              href="https://giselepecapedra.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d314a]"
+            >
+              Gisele Pecapedra
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );

@@ -35,6 +35,7 @@ export function FinancialClientReviewsSection() {
               className="rounded-md border border-[#dfe6dc] bg-white p-6 shadow-[0_16px_40px_rgba(16,33,59,0.05)]"
             >
               <div
+                role="img"
                 className="flex gap-1 text-[#f5a623]"
                 aria-label={`${review.rating} out of 5 stars`}
               >

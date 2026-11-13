@@ -11,7 +11,7 @@ export function FinancialPortugueseClientsPage() {
   return (
     <div className="min-h-screen bg-white text-[#10213b]">
       <FinancialNavigation />
-      <main>
+      <main id="financial-main" tabIndex={-1} lang="pt-BR">
         <FinancialPortugueseClientsHero />
         <FinancialPortugueseClientsSupportSection />
         <FinancialPortugueseClientsConcernsBanner />
@@ -21,6 +21,7 @@ export function FinancialPortugueseClientsPage() {
           eyebrow="Vamos conversar"
           title="Vamos conversar sobre o que é importante para você e sua família."
           subtitle="Agende uma conversa gratuita e dê o próximo passo com mais tranquilidade."
+          primaryButtonLabel="Agendar uma consulta gratuita"
         />
       </main>
       <FinancialFooter />

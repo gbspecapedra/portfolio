@@ -68,7 +68,7 @@ export function FinancialServicesSection() {
     >
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#6f835f] sm:text-sm">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#526f46] sm:text-sm">
             Our Services
           </p>
           <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-normal text-[#10213b] sm:text-4xl lg:text-5xl">
@@ -107,7 +107,7 @@ export function FinancialServicesSection() {
 
                   <Link
                     href={service.href}
-                    className="mt-auto inline-flex w-fit items-center gap-3 pt-6 text-base font-semibold text-[#234a61] transition-colors hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                    className="mt-auto inline-flex w-fit items-center gap-3 pt-6 text-base font-semibold text-[#234a61] transition-colors hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                     aria-label={`${service.action} about ${service.title}`}
                   >
                     {service.action}

@@ -154,6 +154,7 @@ export function FinancialFaqQuickAnswersSection() {
           </p>
 
           <div
+            role="group"
             className="mt-5 flex flex-wrap gap-2"
             aria-label="Filter frequently asked questions"
           >
@@ -165,7 +166,7 @@ export function FinancialFaqQuickAnswersSection() {
                   key={category}
                   type="button"
                   onClick={() => setActiveCategory(category)}
-                  className={`min-h-9 rounded-full border px-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 ${
+                  className={`min-h-9 rounded-full border px-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 ${
                     isActive
                       ? "border-[#526f46] bg-[#526f46] text-white"
                       : "border-[#dfe6dc] bg-[#f8faf6] text-[#617087] hover:border-[#c8d2c3] hover:text-[#526f46]"
@@ -190,7 +191,7 @@ export function FinancialFaqQuickAnswersSection() {
                   <button
                     type="button"
                     onClick={() => toggleItem(faq.id)}
-                    className="flex min-h-12 w-full items-center justify-between gap-4 px-4 py-3 text-left font-serif text-lg font-semibold leading-tight text-[#10213b] transition-colors hover:bg-[#f8faf6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#b89b5e] sm:px-5"
+                    className="flex min-h-12 w-full items-center justify-between gap-4 px-4 py-3 text-left font-serif text-lg font-semibold leading-tight text-[#10213b] transition-colors hover:bg-[#f8faf6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#80652f] sm:px-5"
                     aria-expanded={isOpen}
                     aria-controls={`${faq.id}-answer`}
                   >
@@ -258,7 +259,7 @@ export function FinancialFaqQuickAnswersSection() {
             <div className="mt-5 grid gap-3">
               <Link
                 href="/financial/contact"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-[#526f46] px-5 text-sm font-semibold text-white shadow-[0_12px_26px_rgba(82,111,70,0.2)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f7f3]"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-[#526f46] px-5 text-sm font-semibold text-white shadow-[0_12px_26px_rgba(82,111,70,0.2)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f7f3]"
               >
                 Book a Free Consultation
                 <MessageCircle className="size-4" aria-hidden="true" />
@@ -266,7 +267,7 @@ export function FinancialFaqQuickAnswersSection() {
 
               <Link
                 href="mailto:teampecapedra@gmail.com"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-[#c8d2c3] bg-white px-5 text-sm font-semibold text-[#526f46] transition-colors hover:bg-[#f8faf6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f7f3]"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-[#c8d2c3] bg-white px-5 text-sm font-semibold text-[#526f46] transition-colors hover:bg-[#f8faf6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f7f3]"
               >
                 <Mail className="size-4" aria-hidden="true" />
                 Send a Message

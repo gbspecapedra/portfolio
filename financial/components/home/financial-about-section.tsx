@@ -21,7 +21,7 @@ export function FinancialAboutSection() {
 
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,22rem)] lg:items-center">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#6f835f] sm:text-sm">
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#526f46] sm:text-sm">
               About Gisele
             </p>
             <h2
@@ -42,7 +42,7 @@ export function FinancialAboutSection() {
 
             <Link
               href="/financial/about"
-              className="mt-7 inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-[#526f46] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(82,111,70,0.22)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              className="mt-7 inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-[#526f46] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(82,111,70,0.22)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             >
               Meet Gisele
               <ArrowRight className="size-5" aria-hidden="true" />
@@ -51,7 +51,7 @@ export function FinancialAboutSection() {
 
           <figure className="border-l-0 border-[#dfe6dc] pl-0 lg:border-l lg:pl-8">
             <Quote
-              className="size-7 fill-[#6f835f] text-[#6f835f]"
+              className="size-7 fill-[#6f835f] text-[#526f46]"
               aria-hidden="true"
             />
             <blockquote className="mt-4 font-serif text-2xl italic leading-9 text-[#526175]">

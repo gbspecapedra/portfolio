@@ -34,7 +34,7 @@ export function FinancialWhoIHelpSection() {
     >
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#6f835f] sm:text-sm">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#526f46] sm:text-sm">
             Who I Help
           </p>
           <h2
@@ -72,7 +72,7 @@ export function FinancialWhoIHelpSection() {
 
                   <Link
                     href={audience.href}
-                    className="mt-auto inline-flex w-fit items-center gap-3 pt-6 text-base font-semibold text-[#234a61] transition-colors hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                    className="mt-auto inline-flex w-fit items-center gap-3 pt-6 text-base font-semibold text-[#234a61] transition-colors hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                     aria-label={`Learn more about support for ${audience.title}`}
                   >
                     Learn More

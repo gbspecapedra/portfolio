@@ -29,7 +29,7 @@ export function FinancialHowItWorksSection() {
     >
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#6f835f] sm:text-sm">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#526f46] sm:text-sm">
             How It Works
           </p>
           <h2
@@ -71,7 +71,7 @@ export function FinancialHowItWorksSection() {
         </div>
 
         <div className="mt-9 flex justify-center">
-          <ConsultationBookingButton className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-md bg-[#526f46] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(82,111,70,0.22)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:w-auto sm:min-w-80">
+          <ConsultationBookingButton className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-md bg-[#526f46] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(82,111,70,0.22)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:w-auto sm:min-w-80">
             Book Your Free Consultation
             <ArrowRight className="size-5" aria-hidden="true" />
           </ConsultationBookingButton>

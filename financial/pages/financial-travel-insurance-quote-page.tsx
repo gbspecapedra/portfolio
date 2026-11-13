@@ -1,24 +1,22 @@
 import Image from "next/image";
-import Link from "next/link";
 import {
-  CalendarDays,
   CalendarCheck,
   Headphones,
   Quote,
   ShieldCheck,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { FinancialFooter } from "@/financial/components/financial-footer";
 import { FinancialHero } from "@/financial/components/financial-hero";
 import { FinancialNavigation } from "@/financial/components/financial-navigation";
 import { FinancialTravelQuoteSelector } from "@/financial/components/get-a-quote/financial-travel-quote-selector";
+import ConsultationBookingButton from "../components/calendar/consultation-booking-button";
 
 export function FinancialTravelInsuranceQuotePage() {
   return (
     <div className="min-h-screen bg-white text-[#10213b]">
       <FinancialNavigation />
-      <main>
+      <main id="financial-main" tabIndex={-1}>
         <FinancialHero
           eyebrow="Travel Insurance"
           title="Find the Travel Insurance Option That Fits Your Trip"
@@ -87,15 +85,9 @@ function AdvisorHelpSection() {
             and help you choose the coverage that fits your trip and your
             situation.
           </p>
-          <Button
-            asChild
-            className="mt-6 min-h-12 w-fit bg-[#526f46] px-7 text-base font-semibold text-white shadow-[0_14px_30px_rgba(82,111,70,0.22)] hover:bg-[#465f3c]"
-          >
-            <Link href="/financial/contact">
-              <CalendarDays className="size-5" aria-hidden="true" />
-              Book a Consultation
-            </Link>
-          </Button>
+          <ConsultationBookingButton className="mt-6 min-h-12 w-fit items-center justify-center whitespace-nowrap rounded-md bg-[#526f46] px-5 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(82,111,70,0.2)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white xl:px-6">
+            Book a Free Consultation
+          </ConsultationBookingButton>
         </div>
 
         <figure className="relative flex min-h-64 flex-col justify-center border-t border-[#dfe6dc] px-7 py-8 lg:border-l lg:border-t-0">
@@ -106,10 +98,6 @@ function AdvisorHelpSection() {
           <figcaption className="mt-4 text-sm text-[#617087]">
             - Gisele Pecapedra
           </figcaption>
-          <div
-            className="pointer-events-none absolute bottom-0 right-0 h-28 w-44 bg-[linear-gradient(135deg,transparent_28%,rgba(82,111,70,0.16)_28%,rgba(82,111,70,0.16)_30%,transparent_30%),linear-gradient(160deg,transparent_50%,rgba(13,49,74,0.12)_50%,rgba(13,49,74,0.12)_52%,transparent_52%)]"
-            aria-hidden="true"
-          />
         </figure>
       </div>
     </section>

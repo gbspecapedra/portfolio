@@ -225,7 +225,7 @@ export function FinancialTravelQuoteSelector() {
                 type="button"
                 onClick={() => setSelectedSituation(situation.id)}
                 aria-pressed={isSelected}
-                className={`group flex min-h-44 flex-col items-center justify-start rounded-md border bg-white p-5 text-center shadow-[0_12px_30px_rgba(16,33,59,0.04)] transition-all hover:-translate-y-0.5 hover:border-[#9fb09a] hover:shadow-[0_18px_44px_rgba(16,33,59,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 ${
+                className={`group flex min-h-44 flex-col items-center justify-start rounded-md border bg-white p-5 text-center shadow-[0_12px_30px_rgba(16,33,59,0.04)] transition-all hover:-translate-y-0.5 hover:border-[#9fb09a] hover:shadow-[0_18px_44px_rgba(16,33,59,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 ${
                   isSelected
                     ? "border-[#0d314a] bg-[#f0f7fb] shadow-[0_16px_40px_rgba(13,49,74,0.12)]"
                     : "border-[#dfe6dc]"
@@ -320,7 +320,7 @@ function ProviderCard({ provider }: { provider: Provider }) {
       <CardFooter className="px-5 pb-5 pt-6">
         <Button
           asChild
-          className="min-h-12 w-full bg-[#0d314a] text-sm font-semibold text-white shadow-[0_12px_28px_rgba(13,49,74,0.16)] hover:bg-[#09283d]"
+          className="min-h-12 w-full bg-[#0d314a] text-sm font-semibold text-white shadow-[0_12px_28px_rgba(13,49,74,0.16)] hover:bg-[#09283d] focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
         >
           <Link
             href={provider.href}

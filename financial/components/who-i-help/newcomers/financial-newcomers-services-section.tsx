@@ -96,7 +96,7 @@ export function FinancialNewcomersServicesSection() {
 
                 <Link
                   href={service.href}
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#526f46] transition-colors hover:text-[#234a61] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#526f46] transition-colors hover:text-[#234a61] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                   aria-label={`Learn more about ${service.title}`}
                 >
                   Learn More

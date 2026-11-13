@@ -1,9 +1,9 @@
 "use client";
 
 import { getCalApi } from "@calcom/embed-react";
-import { useEffect } from "react";
+import { useEffect, type ComponentProps } from "react";
 
-type BookingButtonProps = {
+type BookingButtonProps = ComponentProps<"button"> & {
   namespace?: string;
   calLink?: string;
   children?: React.ReactNode;
@@ -15,6 +15,7 @@ export default function BookingButton({
   calLink = "giselepecapedra/consultation",
   children,
   className = "",
+  ...buttonProps
 }: BookingButtonProps) {
   useEffect(() => {
     (async function () {
@@ -37,6 +38,7 @@ export default function BookingButton({
 
   return (
     <button
+      {...buttonProps}
       type="button"
       data-cal-namespace={namespace}
       data-cal-link={calLink}

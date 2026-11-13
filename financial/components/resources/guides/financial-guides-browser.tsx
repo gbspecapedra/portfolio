@@ -84,11 +84,12 @@ export function FinancialGuidesBrowser() {
                 setCurrentPage(1);
               }}
               placeholder="Search guides..."
-              className="min-h-11 w-full rounded-md border border-[#dfe6dc] bg-white pl-11 pr-4 text-sm font-medium text-[#10213b] shadow-sm outline-none transition-colors placeholder:text-[#7a8798] focus:border-[#526f46] focus:ring-2 focus:ring-[#b89b5e]/35"
+              className="min-h-11 w-full rounded-md border border-[#7b8775] bg-white pl-11 pr-4 text-sm font-medium text-[#10213b] shadow-sm outline-none transition-colors placeholder:text-[#617087] focus:border-[#526f46] focus:ring-2 focus:ring-[#80652f]"
             />
           </label>
 
           <div
+            role="group"
             className="flex flex-wrap gap-2 lg:justify-end"
             aria-label="Filter guides by topic"
           >
@@ -103,7 +104,7 @@ export function FinancialGuidesBrowser() {
                     setActiveCategory(category);
                     setCurrentPage(1);
                   }}
-                  className={`min-h-9 rounded-full border px-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 ${
+                  className={`min-h-9 rounded-full border px-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 ${
                     isActive
                       ? "border-[#526f46] bg-[#526f46] text-white"
                       : "border-[#dfe6dc] bg-[#f8faf6] text-[#617087] hover:border-[#c8d2c3] hover:text-[#526f46]"
@@ -116,6 +117,12 @@ export function FinancialGuidesBrowser() {
             })}
           </div>
         </div>
+
+        <p role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+          {hasResults
+            ? `${visibleGuides.length} ${visibleGuides.length === 1 ? "guide" : "guides"} found. Page ${safeCurrentPage} of ${Math.max(totalPages, 1)}.`
+            : "No guides found. Try another keyword or browse all guide topics."}
+        </p>
 
         {hasResults ? (
           isFiltering ? (
@@ -172,7 +179,7 @@ export function FinancialGuidesBrowser() {
             <button
               type="button"
               onClick={resetFilters}
-              className="mt-5 inline-flex min-h-11 items-center justify-center rounded-md bg-[#526f46] px-5 text-sm font-semibold text-white shadow-[0_12px_26px_rgba(82,111,70,0.2)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8faf6]"
+              className="mt-5 inline-flex min-h-11 items-center justify-center rounded-md bg-[#526f46] px-5 text-sm font-semibold text-white shadow-[0_12px_26px_rgba(82,111,70,0.2)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8faf6]"
             >
               View all guides
             </button>
@@ -215,7 +222,7 @@ function GuidePagination({
         type="button"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="inline-flex size-10 items-center justify-center rounded-md border border-[#dfe6dc] bg-white text-[#234a61] transition-colors hover:border-[#c8d2c3] hover:bg-[#f8faf6] hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-45"
+        className="inline-flex size-10 items-center justify-center rounded-md border border-[#dfe6dc] bg-white text-[#234a61] transition-colors hover:border-[#c8d2c3] hover:bg-[#f8faf6] hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-45"
         aria-label="Previous guides page"
       >
         <ChevronLeft className="size-4" aria-hidden="true" />
@@ -230,7 +237,7 @@ function GuidePagination({
             key={pageNumber}
             type="button"
             onClick={() => onPageChange(pageNumber)}
-            className={`inline-flex size-10 items-center justify-center rounded-md border text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 ${
+            className={`inline-flex size-10 items-center justify-center rounded-md border text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 ${
               isActive
                 ? "border-[#526f46] bg-[#526f46] text-white"
                 : "border-[#dfe6dc] bg-white text-[#234a61] hover:border-[#c8d2c3] hover:bg-[#f8faf6] hover:text-[#526f46]"
@@ -247,7 +254,7 @@ function GuidePagination({
         type="button"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="inline-flex size-10 items-center justify-center rounded-md border border-[#dfe6dc] bg-white text-[#234a61] transition-colors hover:border-[#c8d2c3] hover:bg-[#f8faf6] hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-45"
+        className="inline-flex size-10 items-center justify-center rounded-md border border-[#dfe6dc] bg-white text-[#234a61] transition-colors hover:border-[#c8d2c3] hover:bg-[#f8faf6] hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-45"
         aria-label="Next guides page"
       >
         <ChevronRight className="size-4" aria-hidden="true" />
@@ -261,7 +268,7 @@ function FeaturedGuideCard({ guide }: { guide: FinancialGuide }) {
     <article className="group overflow-hidden rounded-md border border-[#dfe6dc] bg-white shadow-[0_16px_40px_rgba(16,33,59,0.05)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#c8d2c3] hover:shadow-[0_22px_54px_rgba(16,33,59,0.08)]">
       <Link
         href={guide.href}
-        className="grid h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+        className="grid h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
       >
         <div className="relative aspect-[1.8] bg-[#dfe6dc]">
           <Image
@@ -274,7 +281,7 @@ function FeaturedGuideCard({ guide }: { guide: FinancialGuide }) {
         </div>
 
         <div className="flex min-h-52 flex-col p-5 sm:p-6">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#6f835f]">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#526f46]">
             {guide.category}
           </p>
           <h3 className="mt-2 font-serif text-2xl font-semibold leading-tight text-[#10213b]">
@@ -302,7 +309,7 @@ function LatestGuideCard({ guide }: { guide: FinancialGuide }) {
     <article className="group overflow-hidden rounded-md border border-[#dfe6dc] bg-white shadow-[0_14px_34px_rgba(16,33,59,0.045)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#c8d2c3] hover:shadow-[0_20px_48px_rgba(16,33,59,0.075)]">
       <Link
         href={guide.href}
-        className="grid h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:grid-cols-[9.5rem_1fr]"
+        className="grid h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:grid-cols-[9.5rem_1fr]"
         aria-label={`Read more about ${guide.title}`}
       >
         <div className="relative min-h-44 bg-[#dfe6dc] sm:min-h-full">
@@ -316,7 +323,7 @@ function LatestGuideCard({ guide }: { guide: FinancialGuide }) {
         </div>
 
         <div className="flex min-w-0 flex-col p-5">
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#6f835f]">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#526f46]">
             {guide.category}
           </p>
           <h3 className="mt-1 text-lg font-semibold leading-snug text-[#10213b]">

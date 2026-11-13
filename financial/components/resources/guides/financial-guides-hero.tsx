@@ -44,7 +44,7 @@ export function FinancialGuidesHero() {
         </ConsultationBookingButton>
       )}
       secondaryButtonLabel="Ask a Question"
-      secondaryButtonHref="/financial/contact"
+      secondaryButtonHref="/financial/contact#book-consultation"
       highlights={highlights}
     />
   );

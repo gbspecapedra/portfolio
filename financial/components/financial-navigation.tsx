@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 import {
   DropdownMenu,
@@ -96,16 +97,57 @@ const navItems = [
 ] satisfies NavItem[];
 
 const navLinkClass =
-  "relative whitespace-nowrap px-0.5 py-2 text-[0.9rem] font-semibold text-[#10213b] transition-colors after:absolute after:inset-x-0.5 after:bottom-0 after:h-px after:bg-[#49633f] after:transition-transform hover:text-[#49633f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
+  "relative whitespace-nowrap px-0.5 py-2 text-[0.9rem] font-semibold text-[#10213b] transition-colors after:absolute after:inset-x-0.5 after:bottom-0 after:h-px after:bg-[#49633f] after:transition-transform hover:text-[#49633f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
 
 export function FinancialNavigation() {
   const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
+  const mobileNavigationRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const revealFocusedControl = (event: FocusEvent) => {
+      const target = event.target;
+      const header = headerRef.current;
+
+      if (
+        !header ||
+        !(target instanceof HTMLElement) ||
+        !target.closest("#financial-main, footer")
+      ) {
+        return;
+      }
+
+      // Browsers can consider a field visible even when the sticky header covers it.
+      const headerBottom = header.getBoundingClientRect().bottom;
+      const bounds = (target.closest("label") ?? target).getBoundingClientRect();
+      if (bounds.top < headerBottom + 16) {
+        window.scrollBy({
+          top: bounds.top - headerBottom - 16,
+          behavior: "instant",
+        });
+      }
+    };
+
+    document.addEventListener("focusin", revealFocusedControl);
+    return () => document.removeEventListener("focusin", revealFocusedControl);
+  }, []);
+
   const isActive = (href: string) => !href.includes("#") && pathname === href;
   const isGroupActive = (item: NavItem) =>
     isActive(item.href) || item.items?.some((child) => isActive(child.href));
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#d9dfd5] bg-white/95 text-[#10213b] shadow-[0_8px_28px_rgba(16,33,59,0.06)] backdrop-blur-md">
+    <header
+      ref={headerRef}
+      data-financial-navigation
+      className="sticky top-0 z-50 border-b border-[#d9dfd5] bg-white/95 text-[#10213b] shadow-[0_8px_28px_rgba(16,33,59,0.06)] backdrop-blur-md"
+    >
+      <a
+        href="#financial-main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-10 focus:rounded-md focus:bg-white focus:px-4 focus:py-3 focus:text-[#10213b] focus:outline-2 focus:outline-offset-2 focus:outline-[#80652f]"
+      >
+        Skip to main content
+      </a>
       <div className="mx-auto grid min-h-18 w-full max-w-7xl grid-cols-[1fr_auto] items-center gap-4 px-4 py-3 sm:px-6 lg:min-h-20 lg:grid-cols-[minmax(220px,0.9fr)_auto_minmax(210px,0.75fr)] lg:px-6 xl:px-8">
         <Link
           href="/financial"
@@ -166,21 +208,29 @@ export function FinancialNavigation() {
         </nav>
 
         <div className="hidden justify-end lg:flex">
-          <ConsultationBookingButton className="inline-flex h-12 items-center justify-center whitespace-nowrap rounded-md bg-[#526f46] px-5 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(82,111,70,0.2)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white xl:px-6">
+          <ConsultationBookingButton className="inline-flex h-12 items-center justify-center whitespace-nowrap rounded-md bg-[#526f46] px-5 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(82,111,70,0.2)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white xl:px-6">
             Book a Free Consultation
           </ConsultationBookingButton>
         </div>
 
         <Sheet>
           <SheetTrigger
-            className="inline-flex size-11 items-center justify-center justify-self-end rounded-md border border-[#cfd8cb] bg-white text-[#10213b] shadow-sm transition-colors hover:bg-[#f6f8f4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 lg:hidden"
+            className="inline-flex size-11 items-center justify-center justify-self-end rounded-md border border-[#cfd8cb] bg-white text-[#10213b] shadow-sm transition-colors hover:bg-[#f6f8f4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 lg:hidden"
             aria-label="Open navigation menu"
           >
             <Menu className="size-5" aria-hidden="true" />
           </SheetTrigger>
           <SheetContent
             side="right"
-            className="w-[min(88vw,24rem)] border-[#d9dfd5] bg-white p-0 text-[#10213b]"
+            className="h-dvh w-[min(88vw,24rem)] gap-0 overflow-hidden border-[#d9dfd5] bg-white p-0 text-[#10213b] [&>[data-slot=sheet-header]]:shrink-0 [&>button]:text-[#10213b] [&>button]:opacity-100 [&>button]:focus:ring-[#80652f] [&>button]:focus:ring-offset-white"
+            aria-describedby={undefined}
+            onOpenAutoFocus={(event) => {
+              event.preventDefault();
+              mobileNavigationRef.current?.scrollTo(0, 0);
+              mobileNavigationRef.current
+                ?.querySelector<HTMLAnchorElement>("a")
+                ?.focus();
+            }}
           >
             <SheetHeader className="border-b border-[#e6ebe2] p-6 text-left">
               <SheetTitle className="text-xl font-semibold text-[#10213b]">
@@ -191,7 +241,8 @@ export function FinancialNavigation() {
               </p>
             </SheetHeader>
             <nav
-              className="flex flex-col px-3 py-4"
+              ref={mobileNavigationRef}
+              className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain px-3 py-4"
               aria-label="Mobile financial services navigation"
             >
               {navItems.map((item) => (
@@ -199,7 +250,7 @@ export function FinancialNavigation() {
                   <SheetClose asChild>
                     <Link
                       href={item.href}
-                      className="flex rounded-md px-3 py-3 text-base font-semibold text-[#10213b] transition-colors hover:bg-[#f6f8f4] hover:text-[#49633f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e]"
+                      className="flex rounded-md px-3 py-3 text-base font-semibold text-[#10213b] transition-colors hover:bg-[#f6f8f4] hover:text-[#49633f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f]"
                     >
                       {item.label}
                     </Link>
@@ -211,7 +262,7 @@ export function FinancialNavigation() {
                         <SheetClose asChild key={child.label}>
                           <Link
                             href={child.href}
-                            className="rounded-md px-3 py-2 text-sm font-medium text-[#617087] transition-colors hover:bg-[#f6f8f4] hover:text-[#49633f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e]"
+                            className="rounded-md px-3 py-2 text-sm font-medium text-[#617087] transition-colors hover:bg-[#f6f8f4] hover:text-[#49633f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f]"
                           >
                             {child.label}
                           </Link>
@@ -222,9 +273,9 @@ export function FinancialNavigation() {
                 </div>
               ))}
             </nav>
-            <div className="mt-auto border-t border-[#e6ebe2] p-6">
+            <div className="shrink-0 border-t border-[#e6ebe2] p-4 sm:p-6">
               <SheetClose asChild>
-                <ConsultationBookingButton className="inline-flex min-h-12 w-full items-center justify-center rounded-md bg-[#526f46] px-5 text-center text-sm font-semibold text-white shadow-[0_12px_28px_rgba(82,111,70,0.22)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+                <ConsultationBookingButton className="inline-flex min-h-12 w-full items-center justify-center rounded-md bg-[#526f46] px-5 text-center text-sm font-semibold text-white shadow-[0_12px_28px_rgba(82,111,70,0.22)] transition-colors hover:bg-[#465f3c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white">
                   Book a Free Consultation
                 </ConsultationBookingButton>
               </SheetClose>

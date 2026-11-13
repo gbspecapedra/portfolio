@@ -44,6 +44,7 @@ export function FinancialFaqHero() {
         </ConsultationBookingButton>
       )}
       secondaryButtonLabel="Contact Me"
+      secondaryButtonHref="/financial/contact#book-consultation"
       highlights={highlights}
     />
   );

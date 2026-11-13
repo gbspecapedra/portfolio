@@ -33,10 +33,10 @@ type FinancialHeroProps = {
 };
 
 const primaryButtonClassName =
-  "inline-flex min-h-12 items-center justify-center rounded-md bg-[#075f78] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(7,95,120,0.24)] transition-colors hover:bg-[#054e63] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
+  "inline-flex min-h-12 items-center justify-center rounded-md bg-[#075f78] px-6 text-base font-semibold text-white shadow-[0_14px_30px_rgba(7,95,120,0.24)] transition-colors hover:bg-[#054e63] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
 
 const secondaryButtonClassName =
-  "inline-flex min-h-12 items-center justify-center gap-3 rounded-md border border-[#c8d2c3] bg-white/82 px-6 text-base font-semibold text-[#10213b] shadow-sm transition-colors hover:bg-white hover:text-[#49633f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
+  "inline-flex min-h-12 items-center justify-center gap-3 rounded-md border border-[#c8d2c3] bg-white/82 px-6 text-base font-semibold text-[#10213b] shadow-sm transition-colors hover:bg-white hover:text-[#49633f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
 
 export function FinancialHero({
   eyebrow,
@@ -61,6 +61,7 @@ export function FinancialHero({
     >
       <div className="relative bg-[#eef4f1]">
         <Image
+          lang="en"
           src="/financial/hero-vancouver-waterfront.png"
           alt="Gisele Pecapedra in front of a soft Vancouver waterfront with mountains and city towers"
           fill
@@ -80,7 +81,7 @@ export function FinancialHero({
         <div className="relative mx-auto flex min-h-[32rem] max-w-7xl items-start px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
           <div className="max-w-3xl">
             {eyebrow && (
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#8d7442] sm:text-sm">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#755d31] sm:text-sm">
                 {eyebrow}
               </p>
             )}
@@ -129,7 +130,7 @@ export function FinancialHero({
                 </div>
 
                 {isSupportingDescriptionVisible && (
-                  <div className="mt-6 flex flex-col gap-3 text-sm font-semibold text-[#526175] sm:flex-row sm:items-center sm:text-base">
+                  <div lang="en" className="mt-6 flex flex-col gap-3 text-sm font-semibold text-[#526175] sm:flex-row sm:items-center sm:text-base">
                     <span className="inline-flex items-center gap-2">
                       <MapPin
                         className="size-5 text-[#49633f]"
@@ -182,6 +183,7 @@ export function FinancialHero({
 
         <div className="pointer-events-none absolute bottom-8 right-[6vw] z-10 hidden lg:block lg:bottom-10 xl:right-[7.5vw]">
           <Image
+            lang="en"
             src="/financial/logo-signature-cropped.png"
             alt="Gisele Pecapedra, Financial Advisor"
             width={1393}
@@ -204,7 +206,7 @@ export function FinancialHero({
                   className="flex min-w-0 items-start gap-4"
                 >
                   <Icon
-                    className="mt-1 size-8 shrink-0 text-[#6f835f]"
+                    className="mt-1 size-8 shrink-0 text-[#526f46]"
                     aria-hidden="true"
                   />
                   <div>

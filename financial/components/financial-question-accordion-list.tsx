@@ -41,7 +41,7 @@ export function FinancialQuestionAccordionList({
             <button
               type="button"
               onClick={() => toggleItem(itemId)}
-              className="flex min-h-12 w-full items-center justify-between gap-4 px-4 py-3 text-left font-serif text-lg font-semibold leading-tight text-[#10213b] transition-colors hover:bg-[#f8faf6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#b89b5e] sm:px-5"
+              className="flex min-h-12 w-full items-center justify-between gap-4 px-4 py-3 text-left font-serif text-lg font-semibold leading-tight text-[#10213b] transition-colors hover:bg-[#f8faf6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#80652f] sm:px-5"
               aria-expanded={isOpen}
               aria-controls={`${itemId}-answer`}
             >

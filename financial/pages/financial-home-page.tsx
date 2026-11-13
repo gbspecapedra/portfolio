@@ -15,7 +15,7 @@ export function FinancialHomePage() {
   return (
     <div className="min-h-screen bg-white text-[#10213b]">
       <FinancialNavigation />
-      <main>
+      <main id="financial-main" tabIndex={-1}>
         <FinancialHomeHero />
         <FinancialServicesSection />
         <FinancialWhoIHelpSection />

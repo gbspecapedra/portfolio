@@ -8,7 +8,6 @@ import { FinancialNavigation } from "@/financial/components/financial-navigation
 import { FinancialQuestionAccordionList } from "@/financial/components/financial-question-accordion-list";
 import { FinancialFinalCtaBanner } from "../components/financial-final-cta-banner";
 import { ReactNode } from "react";
-import ConsultationBookingButton from "../components/calendar/consultation-booking-button";
 
 type ServiceHighlight = {
   label: string;
@@ -170,7 +169,7 @@ export function FinancialServicePage({
   return (
     <div className="min-h-screen bg-white text-[#10213b]">
       <FinancialNavigation />
-      <main>
+      <main id="financial-main" tabIndex={-1}>
         <FinancialHero
           eyebrow={hero.eyebrow}
           title={hero.title}
@@ -246,7 +245,7 @@ export function FinancialServicePage({
                     {feature.quote}
                   </blockquote>
                   {feature.attribution && (
-                    <figcaption className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#8d7442]">
+                    <figcaption className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#755d31]">
                       {feature.attribution}
                     </figcaption>
                   )}
@@ -324,7 +323,7 @@ export function FinancialServicePage({
               {coverageTypes.resourceLink && (
                 <Link
                   href={coverageTypes.resourceLink.href}
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#234a61] transition-colors hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8faf6]"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#234a61] transition-colors hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8faf6]"
                 >
                   {coverageTypes.resourceLink.label}
                   <ArrowRight className="size-4" aria-hidden="true" />
@@ -525,7 +524,7 @@ function RelatedGuidesSection({
           {guides.action && (
             <Link
               href={guides.action.href}
-              className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-[#234a61] transition-colors hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-[#234a61] transition-colors hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             >
               {guides.action.label}
               <ArrowRight className="size-4" aria-hidden="true" />
@@ -560,7 +559,7 @@ function RelatedGuidesSection({
                 </p>
                 <Link
                   href={guide.href}
-                  className="mt-auto inline-flex w-fit items-center gap-2 pt-3 text-sm font-semibold text-[#234a61] transition-colors hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                  className="mt-auto inline-flex w-fit items-center gap-2 pt-3 text-sm font-semibold text-[#234a61] transition-colors hover:text-[#526f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                   aria-label={`Read more about ${guide.title}`}
                 >
                   Read More

@@ -9,7 +9,7 @@ export function FinancialFaqPage() {
   return (
     <div className="min-h-screen bg-white text-[#10213b]">
       <FinancialNavigation />
-      <main>
+      <main id="financial-main" tabIndex={-1}>
         <FinancialFaqHero />
         <FinancialFaqQuickAnswersSection />
         <FinancialWhatToExpectSection />

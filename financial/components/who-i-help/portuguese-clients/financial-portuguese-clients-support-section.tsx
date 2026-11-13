@@ -22,8 +22,7 @@ type SupportItem = {
 const supportItems: SupportItem[] = [
   {
     title: "Seguro de vida",
-    description:
-      "Proteção financeira para quem você ama, hoje e no futuro.",
+    description: "Proteção financeira para quem você ama, hoje e no futuro.",
     href: "/financial/services/life-insurance",
     icon: Heart,
     layout: "standard",
@@ -46,8 +45,7 @@ const supportItems: SupportItem[] = [
   },
   {
     title: "Seguro para visitantes / Super Visa",
-    description:
-      "Proteção para seus familiares que vêm te visitar no Canadá.",
+    description: "Proteção para seus familiares que vêm te visitar no Canadá.",
     href: "/financial/services/travel-insurance",
     icon: UsersRound,
     layout: "standard",
@@ -81,6 +79,7 @@ const supportItems: SupportItem[] = [
 export function FinancialPortugueseClientsSupportSection() {
   return (
     <section
+      id="servicos"
       aria-labelledby="portuguese-clients-support-title"
       className="border-b border-[#dfe6dc] bg-white px-4 py-12 sm:px-6 lg:px-8 lg:py-14"
     >
@@ -96,8 +95,8 @@ export function FinancialPortugueseClientsSupportSection() {
             Soluções para cada etapa da sua jornada no Canadá
           </h2>
           <p className="mx-auto mt-3 max-w-4xl text-base leading-7 text-[#617087] sm:text-lg">
-            Conheça as principais áreas em que posso te apoiar. Cada família
-            tem uma história única, e meu papel é ajudar você a encontrar as
+            Conheça as principais áreas em que posso te apoiar. Cada família tem
+            uma história única, e meu papel é ajudar você a encontrar as
             soluções certas, com informações claras e um atendimento
             personalizado.
           </p>
@@ -126,7 +125,7 @@ export function FinancialPortugueseClientsSupportSection() {
 
                 <Link
                   href={item.href}
-                  className="mt-auto inline-flex w-fit items-center gap-3 pt-4 text-base font-semibold text-[#526f46] transition-colors hover:text-[#234a61] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b89b5e] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                  className="mt-auto inline-flex w-fit items-center gap-3 pt-4 text-base font-semibold text-[#526f46] transition-colors hover:text-[#234a61] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#80652f] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                   aria-label={`Saiba mais sobre ${item.title}`}
                 >
                   Saiba mais

@@ -766,7 +766,6 @@ export const travelInsuranceServicePageContent = {
     primaryButtonLabel: "Get a Travel Insurance Quote",
     primaryButtonHref: "/financial/services/travel-insurance/get-a-quote",
     secondaryButtonLabel: "Book a Free Consultation",
-    secondaryButtonHref: "/financial/contact",
   },
 
   overview: {
