@@ -1,0 +1,194 @@
+{
+  "sticky": {
+    "field": "city",
+    "y": 9.828125,
+    "height": 48,
+    "headerBottom": 81,
+    "scrollY": 1143
+  },
+  "focusRing": {
+    "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(255, 255, 255) 0px 0px 0px 2px, rgb(184, 155, 94) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+    "outline": "oklab(0.649997 0.0155209 -0.0579372 / 0.5) none 1px",
+    "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.95)"
+  },
+  "ratingAX": [
+    {
+      "role": "generic",
+      "name": "5 out of 5 stars",
+      "ignored": false
+    },
+    {
+      "role": "generic",
+      "name": "5 out of 5 stars",
+      "ignored": false
+    },
+    {
+      "role": "generic",
+      "name": "5 out of 5 stars",
+      "ignored": false
+    }
+  ],
+  "mockedSuccess": {
+    "intercepted": 1,
+    "role": "status",
+    "text": "Thank you for reaching out!\n\nYour consultation request has been sent. I'll be in touch to arrange a time that works for you."
+  },
+  "zoomEquivalent": [
+    {
+      "route": "/financial",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/about",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/contact",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/legal/accessibility",
+      "width": 720,
+      "scrollWidth": 780
+    },
+    {
+      "route": "/financial/legal/cookie-policy",
+      "width": 720,
+      "scrollWidth": 913
+    },
+    {
+      "route": "/financial/legal/internet-security",
+      "width": 720,
+      "scrollWidth": 900
+    },
+    {
+      "route": "/financial/legal/privacy-policy",
+      "width": 720,
+      "scrollWidth": 1620
+    },
+    {
+      "route": "/financial/legal/regulatory-disclosures",
+      "width": 720,
+      "scrollWidth": 973
+    },
+    {
+      "route": "/financial/legal/terms-of-use",
+      "width": 720,
+      "scrollWidth": 1275
+    },
+    {
+      "route": "/financial/resources/faq",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/resources/guides",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/services/critical-illness-insurance",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/services/disability-insurance",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/services/financial-solutions",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/services/life-insurance",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/services/resp",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/services/travel-insurance",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/services/travel-insurance/get-a-quote",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/who-i-help/families",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/who-i-help/newcomers-to-canada",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/who-i-help/portuguese-speaking-clients",
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "route": "/financial/who-i-help/professionals",
+      "width": 720,
+      "scrollWidth": 720
+    }
+  ],
+  "targets": [
+    {
+      "route": "/financial",
+      "violations": [],
+      "incomplete": [],
+      "passes": [
+        {
+          "id": "target-size",
+          "n": 46
+        }
+      ]
+    },
+    {
+      "route": "/financial/contact",
+      "violations": [],
+      "incomplete": [],
+      "passes": [
+        {
+          "id": "target-size",
+          "n": 41
+        }
+      ]
+    },
+    {
+      "route": "/financial/resources/guides",
+      "violations": [],
+      "incomplete": [],
+      "passes": [
+        {
+          "id": "target-size",
+          "n": 50
+        }
+      ]
+    },
+    {
+      "route": "/financial/services/travel-insurance/get-a-quote",
+      "violations": [],
+      "incomplete": [],
+      "passes": [
+        {
+          "id": "target-size",
+          "n": 39
+        }
+      ]
+    }
+  ]
+}

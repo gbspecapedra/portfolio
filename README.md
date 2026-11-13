@@ -48,12 +48,33 @@ The goal of this portfolio is not to showcase every skill I have, but to clearly
 
 ## 📦 Features
 
+### Consultation form setup
+
+The financial contact form sends consultation requests to `https://formspree.io/f/mqpqelej` by default. It works locally and on Vercel without additional environment configuration.
+
+1. Check the form's target email and spam protection settings in [Formspree](https://formspree.io/), and verify the recipient email.
+2. To use a different form, copy `.env.example` to `.env.local` and change `NEXT_PUBLIC_FORMSPREE_FORM_ID` to the ID shown in that form's Integration tab. For an endpoint such as `https://formspree.io/f/abcdefgh`, use only `abcdefgh`.
+3. If overriding the form in production, add the same environment variable to the Vercel project and redeploy. Restart the development server after changing `.env.local`.
+4. Send a test request and confirm it appears in both the Formspree dashboard and recipient inbox.
+
+The form ID is public; no API key is needed. Setting the environment variable to an empty value disables submission and offers visitors an email link. Successful requests show an inline confirmation; failed requests retain the entered values for retrying.
+
+### Site features
+
 - UX-focused hero with clear positioning
 - Featured projects with strong visual hierarchy
 - Scalable case study system
 - Reusable button and interaction patterns
 - Responsive, accessible layouts
 - Performance-aware animations
+
+### Financial accessibility checks
+
+Start the site with `npm run dev`, then run `npm run test:a11y` in another terminal. The suite checks all `/financial` routes at desktop and mobile widths, reflow at 320 and 720 CSS pixels, text spacing, keyboard focus, navigation, search announcements, language markup, rating semantics, and form validation. Formspree submissions are mocked; no consultation request or appointment is sent.
+
+The runner uses Google Chrome when available on macOS. Otherwise install Chromium with `npx playwright install chromium`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to a browser executable. Use `A11Y_BASE_URL` to test a server other than `http://localhost:3000`. Results and screenshots are saved under the ignored `artifacts/a11y/` directory.
+
+The [audit and remediation notes](audits/financial-wcag-2026-11-13/remediation.md) document the confirmed fixes and remaining manual verification. Automated checks alone do not establish WCAG conformance.
 
 ## 📌 Assumptions
 
