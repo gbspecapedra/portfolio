@@ -43,21 +43,9 @@ The goal of this portfolio is not to showcase every skill I have, but to clearly
 
 **Tooling**
 - ESLint
-- Prettier
 - Vercel (deployment)
 
 ## 📦 Features
-
-### Consultation form setup
-
-The financial contact form sends consultation requests to `https://formspree.io/f/mqpqelej` by default. It works locally and on Vercel without additional environment configuration.
-
-1. Check the form's target email and spam protection settings in [Formspree](https://formspree.io/), and verify the recipient email.
-2. To use a different form, copy `.env.example` to `.env.local` and change `NEXT_PUBLIC_FORMSPREE_FORM_ID` to the ID shown in that form's Integration tab. For an endpoint such as `https://formspree.io/f/abcdefgh`, use only `abcdefgh`.
-3. If overriding the form in production, add the same environment variable to the Vercel project and redeploy. Restart the development server after changing `.env.local`.
-4. Send a test request and confirm it appears in both the Formspree dashboard and recipient inbox.
-
-The form ID is public; no API key is needed. Setting the environment variable to an empty value disables submission and offers visitors an email link. Successful requests show an inline confirmation; failed requests retain the entered values for retrying.
 
 ### Site features
 
@@ -68,13 +56,45 @@ The form ID is public; no API key is needed. Setting the environment variable to
 - Responsive, accessible layouts
 - Performance-aware animations
 
-### Financial accessibility checks
+## Local development
 
-Start the site with `npm run dev`, then run `npm run test:a11y` in another terminal. The suite checks all `/financial` routes at desktop and mobile widths, reflow at 320 and 720 CSS pixels, text spacing, keyboard focus, navigation, search announcements, language markup, rating semantics, and form validation. Formspree submissions are mocked; no consultation request or appointment is sent.
+Use Node.js 20.9 or newer and npm:
 
-The runner uses Google Chrome when available on macOS. Otherwise install Chromium with `npx playwright install chromium`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to a browser executable. Use `A11Y_BASE_URL` to test a server other than `http://localhost:3000`. Results and screenshots are saved under the ignored `artifacts/a11y/` directory.
+```sh
+npm ci
+npm run dev
+```
 
-The [audit and remediation notes](audits/financial-wcag-2026-11-13/remediation.md) document the confirmed fixes and remaining manual verification. Automated checks alone do not establish WCAG conformance.
+Open `http://localhost:3000`. The portfolio does not require environment variables or external service configuration.
+
+```sh
+npm run lint
+npx tsc --noEmit
+npm run build
+npm start
+```
+
+## Project structure
+
+```text
+app/
+  page.tsx                       # Portfolio homepage
+  layout.tsx                     # Metadata, theme provider, and notifications
+  globals.css                    # Design tokens and global styles
+  projects/[slug]/
+    page.tsx                     # Static project case studies
+    not-found.tsx                # Unknown project fallback
+components/
+  home/                          # Hero, projects, experience, and contact sections
+  navigation/                    # Reusable navigation controls
+  ui/                            # Shared UI primitives
+  ...                            # Navbar, footer, theme toggle, and interactions
+data/                            # Project content, experience, and contact details
+lib/                             # Shared utilities
+public/                          # Static assets
+```
+
+Add or edit case studies in `data/projects.ts`. Each project's slug generates a page at `/projects/[slug]`; project cards use the same data. Previous `/developer/projects/[slug]` URLs permanently redirect to the corresponding project page.
 
 ## 📌 Assumptions
 
