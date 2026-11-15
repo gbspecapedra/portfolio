@@ -16,7 +16,6 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
 
-  /* PRIMARY = neutral */
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
 
@@ -26,15 +25,20 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
 
-  /* ACCENT = neutral surfaces */
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
 
   --color-border: var(--border);
   --color-input: var(--input);
 
-  /* SIGNATURE */
   --color-ring: var(--ring);
+
+  --color-brand-sage: var(--brand-sage);
+  --color-brand-clay: var(--brand-clay);
+  --color-surface-soft: var(--surface-soft);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -42,78 +46,95 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* =========================
-   TOKENS
-   ========================= */
+/* Warm Editorial — semantic colours shared by shadcn/ui and Radix Primitives. */
 :root {
   --radius: 0.625rem;
+  color-scheme: light;
 
-  /* Light */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.15 0.005 285);
+  --background: #FAF7F3;
+  --foreground: #292630;
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.005 285);
+  --card: #FFFFFF;
+  --card-foreground: #292630;
 
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.005 285);
+  --popover: #FFFFFF;
+  --popover-foreground: #292630;
 
-  /* PRIMARY = neutral ink */
-  --primary: oklch(0.18 0.005 285);
-  --primary-foreground: oklch(0.985 0 0);
+  --primary: #A74732;
+  --primary-foreground: #FFFFFF;
 
-  --secondary: oklch(0.96 0.001 286);
-  --secondary-foreground: oklch(0.18 0.005 285);
+  --secondary: #F3E7DE;
+  --secondary-foreground: #45302C;
 
-  --muted: oklch(0.96 0.001 286);
-  --muted-foreground: oklch(0.55 0.01 285);
+  --muted: #F1EBE6;
+  --muted-foreground: #665F5E;
 
-  /* ACCENT = neutral */
-  --accent: oklch(0.96 0.001 286);
-  --accent-foreground: oklch(0.18 0.005 285);
+  --accent: #EEDBD0;
+  --accent-foreground: #813825;
 
-  --border: oklch(0.92 0.004 286);
-  --input: oklch(0.92 0.004 286);
+  --destructive: #B42318;
+  --destructive-foreground: #FFFFFF;
 
-  /* Ring used for focus outline (soft purple signature) */
-  --ring: oklch(0.65 0.06 285);
+  --border: #E4D9D1;
+  --input: #D7C9C0;
+  --ring: #A74732;
+
+  --brand-sage: #8F9982;
+  --brand-clay: #A74732;
+  --surface-soft: #F8EFEA;
+
+  /* Keep existing signature treatments connected to the theme. */
+  --signature: var(--brand-clay);
+  --signature-2: var(--accent-foreground);
+  --hero-grad-1: color-mix(in oklch, var(--brand-clay) 10%, transparent);
+  --hero-grad-2: color-mix(in oklch, var(--brand-sage) 10%, transparent);
+  --hero-blob-1: 0.08;
+  --hero-blob-2: 0.06;
 }
 
-/* =========================
-   DARK
-   ========================= */
 .dark {
-  --background: oklch(0.13 0.005 285);
-  --foreground: oklch(0.985 0 0);
+  color-scheme: dark;
 
-  --card: oklch(0.18 0.005 285);
-  --card-foreground: oklch(0.985 0 0);
+  --background: #211E20;
+  --foreground: #F5EFEB;
 
-  --popover: oklch(0.18 0.005 285);
-  --popover-foreground: oklch(0.985 0 0);
+  --card: #2D292A;
+  --card-foreground: #F5EFEB;
 
-  /* PRIMARY = dark solid button */
-  --primary: oklch(0.22 0.01 285);
-  --primary-foreground: oklch(0.985 0 0);
+  --popover: #2D292A;
+  --popover-foreground: #F5EFEB;
 
-  /* Secondary slightly lighter than primary */
-  --secondary: oklch(0.28 0.01 285);
-  --secondary-foreground: oklch(0.985 0 0);
+  --primary: #D88B76;
+  --primary-foreground: #211E20;
 
-  --muted: oklch(0.25 0.005 285);
-  --muted-foreground: oklch(0.7 0.01 285);
+  --secondary: #3B3231;
+  --secondary-foreground: #F5EFEB;
 
-  --accent: oklch(0.25 0.005 285);
-  --accent-foreground: oklch(0.985 0 0);
+  --muted: #373133;
+  --muted-foreground: #C4B9B5;
 
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
+  --accent: #4A3530;
+  --accent-foreground: #F5C8B6;
 
-  --ring: oklch(0.65 0.06 285);
+  --destructive: #FF8E83;
+  --destructive-foreground: #211E20;
+
+  --border: #514744;
+  --input: #655753;
+  --ring: #D88B76;
+
+  --brand-sage: #A7B29B;
+  --brand-clay: #D88B76;
+  --surface-soft: #332A29;
+
+  --hero-grad-1: color-mix(in oklch, var(--brand-clay) 8%, transparent);
+  --hero-grad-2: color-mix(in oklch, var(--brand-sage) 6%, transparent);
+  --hero-blob-1: 0.05;
+  --hero-blob-2: 0.04;
 }
 
 /* =========================
-   BASE + BRAND TOKENS
+   BASE
    ========================= */
 @layer base {
   * {
@@ -124,28 +145,9 @@
     @apply bg-background text-foreground;
   }
 
-  :root {
-    /* signature (used for highlights only) */
-    --signature: oklch(0.72 0.12 295);
-    --signature-2: oklch(0.70 0.10 315);
-
-    /* hero background (light) */
-    --hero-grad-1: rgba(167, 139, 250, 0.16);
-    --hero-grad-2: rgba(216, 180, 254, 0.12);
-    --hero-blob-1: 0.18;
-    --hero-blob-2: 0.14;
-  }
-
-  .dark {
-    /* signature tuned for dark */
-    --signature: oklch(0.60 0.12 292);
-    --signature-2: oklch(0.58 0.10 315);
-
-    /* hero background (dark) - deeper, less washed */
-    --hero-grad-1: rgba(124, 58, 237, 0.12);
-    --hero-grad-2: rgba(168, 85, 247, 0.10);
-    --hero-blob-1: 0.10;
-    --hero-blob-2: 0.07;
+  a:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
   }
 }
 
@@ -156,8 +158,8 @@
   .text-gradient {
     background: linear-gradient(
       90deg,
-      color-mix(in oklch, var(--signature) 92%, white),
-      color-mix(in oklch, var(--signature-2) 92%, white)
+      var(--signature),
+      var(--signature-2)
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -165,40 +167,27 @@
   }
 
   .btn-sig {
-    background: linear-gradient(
-      90deg,
-      color-mix(in oklch, var(--signature) 70%, black),
-      color-mix(in oklch, var(--signature-2) 70%, black)
-    );
-    color: white;
-    border: 1px solid color-mix(in oklch, var(--signature) 28%, transparent);
-  }
-
-  .dark .btn-sig {
-    background: linear-gradient(
-      90deg,
-      color-mix(in oklch, var(--signature) 55%, black),
-      color-mix(in oklch, var(--signature-2) 55%, black)
-    );
-    border: 1px solid color-mix(in oklch, var(--signature) 22%, transparent);
+    background: var(--primary);
+    color: var(--primary-foreground);
+    border: 1px solid var(--primary);
   }
 
   .btn-sig:hover {
-    filter: brightness(1.05);
+    background: color-mix(in oklch, var(--primary) 90%, var(--background));
     box-shadow: 0 16px 48px -28px
       color-mix(in oklch, var(--signature) 45%, transparent);
   }
 
   .badge-sig {
-    background: color-mix(in oklch, var(--signature) 16%, transparent);
-    border: 1px solid color-mix(in oklch, var(--signature) 28%, transparent);
-    color: color-mix(in oklch, var(--foreground) 88%, var(--signature));
+    background: var(--accent);
+    border: 1px solid var(--border);
+    color: var(--accent-foreground);
   }
 
   .card-sig {
     transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
-    border-color: color-mix(in oklch, var(--border) 75%, transparent);
-    background: color-mix(in oklch, var(--card) 92%, transparent);
+    border-color: var(--border);
+    background: var(--card);
   }
   .card-sig:hover {
     transform: translateY(-2px);
@@ -233,8 +222,8 @@
     pointer-events: none;
     z-index: 0;
     background:
-      radial-gradient(520px circle at 50% 0%, rgba(167, 139, 250, var(--hero-blob-1)), transparent 60%),
-      radial-gradient(420px circle at 92% 30%, rgba(216, 180, 254, var(--hero-blob-2)), transparent 62%);
+      radial-gradient(520px circle at 50% 0%, color-mix(in oklch, var(--brand-clay) calc(var(--hero-blob-1) * 100%), transparent), transparent 60%),
+      radial-gradient(420px circle at 92% 30%, color-mix(in oklch, var(--brand-sage) calc(var(--hero-blob-2) * 100%), transparent), transparent 62%);
     filter: blur(130px);
     transform: translate3d(0, 0, 0);
   }

@@ -65,7 +65,7 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
                 className={[
                   "inline-flex items-center rounded-md px-3 py-2 text-sm font-medium",
                   "bg-primary text-primary-foreground",
-                  "hover:opacity-70 transition-opacity",
+                  "hover:bg-primary/90 transition-colors",
                 ].join(" ")}
                 onClick={(e) => {
                   e.stopPropagation();

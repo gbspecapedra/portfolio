@@ -8,7 +8,7 @@ export function HeroSection() {
     <section className="space-y-6">
       <Reveal trigger="mount" delay={0}>
         <div className="inline-flex items-center gap-2 rounded-full border bg-background/70 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
-          <span className="h-2 w-2 rounded-full bg-[color:var(--signature)]" />
+          <span className="h-2 w-2 rounded-full bg-brand-sage" />
           Product-minded UI Engineering
         </div>
       </Reveal>

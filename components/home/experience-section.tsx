@@ -11,7 +11,7 @@ import {
 
 function StatPill({ children }: { children: string }) {
   return (
-    <span className="inline-flex items-center rounded-full border border-foreground/10 bg-foreground/5 px-2.5 py-1 text-xs text-muted-foreground dark:bg-white/5">
+    <span className="inline-flex items-center rounded-full border border-border bg-surface-soft px-2.5 py-1 text-xs text-muted-foreground">
       {children}
     </span>
   );

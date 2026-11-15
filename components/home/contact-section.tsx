@@ -15,8 +15,7 @@ export function ContactSection() {
     contactInfo;
 
   const outlineHover =
-    "border-foreground/15 bg-background/40 hover:bg-foreground/10 hover:border-foreground/35 " +
-    "dark:bg-white/5 dark:hover:bg-white/10 dark:hover:border-white/35 transition-colors";
+    "border-input bg-background hover:bg-accent hover:border-ring transition-colors";
 
   return (
     <section id="contact" className="pt-20">
@@ -118,15 +117,15 @@ export function ContactSection() {
 
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex gap-2">
-                    <span className="mt-1.5 h-2 w-2 rounded-full bg-[color:var(--signature)]" />
+                    <span className="mt-1.5 h-2 w-2 rounded-full bg-brand-sage" />
                     Design systems + component architecture
                   </li>
                   <li className="flex gap-2">
-                    <span className="mt-1.5 h-2 w-2 rounded-full bg-[color:var(--signature)]" />
+                    <span className="mt-1.5 h-2 w-2 rounded-full bg-brand-sage" />
                     Complex flows: validation, edge cases, UX states
                   </li>
                   <li className="flex gap-2">
-                    <span className="mt-1.5 h-2 w-2 rounded-full bg-[color:var(--signature)]" />
+                    <span className="mt-1.5 h-2 w-2 rounded-full bg-brand-sage" />
                     Performance, accessibility, and clean refactors
                   </li>
                 </ul>

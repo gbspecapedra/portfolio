@@ -50,10 +50,9 @@ export function CopyEmailButton({ email, className, withToast = true }: Props) {
             className={cn(
               [
                 "group inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs",
-                "border border-foreground/15",
+                "border border-input",
                 "bg-background/40",
-                "hover:bg-foreground/10 hover:border-foreground/30",
-                "dark:bg-white/5 dark:hover:bg-white/10 dark:hover:border-white/30",
+                "hover:bg-accent hover:border-ring",
                 "transition-colors",
                 "focus:outline-none focus:ring-2 focus:ring-ring",
                 "active:scale-[0.98]",
