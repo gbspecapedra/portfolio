@@ -10,6 +10,20 @@ type RevealProps = React.HTMLAttributes<HTMLDivElement> & {
   trigger?: "inView" | "mount";
 };
 
+function subscribeToReducedMotion(onChange: () => void) {
+  const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  mediaQuery.addEventListener("change", onChange);
+  return () => mediaQuery.removeEventListener("change", onChange);
+}
+
+function getReducedMotionSnapshot() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function getServerReducedMotionSnapshot() {
+  return false;
+}
+
 export function Reveal({
   className,
   delay = 0,
@@ -18,27 +32,14 @@ export function Reveal({
 }: RevealProps) {
   const ref = React.useRef<HTMLDivElement | null>(null);
   const [shown, setShown] = React.useState(false);
-  const [reduceMotion, setReduceMotion] = React.useState(false);
+  const reduceMotion = React.useSyncExternalStore(
+    subscribeToReducedMotion,
+    getReducedMotionSnapshot,
+    getServerReducedMotionSnapshot
+  );
 
   React.useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduceMotion(mq.matches);
-    update();
-
-    if (mq.addEventListener) mq.addEventListener("change", update);
-    else mq.addListener(update);
-
-    return () => {
-      if (mq.removeEventListener) mq.removeEventListener("change", update);
-      else mq.removeListener(update);
-    };
-  }, []);
-
-  React.useEffect(() => {
-    if (reduceMotion) {
-      setShown(true);
-      return;
-    }
+    if (reduceMotion) return;
 
     if (trigger === "mount") {
       const t = window.setTimeout(() => {
@@ -70,10 +71,10 @@ export function Reveal({
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{ transitionDelay: reduceMotion ? "0ms" : `${delay}ms` }}
       className={cn(
-        "transform-gpu will-change-transform transition-[opacity,transform] duration-[950ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
-        shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[7px]",
+        "transform-gpu will-change-transform transition-[opacity,transform] duration-[950ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+        shown || reduceMotion ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[7px]",
         className
       )}
       {...props}

@@ -55,16 +55,16 @@ function SectionBlock({
 
             {body?.length ? (
               <div className="space-y-2 text-sm leading-relaxed text-muted-foreground">
-                {body.map((p, i) => (
-                  <p key={i}>{p}</p>
+                {body.map((p) => (
+                  <p key={p}>{p}</p>
                 ))}
               </div>
             ) : null}
 
             {bullets?.length ? (
               <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
-                {bullets.map((b, i) => (
-                  <li key={i}>{b}</li>
+                {bullets.map((b) => (
+                  <li key={b}>{b}</li>
                 ))}
               </ul>
             ) : null}

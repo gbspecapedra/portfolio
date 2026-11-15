@@ -6,7 +6,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CopyEmailButton } from "@/components/copy-email-button";
-import { SiLinkedin, SiGithub } from "react-icons/si";
+import { SiGithub } from "react-icons/si";
+import { FaLinkedin } from "react-icons/fa6";
 import { NavButton } from "@/components/navigation/nav-button";
 
 export function ContactSection() {
@@ -81,7 +82,7 @@ export function ContactSection() {
                     <NavButton
                       href={linkedinUrl}
                       label="LinkedIn profile"
-                      icon={<SiLinkedin className="h-4 w-4" />}
+                      icon={<FaLinkedin className="h-4 w-4" />}
                     />
                   ) : null}
 

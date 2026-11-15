@@ -58,7 +58,14 @@ The goal of this portfolio is not to showcase every skill I have, but to clearly
 
 ## Local development
 
-Use Node.js 20.9 or newer and npm:
+Use Node.js 26 LTS (the exact version is recorded in `.nvmrc`) and npm. If you use nvm:
+
+```sh
+nvm install
+nvm use
+```
+
+Install dependencies and start the development server:
 
 ```sh
 npm ci
@@ -69,10 +76,27 @@ Open `http://localhost:3000`. The portfolio does not require environment variabl
 
 ```sh
 npm run lint
-npx tsc --noEmit
+npm run test:lint
+npm run typecheck
 npm run build
 npm start
 ```
+
+Type checks run with TypeScript 7. ESLint's TypeScript parser still requires the compiler API, so `typescript` aliases Microsoft's `@typescript/typescript6` compatibility package while `@typescript/native` aliases TypeScript 7. This follows the [official side-by-side setup](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6-0). `npm run typecheck` generates Next.js route types before checking the project, so it also works on a fresh checkout.
+
+The scoped `minimatch` overrides keep ESLint's TypeScript parser and accessibility plugin on a patched glob matcher. Remove them when those packages require minimatch 11 or newer.
+
+ESLint 10 uses an explicit flat configuration in `eslint.config.mjs`. The bundled `eslint-config-next` preset was replaced to avoid its older plugin peer requirements:
+
+| Previous plugin | ESLint 10-compatible replacement |
+| --- | --- |
+| `eslint-plugin-react` | [`@eslint-react/eslint-plugin`](https://eslint-react.xyz/docs/migrating-from-eslint-plugin-react) |
+| `eslint-plugin-jsx-a11y` | [`eslint-plugin-jsx-a11y-x`](https://github.com/eslint-community/eslint-plugin-jsx-a11y-x/) |
+| `eslint-plugin-import` | [`eslint-plugin-import-x`](https://github.com/un-ts/eslint-plugin-import-x) |
+
+The configuration keeps the official Next.js Core Web Vitals rules through `@next/eslint-plugin-next`, React Hooks checks through `eslint-plugin-react-hooks`, and TypeScript's recommended rules. The original six accessibility checks, including alt text on Next.js `Image`, retain their warning levels. React uses the replacement plugin's recommended TypeScript preset; its rules differ from the previous React preset, and TypeScript handles JSX type errors such as duplicate props. `npm run test:lint` checks valid code and deliberately invalid fixtures to verify these protections.
+
+Use the Node version in `.nvmrc` to avoid engine warnings; if your terminal reports Node 23, run `nvm use` before `npm ci`.
 
 ## Project structure
 
