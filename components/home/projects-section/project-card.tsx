@@ -1,81 +1,59 @@
-"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-import { useRouter } from "next/navigation";
-import { Reveal } from "@/components/reveal";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Project } from "@/data/projects";
-import { ProjectLinks } from "./project-links";
 
-export function ProjectCard({
-  project,
-  delay = 0,
-}: {
-  project: Project;
-  delay?: number;
-}) {
-  const router = useRouter();
-  const tech = project.card?.tech ?? project.tags;
+export function ProjectCard({ project }: { project: Project }) {
+  const { slug, title, subtitle, card } = project;
+  const titleId = `project-title-${slug}`;
+  const linkLabelId = `project-link-${slug}`;
 
   return (
-    <Reveal trigger="inView" delay={delay} className="min-w-0">
-      <Card
-        className="card-sig h-full cursor-pointer hover:shadow-md transition-shadow"
-        onClick={() => router.push(`/projects/${project.slug}`)}
-      >
-        <CardContent className="p-5 flex h-full flex-col">
-          <div className="relative">
-            <div className="flex flex-nowrap gap-2 overflow-x-auto pr-10 scrollbar-width">
-              {tech.map((t) => (
-                <Badge key={t} variant="secondary" className="shrink-0">
-                  {t}
-                </Badge>
-              ))}
-            </div>
-            <div className="pointer-events-none absolute right-0 top-0 h-full w-15 bg-linear-to-l from-card to-transparent" />
+    <Card className="relative min-w-0 gap-0 overflow-hidden border-border/75 bg-linear-to-b from-card to-surface-soft/60 py-0 shadow-sm transition-[border-color,box-shadow] hover:border-brand-clay/50 hover:shadow-md focus-within:border-brand-clay/50">
+      {card?.image && (
+        <div className="border-b border-border/70 bg-secondary px-[5%] pt-[3.5%]">
+          <div className="relative aspect-[2] overflow-hidden rounded-t-md shadow-sm">
+            <Image
+              src={card.image}
+              alt=""
+              fill
+              sizes="(min-width: 1456px) 297px, (min-width: 1024px) 21vw, (min-width: 640px) 44vw, 85vw"
+              className="object-cover object-left"
+            />
           </div>
+        </div>
+      )}
 
-          <div className="mt-3 flex-1">
-            <h3 className="font-semibold leading-snug">{project.title}</h3>
+      <CardContent className="flex flex-1 flex-col items-start px-5 pt-3.5 pb-4">
+        <h3
+          id={titleId}
+          className="text-2xl leading-tight font-bold tracking-tight [font-family:Georgia,'Times_New_Roman',serif]"
+        >
+          {title}
+        </h3>
 
-            <p className="mt-1 text-sm text-muted-foreground line-clamp-4">
-              {project.card?.pitch ?? project.subtitle}
-            </p>
-          </div>
+        <p className="mt-2 mb-3 flex-1 text-sm leading-snug text-card-foreground">
+          {card?.pitch ?? subtitle}
+        </p>
 
-          <div className="mt-4 space-y-3">
-            {project.card?.highlights?.[0] ? (
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="outline" className="border-foreground/10">
-                  {project.card.highlights[0]}
-                </Badge>
-              </div>
-            ) : (
-              <div className="min-h-[28px]" />
-            )}
-
-            <div className="flex flex-nowrap items-center gap-2">
-              <span
-                className="inline-flex items-center rounded-md px-3 py-1.5 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  router.push(`/projects/${project.slug}`);
-                }}
-                onMouseDown={(e) => e.stopPropagation()}
-                role="link"
-              >
-                Case
-              </span>
-
-              <ProjectLinks
-                links={project.links}
-                size="sm"
-                className="flex flex-nowrap gap-2"
-              />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </Reveal>
+        <Button
+          asChild
+          variant="link"
+          className="h-auto w-fit gap-2 p-0 text-base font-semibold has-[>svg]:px-0"
+        >
+          <Link
+            href={`/projects/${slug}`}
+            aria-labelledby={`${linkLabelId} ${titleId}`}
+            className="after:absolute after:inset-0"
+          >
+            <span id={linkLabelId}>View case study</span>
+            <ArrowRight aria-hidden="true" />
+          </Link>
+        </Button>
+      </CardContent>
+    </Card>
   );
 }

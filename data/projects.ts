@@ -31,7 +31,8 @@ export type Project = {
   };
 
   card?: {
-    featured?: boolean; // marca qual é o “big featured”
+    featured?: boolean;
+    image?: string;
     eyebrow?: string; // ex: "Featured"
     pitch?: string; // texto do card (1-2 linhas)
     highlights?: string[]; // chips tipo “Role: …”, “Focus: …”
@@ -73,6 +74,7 @@ export const projects: Project[] = [
       },
     ],
     card: {
+      image: "/images/projects/emed.webp",
       eyebrow: "Case Study",
       pitch:
         "Built a role-aware clinic management platform—from appointments to patient records and lab results—turning complex clinical workflows into a clear, responsive experience.",
@@ -213,6 +215,7 @@ export const projects: Project[] = [
     ],
 
     card: {
+      image: "/images/projects/goplaces.webp",
       eyebrow: "UX Case Study",
       pitch:
         "A mobile-first UX project designed to reduce decision fatigue for parents by prioritizing trust signals, relevant filters, and parent-driven content.",
@@ -357,6 +360,7 @@ export const projects: Project[] = [
 
     card: {
       featured: true,
+      image: "/images/projects/shipflow.webp",
       eyebrow: "Featured",
       pitch:
         "A 4-hour take-home project treated as a real MVP: a reliable USPS label creation flow focused on domain correctness, predictable UX, and scalable architecture.",
@@ -521,6 +525,7 @@ export const projects: Project[] = [
     ],
 
     card: {
+      image: "/images/projects/coinpay.webp",
       eyebrow: "UI Take-Home",
       pitch:
         "Sleek fintech UI prototype built to showcase interaction quality, motion, and theme-aware components under a 2–3 day deadline. Emphasizes design-system fidelity and production-like structure with realistic data.",
