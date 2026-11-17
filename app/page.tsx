@@ -12,9 +12,9 @@ export default function HomePage() {
     <>
       <Navbar />
 
-      <main className="hero-bg bg-background">
-        <div className="relative z-10 mx-auto max-w-5xl px-4 py-16 sm:py-20">
-          <HeroSection />
+      <main id="home" className="hero-bg scroll-mt-28 bg-background">
+        <HeroSection />
+        <div className="relative z-10 mx-auto max-w-5xl px-4 pb-16 sm:pb-20">
           <ProjectsSection />
           <ExperienceSection />
           <ContactSection />

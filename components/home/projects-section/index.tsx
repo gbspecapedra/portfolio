@@ -9,7 +9,7 @@ export function ProjectsSection() {
   const { featured, secondary } = getFeaturedAndSecondary(projects);
 
   return (
-    <section id="projects" className="pt-20">
+    <section id="projects" className="scroll-mt-10 pt-20">
       <Reveal trigger="inView" delay={0}>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>

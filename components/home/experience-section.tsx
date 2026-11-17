@@ -23,7 +23,7 @@ export function ExperienceSection() {
     .map((item) => `${item.company}-${item.title}`);
 
   return (
-    <section id="experience" className="pt-20">
+    <section id="experience" className="scroll-mt-10 pt-20">
       <Reveal trigger="inView" delay={0}>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>

@@ -18,7 +18,7 @@ export function ContactSection() {
     "border-input bg-background hover:bg-accent hover:border-ring transition-colors";
 
   return (
-    <section id="contact" className="pt-20">
+    <section id="contact" className="scroll-mt-10 pt-20">
       <Reveal trigger="inView" delay={0}>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
