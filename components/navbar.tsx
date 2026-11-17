@@ -46,7 +46,6 @@ export function Navbar() {
         <Link
           href="/"
           className="shrink-0 text-2xl leading-tight tracking-tight text-foreground sm:text-3xl lg:text-[2.375rem]"
-          style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
         >
           Gisele Pecapedra
         </Link>
