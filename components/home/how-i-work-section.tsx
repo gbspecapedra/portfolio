@@ -1,15 +1,5 @@
-import { CodeXml, Flag, Handshake, Layers } from "lucide-react";
-import { FaUniversalAccess } from "react-icons/fa6";
+import { CodeXml, Flag, Handshake } from "lucide-react";
 import { HiOutlineChartBar } from "react-icons/hi2";
-import {
-  SiGithub,
-  SiNextdotjs,
-  SiReact,
-  SiStorybook,
-  SiTypescript,
-} from "react-icons/si";
-
-import { Badge } from "@/components/ui/badge";
 
 const workflow = [
   {
@@ -36,24 +26,6 @@ const workflow = [
     description:
       "Ship with quality and ownership, balancing technical excellence, user experience, and business impact.",
   },
-];
-
-const technologies = [
-  { label: "React", icon: SiReact, color: "text-[#237889] dark:text-[#61dafb]" },
-  {
-    label: "TypeScript",
-    icon: SiTypescript,
-    color: "text-[#276ba7] dark:text-[#75b6f1]",
-  },
-  { label: "Next.js", icon: SiNextdotjs },
-  {
-    label: "Storybook",
-    icon: SiStorybook,
-    color: "text-[#d72d63] dark:text-[#ff77a2]",
-  },
-  { label: "Accessibility", icon: FaUniversalAccess },
-  { label: "Design Systems", icon: Layers },
-  { label: "Git & GitHub", icon: SiGithub },
 ];
 
 export function HowIWorkSection() {
@@ -94,29 +66,6 @@ export function HowIWorkSection() {
               <p className="mt-2 text-[15px] leading-snug text-muted-foreground xl:text-base">
                 {description}
               </p>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-5 px-2 lg:mt-11 xl:px-3 min-[1400px]:gap-x-8 min-[1400px]:px-8">
-        <div>
-          <h3 className="text-[clamp(1.375rem,2vw,1.5625rem)] leading-tight font-bold tracking-tight [font-family:Georgia,'Times_New_Roman',serif]">
-            Technologies &amp; Practices
-          </h3>
-          <div aria-hidden="true" className="mt-2.5 h-[3px] w-14 bg-brand-clay" />
-        </div>
-
-        <ul role="list" className="flex flex-wrap gap-2 xl:grow xl:justify-between min-[1400px]:gap-2.5">
-          {technologies.map(({ label, icon: Icon, color }) => (
-            <li key={label}>
-              <Badge
-                variant="outline"
-                className="gap-1.5 border-border/70 px-2.5 py-2 text-[13px] font-semibold [&>svg]:size-[18px] min-[1400px]:gap-2 min-[1400px]:px-3 min-[1400px]:py-2.5 min-[1400px]:text-sm min-[1400px]:[&>svg]:size-5"
-              >
-                <Icon aria-hidden="true" className={color} />
-                {label}
-              </Badge>
             </li>
           ))}
         </ul>
