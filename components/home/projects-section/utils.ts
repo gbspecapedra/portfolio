@@ -6,7 +6,7 @@ export function getFeaturedAndSecondary(all: Project[]) {
     .sort((a, b) => Number(!!b.card?.featured) - Number(!!a.card?.featured));
 
   const featured = list.find((p) => p.card?.featured) ?? list[0] ?? null;
-  const secondary = list.filter((p) => p.slug !== featured?.slug).slice(0, 4);
+  const secondary = list.filter((p) => p.slug !== featured?.slug);
 
   return { featured, secondary };
 }

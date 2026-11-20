@@ -1,4 +1,4 @@
-export type Experience = {
+type Experience = {
   id: string;
   company: string;
   title: string;
@@ -88,9 +88,6 @@ export const experience = [
       "Collaborated closely with non-technical stakeholders to translate institutional requirements into reliable, shippable solutions.",
     ],
     skills: ["Full Stack", "UI Engineering", "Complex Workflows"],
-    additionalSkills: [
-      "Long-term Maintenance",
-      "Stakeholder Collaboration",
-    ],
+    additionalSkills: ["Long-term Maintenance", "Stakeholder Collaboration"],
   },
 ] as const satisfies readonly Experience[];

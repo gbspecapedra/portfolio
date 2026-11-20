@@ -9,23 +9,20 @@ import {
 } from "@/components/ui/tooltip";
 
 type NavButtonProps = {
-  href?: string;
-  label?: string;
-  icon?: React.ReactNode;
   variant?: "icon" | "text";
-  showTooltip?: boolean;
 };
 
-export function NavButton({
-  href = "/#projects",
-  label = "Back to projects",
-  icon = <FiArrowLeft className="h-4 w-4" />,
-  variant = "icon",
-  showTooltip = true,
-}: NavButtonProps) {
+export function NavButton({ variant = "icon" }: NavButtonProps) {
+  const label = "Back to projects";
+  const icon = <FiArrowLeft aria-hidden="true" className="size-4" />;
   const button = (
-    <Button asChild variant="outline" size={variant === "icon" ? "icon" : "sm"}>
-      <Link href={href} aria-label={label}>
+    <Button
+      asChild
+      variant="outline"
+      size={variant === "icon" ? "icon" : "sm"}
+      className="min-h-11 min-w-11 rounded-xl bg-background/75 px-3.5 font-semibold motion-reduce:transition-none"
+    >
+      <Link href="/#projects" aria-label={label}>
         {variant === "icon" ? (
           icon
         ) : (
@@ -38,7 +35,7 @@ export function NavButton({
     </Button>
   );
 
-  if (!showTooltip || variant === "text") {
+  if (variant === "text") {
     return button;
   }
 

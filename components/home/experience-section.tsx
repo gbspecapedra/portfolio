@@ -65,7 +65,7 @@ export function ExperienceSection() {
         id="experience-heading"
         className={cn(
           serif,
-          "text-[clamp(2rem,6.1cqw,2.875rem)] leading-tight font-bold tracking-[-0.04em] text-pretty after:mt-3 after:block after:h-[3px] after:w-14 after:rounded-full after:bg-brand-clay after:content-['']",
+          "text-[clamp(2rem,6.1cqw,2.875rem)] leading-tight font-bold tracking-[-0.04em] text-pretty after:mt-3 after:block after:h-0.75 after:w-14 after:rounded-full after:bg-brand-clay after:content-['']",
         )}
       >
         Professional experience
@@ -79,7 +79,11 @@ export function ExperienceSection() {
         tabIndex={0}
         className="mt-5 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring sm:mt-6 min-[1100px]:-ml-1 min-[1100px]:min-h-0 min-[1100px]:flex-1 min-[1100px]:overflow-y-auto min-[1100px]:contain-size min-[1100px]:scrollbar-thin min-[1100px]:scrollbar-gutter-stable min-[1100px]:scrollbar-thumb-brand-clay min-[1100px]:scrollbar-track-surface-soft min-[1100px]:py-1 min-[1100px]:pr-2 min-[1100px]:pl-1"
       >
-        <ol aria-label="Employment history" role="list" className="grid gap-2.5">
+        <ol
+          aria-label="Employment history"
+          role="list"
+          className="grid gap-2.5"
+        >
           {experience.map((item) => {
             const mark = companyMarks[item.id];
             const Icon = mark.icon;
@@ -88,15 +92,15 @@ export function ExperienceSection() {
             return (
               <li
                 key={item.id}
-                className="relative pl-5 before:absolute before:top-0 before:-bottom-2.5 before:left-1 before:w-px before:bg-brand-clay/45 after:absolute after:top-9 after:left-0 after:size-[9px] after:-translate-y-1/2 after:rounded-full after:bg-brand-clay first:before:top-9 last:before:bottom-auto last:before:h-9 @min-[26rem]:pl-7 @min-[26rem]:after:top-12 @min-[26rem]:first:before:top-12 @min-[26rem]:last:before:h-12"
+                className="relative pl-5 before:absolute before:top-0 before:-bottom-2.5 before:left-1 before:w-px before:bg-brand-clay/45 after:absolute after:top-9 after:left-0 after:size-2.25 after:-translate-y-1/2 after:rounded-full after:bg-brand-clay first:before:top-9 last:before:bottom-auto last:before:h-9 @min-[26rem]:pl-7 @min-[26rem]:after:top-12 @min-[26rem]:first:before:top-12 @min-[26rem]:last:before:h-12"
               >
                 <AccordionItem value={item.id} className="border-none">
                   <Card className="gap-0 rounded-[1.25rem] border-border/50 bg-card/75 py-0 shadow-[0_4px_12px_-5px_var(--color-border)]">
-                    <CardContent className="grid min-w-0 items-center gap-x-3 gap-y-2.5 p-3 @min-[26rem]:grid-cols-[7rem_minmax(0,1fr)] @min-[38rem]:grid-cols-[clamp(7rem,19cqw,10.5rem)_minmax(0,1fr)_12rem] @min-[42rem]:gap-x-4 @min-[42rem]:p-3.5">
+                    <CardContent className="grid min-w-0 items-center gap-x-3 gap-y-2.5 p-3 @min-[26rem]:grid-cols-[7rem_minmax(0,1fr)] @min-[38rem]:grid-cols-[clamp(7rem,19cqw,10.5rem)_minmax(0,1fr)_12rem] @2xl:gap-x-4 @2xl:p-3.5">
                       <div
                         aria-hidden="true"
                         className={cn(
-                          "flex min-h-11 w-fit max-w-full items-center justify-center gap-1.5 rounded-xl px-2.5 py-2 text-sm font-bold tracking-tight @min-[26rem]:row-span-2 @min-[26rem]:min-h-20 @min-[26rem]:w-full @min-[38rem]:row-span-1 @min-[42rem]:min-h-22 @min-[42rem]:gap-2 @min-[42rem]:text-base",
+                          "flex min-h-11 w-fit max-w-full items-center justify-center gap-1.5 rounded-xl px-2.5 py-2 text-sm font-bold tracking-tight @min-[26rem]:row-span-2 @min-[26rem]:min-h-20 @min-[26rem]:w-full @min-[38rem]:row-span-1 @2xl:min-h-22 @2xl:gap-2 @2xl:text-base",
                           mark.className,
                         )}
                       >
@@ -113,7 +117,7 @@ export function ExperienceSection() {
                         <AccordionTrigger
                           className={cn(
                             serif,
-                            "w-fit flex-none cursor-pointer items-center justify-start gap-1.5 py-0 text-xl leading-tight font-bold tracking-tight hover:text-brand-clay hover:no-underline @min-[42rem]:text-[1.375rem] [&>svg]:size-3.5 [&>svg]:translate-y-0",
+                            "w-fit flex-none cursor-pointer items-center justify-start gap-1.5 py-0 text-xl leading-tight font-bold tracking-tight hover:text-brand-clay hover:no-underline @2xl:text-[1.375rem] [&>svg]:size-3.5 [&>svg]:translate-y-0",
                           )}
                         >
                           {item.title}
@@ -131,7 +135,7 @@ export function ExperienceSection() {
                             {item.dates}
                           </span>
                         </p>
-                        <p className="mt-1.5 text-[13px] leading-snug @min-[42rem]:text-sm">
+                        <p className="mt-1.5 text-[13px] leading-snug @2xl:text-sm">
                           {item.summary}
                         </p>
                       </div>
@@ -151,7 +155,7 @@ export function ExperienceSection() {
                       </ul>
                     </CardContent>
 
-                    <AccordionContent className="mx-3 border-t border-border/70 pt-3 @min-[42rem]:mx-3.5">
+                    <AccordionContent className="mx-3 border-t border-border/70 pt-3 @2xl:mx-3.5">
                       <p className="text-sm font-medium text-muted-foreground">
                         {mark.useShortName && <>{item.company} · </>}
                         {item.location}

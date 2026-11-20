@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@/lib/utils";
 
-type RevealProps = React.HTMLAttributes<HTMLDivElement> & {
+type RevealProps = {
+  children: React.ReactNode;
   /** animation delay in ms */
   delay?: number;
   /** "inView" for scroll reveal, "mount" for immediate (hero) reveal */
@@ -25,17 +25,16 @@ function getServerReducedMotionSnapshot() {
 }
 
 export function Reveal({
-  className,
+  children,
   delay = 0,
   trigger = "inView",
-  ...props
 }: RevealProps) {
   const ref = React.useRef<HTMLDivElement | null>(null);
   const [shown, setShown] = React.useState(false);
   const reduceMotion = React.useSyncExternalStore(
     subscribeToReducedMotion,
     getReducedMotionSnapshot,
-    getServerReducedMotionSnapshot
+    getServerReducedMotionSnapshot,
   );
 
   React.useEffect(() => {
@@ -61,23 +60,25 @@ export function Reveal({
       {
         threshold: 0.18,
         rootMargin: "0px 0px -14% 0px",
-      }
+      },
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, [reduceMotion, trigger]);
 
+  const visibility =
+    shown || reduceMotion
+      ? "opacity-100 translate-y-0"
+      : "opacity-0 translate-y-[7px]";
+
   return (
     <div
       ref={ref}
       style={{ transitionDelay: reduceMotion ? "0ms" : `${delay}ms` }}
-      className={cn(
-        "transform-gpu will-change-transform transition-[opacity,transform] duration-[950ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
-        shown || reduceMotion ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[7px]",
-        className
-      )}
-      {...props}
-    />
+      className={`transform-gpu will-change-transform transition-[opacity,transform] duration-950 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${visibility}`}
+    >
+      {children}
+    </div>
   );
 }
