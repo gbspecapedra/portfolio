@@ -7,6 +7,8 @@ export type ContactInfo = {
   resumeUrl?: string;
 };
 
+export const contactSectionId = "contact";
+
 export const contactInfo: ContactInfo = {
   email: "gbspecapedra@gmail.com",
   location: "Vancouver",

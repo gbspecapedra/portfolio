@@ -32,7 +32,7 @@ export function TechnologiesSection() {
   return (
     <section
       aria-labelledby="technologies-heading"
-      className="mx-auto flex max-w-[1456px] flex-wrap items-center gap-x-6 gap-y-5 px-4 pb-10 min-[480px]:px-6 lg:pb-12 min-[1200px]:px-[42px] min-[1400px]:gap-x-8 min-[1400px]:px-[58px]"
+      className="mx-auto flex max-w-[1456px] flex-wrap items-center gap-x-6 gap-y-5 px-4 pt-10 min-[480px]:px-6 lg:pt-12 min-[1200px]:px-[42px] min-[1400px]:gap-x-8 min-[1400px]:px-[58px]"
     >
       <div>
         <h2

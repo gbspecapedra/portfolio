@@ -2,7 +2,7 @@ import { Mail } from "lucide-react";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { SiGithub } from "react-icons/si";
 
-import { contactInfo } from "@/data/contact-info";
+import { contactInfo, contactSectionId } from "@/data/contact-info";
 
 import { ContactForm } from "./contact-form";
 
@@ -24,7 +24,7 @@ export function ContactSection() {
 
   return (
     <section
-      id="contact"
+      id={contactSectionId}
       aria-labelledby="contact-heading"
       className="isolate mt-[clamp(0.75rem,1.25vw,1.25rem)] scroll-mt-28 overflow-clip bg-[radial-gradient(ellipse_at_70%_35%,var(--contact-wash),transparent_68%)] pt-[clamp(2.25rem,3vw,3rem)] pb-[clamp(3.25rem,4.3vw,4rem)] [--contact-wash:color-mix(in_srgb,var(--brand-clay)_6%,transparent)]"
     >

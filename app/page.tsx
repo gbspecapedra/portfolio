@@ -24,8 +24,8 @@ export default function HomePage() {
         </div>
         <div className="bg-linear-to-b from-background to-surface-soft/70">
           <HowIWorkSection />
-          <ContactSection />
           <TechnologiesSection />
+          <ContactSection />
         </div>
       </main>
 
