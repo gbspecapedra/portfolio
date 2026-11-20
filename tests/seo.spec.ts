@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 import { projects } from "@/data/projects";
 
-const origin = "https://www.giselepecapedra.com";
+const origin = "https://giselepecapedra.com";
 const caseStudies = projects.map((project) => ({
   ...project,
   path: `/projects/${project.slug}`,
@@ -33,6 +33,7 @@ test("lists only canonical portfolio pages in the sitemap advertised by robots.t
 test("renders the portfolio profile and links to its case studies without JavaScript", async ({ page }) => {
   const response = await page.goto("/");
   expect(response?.status()).toBe(200);
+  expect(response?.headers()["x-robots-tag"] ?? "").not.toMatch(/noindex/i);
   await expect(page.locator('head link[rel="canonical"]')).toHaveJSProperty("href", `${origin}/`);
   const socialUrl = await page.locator('head meta[property="og:url"]').getAttribute("content");
   expect(new URL(socialUrl ?? "").href).toBe(`${origin}/`);
@@ -57,6 +58,7 @@ for (const { path, title, subtitle, seoDescription, image } of caseStudies) {
     const response = await page.goto(path);
     const canonical = `${origin}${path}`;
     expect(response?.status()).toBe(200);
+    expect(response?.headers()["x-robots-tag"] ?? "").not.toMatch(/noindex/i);
     await expect(page).toHaveTitle(`${title} Case Study — Gisele Pecapedra`);
     await expect(page.locator('head meta[name="description"]')).toHaveAttribute("content", seoDescription ?? subtitle);
     await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute("href", canonical);
@@ -87,14 +89,28 @@ for (const { path, title, subtitle, seoDescription, image } of caseStudies) {
   });
 }
 
+test("links directly between the two case-study sections about state", async ({ page }) => {
+  await page.goto("/projects/shipflow#process-step-based-ux-with-explicit-state");
+  await page.getByRole("link", { name: "See how Coinpay UI keeps month selection in the URL." }).click();
+  await expect(page).toHaveURL(/\/projects\/coinpay#process-navigation-state-via-url-month-selection$/);
+  await expect(page.locator("#process-navigation-state-via-url-month-selection")).toBeVisible();
+
+  await page.getByRole("link", { name: "See how ShipFlow handles state in a multi-step form." }).click();
+  await expect(page).toHaveURL(/\/projects\/shipflow#process-step-based-ux-with-explicit-state$/);
+  await expect(page.locator("#process-step-based-ux-with-explicit-state")).toBeVisible();
+});
+
 test("permanently redirects legacy case studies and returns non-indexable 404s for unknown routes", async ({ page, request }) => {
+  const query = new URLSearchParams("utm_source=seo-check&tag=a%2Fb&tag=c+d&empty=");
+
   for (const { path } of caseStudies) {
     for (const alias of [`/developer${path}`, `${path}/`]) {
-      const redirect = await request.get(alias, { maxRedirects: 0 });
+      const redirect = await request.get(`${alias}?${query}`, { maxRedirects: 0 });
       expect(redirect.status()).toBe(308);
       const location = new URL(redirect.headers().location, redirect.url());
       expect(location.pathname).toBe(path);
       expect(location.host).toBe(new URL(redirect.url()).host);
+      expect([...location.searchParams]).toEqual([...query]);
     }
   }
 

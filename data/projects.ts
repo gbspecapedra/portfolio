@@ -40,6 +40,7 @@ export type ProjectSection = {
   bullets?: string[];
   decision?: string;
   tradeOff?: string;
+  relatedLink?: Pick<ProjectLink, "label" | "href">;
   image?: ProjectImage;
   sections?: ProjectSection[];
 };
@@ -515,6 +516,10 @@ export const projects: Project[] = [
             ],
             tradeOff:
               "No persisted state between refreshes. Considered acceptable for a prototype focused on flow clarity.",
+            relatedLink: {
+              label: "See how Coinpay UI keeps month selection in the URL.",
+              href: `${projectPath("coinpay")}#process-navigation-state-via-url-month-selection`,
+            },
           },
 
           {
@@ -723,6 +728,10 @@ export const projects: Project[] = [
             ],
             tradeOff:
               "Requires client components and careful handling of useSearchParams (including Suspense boundaries in Next.js).",
+            relatedLink: {
+              label: "See how ShipFlow handles state in a multi-step form.",
+              href: `${projectPath("shipflow")}#process-step-based-ux-with-explicit-state`,
+            },
           },
           {
             id: "mocked-auth-no-real-side-effects",

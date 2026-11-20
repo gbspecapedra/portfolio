@@ -107,7 +107,7 @@ test("encodes contact data as a mailto draft", () => {
 
 test("serves the 1200 × 630 homepage preview advertised by Open Graph and Twitter", async ({ page }) => {
   const path = "/og-cover.png";
-  const imageURL = `https://www.giselepecapedra.com${path}`;
+  const imageURL = `https://giselepecapedra.com${path}`;
   const title = "Gisele Pecapedra — UX-driven Frontend Engineer";
   const alt = `${title}. Accessible interfaces and scalable design systems, with a portrait of Gisele Pecapedra.`;
   await page.goto("/");

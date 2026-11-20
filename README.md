@@ -22,7 +22,7 @@ The goal of this portfolio is not to showcase every skill I have, but to clearly
 
 
 ###
-🌐 **Live:** https://www.giselepecapedra.com
+🌐 **Live:** https://giselepecapedra.com
 
 
 ## 🧰 Tech Stack

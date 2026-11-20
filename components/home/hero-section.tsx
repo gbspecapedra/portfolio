@@ -51,8 +51,8 @@ export function HeroSection() {
           <p className="mt-7 max-w-150 text-base leading-[1.55] text-foreground min-[480px]:mt-7.5 min-[480px]:text-lg min-[480px]:leading-[1.44] min-[960px]:max-w-142.5 min-[960px]:text-base min-[1200px]:mt-9 min-[1200px]:text-[clamp(16px,1.38vw,20px)]">
             I translate complex product requirements into maintainable frontend
             systems, collaborating closely with designers, product managers, and
-            backend engineers. My focus is on accessibility, UI architecture,
-            and design systems that scale with the product and the team.
+            backend engineers. I use React, TypeScript, and Next.js to build
+            accessible interfaces and reusable design systems.
           </p>
           <div className="mt-6 flex flex-wrap gap-3 min-[480px]:mt-7 min-[480px]:gap-3.5 min-[1200px]:mt-8.5 min-[1200px]:gap-6">
             <Button

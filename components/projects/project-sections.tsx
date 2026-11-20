@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   Accessibility,
   ChartNoAxesColumnIncreasing,
@@ -44,6 +45,7 @@ function hasSectionBody(section: ProjectSection): boolean {
       section.bullets?.some((bullet) => bullet.trim()) ||
       section.decision?.trim() ||
       section.tradeOff?.trim() ||
+      section.relatedLink ||
       section.image,
   );
 }
@@ -53,7 +55,7 @@ function hasSectionContent(section: ProjectSection): boolean {
 }
 
 function SectionContent({ section }: { section: ProjectSection }) {
-  const { body, bullets, decision, tradeOff, image } = section;
+  const { body, bullets, decision, tradeOff, image, relatedLink } = section;
   const paragraphs = body?.filter((paragraph) => paragraph.trim());
   const items = bullets?.filter((bullet) => bullet.trim());
 
@@ -88,6 +90,13 @@ function SectionContent({ section }: { section: ProjectSection }) {
           sizes="(max-width: 767px) 85vw, (max-width: 1279px) 75vw, 960px"
           className="h-auto max-w-full rounded-xl border border-border"
         />
+      )}
+      {relatedLink && (
+        <p>
+          <Link href={relatedLink.href} className="font-medium underline underline-offset-4">
+            {relatedLink.label}
+          </Link>
+        </p>
       )}
     </>
   );
