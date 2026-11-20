@@ -82,6 +82,16 @@ npm run build
 npm start
 ```
 
+Run the browser and accessibility regression tests against a production build:
+
+```sh
+npx playwright install --only-shell chromium
+npm run build
+npm run test:e2e
+```
+
+Playwright starts its own local server on port 3100. Contact checks use test data and verify the draft URL without opening an email app. The GitHub Actions workflow runs the same checks and saves Playwright traces on failure.
+
 Type checks run with TypeScript 7. ESLint's TypeScript parser still requires the compiler API, so `typescript` aliases Microsoft's `@typescript/typescript6` compatibility package while `@typescript/native` aliases TypeScript 7. This follows the [official side-by-side setup](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6-0). `npm run typecheck` generates Next.js route types before checking the project, so it also works on a fresh checkout.
 
 The scoped `minimatch` overrides keep ESLint's TypeScript parser and accessibility plugin on a patched glob matcher. Remove them when those packages require minimatch 11 or newer.
@@ -103,14 +113,16 @@ Use the Node version in `.nvmrc` to avoid engine warnings; if your terminal repo
 ```text
 app/
   page.tsx                       # Portfolio homepage
-  layout.tsx                     # Metadata, theme provider, and notifications
+  layout.tsx                     # Metadata and theme provider
   globals.css                    # Design tokens and global styles
   projects/[slug]/
+    layout.tsx                   # Shared case study header and footer
     page.tsx                     # Static project case studies
     not-found.tsx                # Unknown project fallback
 components/
   home/                          # Hero, projects, experience, and contact sections
   navigation/                    # Reusable navigation controls
+  projects/                      # Project hero and case study sections
   ui/                            # Shared UI primitives
   ...                            # Navbar, footer, theme toggle, and interactions
 data/                            # Project content, experience, and contact details
@@ -118,7 +130,11 @@ lib/                             # Shared utilities
 public/                          # Static assets
 ```
 
-Add or edit case studies in `data/projects.ts`. Each project's slug generates a page at `/projects/[slug]`; project cards use the same data. Previous `/developer/projects/[slug]` URLs permanently redirect to the corresponding project page.
+Add or edit case studies in `data/projects.ts`. Each project needs a unique lowercase, URL-friendly slug, a title, and a short description in `subtitle`. The slug generates a static page at `/projects/[slug]`. Add a `card` to include the project on the homepage. Its optional `pitch` overrides the card description, and `featured` moves it ahead of unfeatured projects.
+
+Use `meta` for project facts, `tags` for skills, and `links` for available resources. An optional `image` supplies the homepage thumbnail, hero, and social preview. Give it descriptive alt text and the asset's intrinsic dimensions. List any case study sections in display order, with a stable `id` and `title` for each entry. Sections support paragraphs, bullets, an image, highlighted decisions and trade-offs, and nested `sections` for groups such as Process & Key Decisions.
+
+Previous `/developer/projects/[slug]` URLs permanently redirect to the corresponding project page.
 
 ## 📌 Assumptions
 

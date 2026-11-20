@@ -1,153 +1,95 @@
-import { contactInfo } from "@/data/contact-info";
-import Link from "next/link";
+import { contactEmail, contactLinks } from "@/data/contact-info";
+import { homeSectionIds } from "@/data/site";
 
-import { Reveal } from "@/components/reveal";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { CopyEmailButton } from "@/components/copy-email-button";
-import { SiGithub } from "react-icons/si";
-import { FaLinkedin } from "react-icons/fa6";
-import { NavButton } from "@/components/navigation/nav-button";
+import { ContactForm } from "./contact-form";
+
+const links = [contactLinks.email, contactLinks.linkedin, contactLinks.github];
+
+const sprigLeaves = [
+  "right-[24%] bottom-[16%] h-[21%] w-[48%] -rotate-48",
+  "right-[31%] bottom-[35%] h-[21%] w-[54%] -rotate-11",
+  "right-[26%] bottom-[43%] h-[18%] w-[38%] rotate-35",
+  "right-[19%] bottom-[47%] h-[23%] w-[51%] rotate-85",
+  "right-[15%] bottom-[18%] h-[15%] w-[32%] rotate-91",
+];
 
 export function ContactSection() {
-  const { email, location, availability, linkedinUrl, githubUrl, resumeUrl } =
-    contactInfo;
-
-  const outlineHover =
-    "border-foreground/15 bg-background/40 hover:bg-foreground/10 hover:border-foreground/35 " +
-    "dark:bg-white/5 dark:hover:bg-white/10 dark:hover:border-white/35 transition-colors";
-
   return (
-    <section id="contact" className="pt-20">
-      <Reveal trigger="inView" delay={0}>
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className="text-xl font-semibold sm:text-2xl">
-              Let&apos;s talk
-            </h2>
-            <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-              Interested in working together or discussing a frontend challenge?
-              I&apos;m always open to thoughtful conversations about products,
-              UX, and engineering tradeoffs.
-            </p>
-          </div>
+    <section
+      id={homeSectionIds.contact}
+      aria-labelledby="contact-heading"
+      className="isolate mt-[clamp(0.75rem,1.25vw,1.25rem)] scroll-mt-28 overflow-clip bg-[radial-gradient(ellipse_at_70%_35%,var(--contact-wash),transparent_68%)] pt-[clamp(2.25rem,3vw,3rem)] pb-[clamp(3.25rem,4.3vw,4rem)] [--contact-wash:color-mix(in_srgb,var(--brand-clay)_6%,transparent)]"
+    >
+      <div className="mx-auto grid max-w-[91rem] items-center gap-[clamp(2rem,5vw,5rem)] px-4 min-[30rem]:px-6 min-[52rem]:grid-cols-[minmax(0,1.12fr)_minmax(0,1fr)] min-[52rem]:items-start min-[75rem]:px-[clamp(2.75rem,4vw,3.75rem)]">
+        <div>
+          <p className="mb-2.5 text-sm/normal font-[750] tracking-[0.2em] text-brand-clay uppercase">
+            Contact
+          </p>
+          <h2
+            id="contact-heading"
+            className="text-[length:clamp(2.125rem,3.5vw,3.25rem)] leading-[1.1] font-bold tracking-[-0.04em] text-balance text-[#252237] font-editorial dark:text-foreground"
+          >
+            Let’s work together.
+          </h2>
+          <p className="mt-4 max-w-[37ch] text-[length:clamp(1rem,1.5vw,1.25rem)] leading-[1.45]">
+            I’m always open to new opportunities, interesting challenges or a
+            good conversation about frontend, product and accessibility.
+          </p>
+          <ul className="mt-[1.125rem] grid gap-2" role="list">
+            {links.map(({ label, icon: Icon, ...link }) => {
+              const { href } = link;
+              if (!href) return null;
 
-          <div className="flex flex-wrap gap-2">
-            {availability ? (
-              <Badge variant="secondary">{availability}</Badge>
-            ) : null}
-            {location ? <Badge variant="secondary">{location}</Badge> : null}
-            <Badge className="badge-sig">PST</Badge>
+              const address = href.startsWith("mailto:")
+                ? contactEmail
+                : href.replace(/^https?:\/\/(www\.)?/, "");
+
+              return (
+                <li key={label}>
+                  <a
+                    {...link}
+                    className="group inline-flex max-w-full items-center gap-[clamp(0.875rem,1.65vw,1.5rem)] rounded-[0.875rem] text-[length:clamp(0.9375rem,1.2vw,1.125rem)] leading-[1.35]"
+                  >
+                    <span
+                      className="grid aspect-square w-[clamp(2.75rem,3.75vw,3.5rem)] shrink-0 place-items-center rounded-[0.875rem] bg-[#fae9df] text-brand-clay dark:bg-accent [&>svg]:h-auto [&>svg]:w-[55%]"
+                      aria-hidden="true"
+                    >
+                      <Icon />
+                    </span>
+                    <span className="grid min-w-0">
+                      <strong>{label}</strong>
+                      <span className="wrap-anywhere text-muted-foreground group-hover:text-accent-foreground group-hover:underline group-hover:underline-offset-[0.2em]">
+                        {address}
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
+        <div className="relative min-w-0 min-[52rem]:mt-2">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -z-10"
+          >
+            <span className="absolute inset-[-9%_48%_30%_-12%] -rotate-16 rounded-[56%_44%_50%_50%] bg-(--contact-wash) min-[52rem]:start-[-29%]" />
+            <span className="absolute inset-[40%_48%_4%_-8%] -rotate-28 rounded-[62%_38%_58%_42%] bg-(--contact-wash) min-[52rem]:start-[-22%]" />
+          </div>
+          <ContactForm email={contactEmail} />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-2.5 -bottom-10.5 aspect-square w-[clamp(6rem,12vw,11rem)] [--contact-leaf:#a4a787] [--contact-leaf-vein:#777e59] before:absolute before:top-[36%] before:left-[72%] before:h-[64%] before:w-[12%] before:-rotate-17 before:rounded-[70%_0_0] before:border-l-2 before:border-(--contact-leaf-vein) before:opacity-70 before:content-[''] min-[75rem]:-right-7 dark:[--contact-leaf:#8f9982] dark:[--contact-leaf-vein:#626d56]"
+          >
+            {sprigLeaves.map((placement) => (
+              <span
+                key={placement}
+                className={`${placement} absolute origin-bottom-right rounded-[0_100%_0_100%] bg-[linear-gradient(153deg,transparent_53%,color-mix(in_srgb,var(--contact-leaf-vein)_26%,transparent)_55%,transparent_57%),linear-gradient(145deg,var(--contact-leaf),color-mix(in_srgb,var(--contact-leaf)_68%,var(--contact-leaf-vein)))] opacity-85`}
+              />
+            ))}
           </div>
         </div>
-      </Reveal>
-
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        {/* Primary CTA */}
-        <Reveal trigger="inView" delay={140}>
-          <Card className="card-sig">
-            <CardContent className="p-6">
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <a
-                      href={`mailto:${email}`}
-                      className="text-base font-semibold underline underline-offset-4 decoration-foreground/20 hover:decoration-foreground/50 hover:text-[color:var(--signature)] transition-colors"
-                    >
-                      {email}
-                    </a>
-
-                    <CopyEmailButton email={email} />
-                  </div>
-
-                  <p className="text-sm text-muted-foreground">
-                    For interviews, take-homes, or aligning on what needs to
-                    ship next.
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-2 pt-1">
-                  <Button asChild className="btn-sig">
-                    <a
-                      href={`mailto:${email}?subject=${encodeURIComponent(
-                        "Let's talk — Frontend role"
-                      )}`}
-                    >
-                      Email me
-                    </a>
-                  </Button>
-
-                  {linkedinUrl ? (
-                    <NavButton
-                      href={linkedinUrl}
-                      label="LinkedIn profile"
-                      icon={<FaLinkedin className="h-4 w-4" />}
-                    />
-                  ) : null}
-
-                  {githubUrl ? (
-                    <NavButton
-                      href={githubUrl}
-                      label="GitHub profile"
-                      icon={<SiGithub className="h-4 w-4" />}
-                    />
-                  ) : null}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </Reveal>
-
-        <Reveal trigger="inView" delay={260}>
-          <Card className="card-sig">
-            <CardContent className="p-6">
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <p className="text-sm text-muted-foreground">
-                    What I&apos;m great at
-                  </p>
-                  <h3 className="text-base font-semibold">
-                    UI that feels premium and stays maintainable
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    I optimize for clarity first, then performance and polish.
-                    Comfortable shaping requirements and making tradeoffs.
-                  </p>
-                </div>
-
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex gap-2">
-                    <span className="mt-1.5 h-2 w-2 rounded-full bg-[color:var(--signature)]" />
-                    Design systems + component architecture
-                  </li>
-                  <li className="flex gap-2">
-                    <span className="mt-1.5 h-2 w-2 rounded-full bg-[color:var(--signature)]" />
-                    Complex flows: validation, edge cases, UX states
-                  </li>
-                  <li className="flex gap-2">
-                    <span className="mt-1.5 h-2 w-2 rounded-full bg-[color:var(--signature)]" />
-                    Performance, accessibility, and clean refactors
-                  </li>
-                </ul>
-
-                <div className="flex flex-wrap gap-2 pt-1">
-                  <Button asChild variant="secondary">
-                    <Link href="/#projects">Explore projects</Link>
-                  </Button>
-
-                  {resumeUrl ? (
-                    <Button asChild variant="outline" className={outlineHover}>
-                      <a href={resumeUrl} target="_blank" rel="noreferrer">
-                        Resume
-                      </a>
-                    </Button>
-                  ) : null}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </Reveal>
       </div>
     </section>
   );

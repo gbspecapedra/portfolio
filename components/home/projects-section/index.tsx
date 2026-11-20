@@ -1,38 +1,33 @@
 import { projects } from "@/data/projects";
-import { Reveal } from "@/components/reveal";
+import { homeSectionIds } from "@/data/site";
 
-import { FeaturedProjectCard } from "./featured-project-card";
 import { ProjectCard } from "./project-card";
-import { getFeaturedAndSecondary } from "./utils";
+
+const caseStudies = projects
+  .filter(({ card }) => card)
+  .sort((a, b) => Number(Boolean(b.card?.featured)) - Number(Boolean(a.card?.featured)));
 
 export function ProjectsSection() {
-  const { featured, secondary } = getFeaturedAndSecondary(projects);
-
   return (
-    <section id="projects" className="pt-20">
-      <Reveal trigger="inView" delay={0}>
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className="text-xl font-semibold sm:text-2xl">
-              Featured projects
-            </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Real work, real decisions. Case studies focus on tradeoffs and
-              outcomes.
-            </p>
-          </div>
-        </div>
-      </Reveal>
+    <section
+      id={homeSectionIds.projects}
+      aria-labelledby="projects-heading"
+      className="mx-auto max-w-364 scroll-mt-24 px-4 pt-12 min-[480px]:px-6 lg:pt-16 min-[1200px]:px-7.5"
+    >
+      <h2
+        id="projects-heading"
+        className="text-[clamp(1.75rem,4vw,2.25rem)] leading-[1.15] font-bold tracking-tight text-balance font-editorial sm:ml-2"
+      >
+        System-level impact through frontend architecture
+      </h2>
+      <div
+        aria-hidden="true"
+        className="mt-3.5 h-0.5 w-14 bg-brand-clay sm:ml-2"
+      />
 
-      {featured ? (
-        <div className="mt-6">
-          <FeaturedProjectCard project={featured} />
-        </div>
-      ) : null}
-
-      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {secondary.map((p, idx) => (
-          <ProjectCard key={p.slug} project={p} delay={260 + idx * 180} />
+      <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        {caseStudies.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
     </section>
