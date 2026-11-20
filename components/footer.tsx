@@ -1,23 +1,22 @@
-import { Mail, Send } from "lucide-react";
-import { FaLinkedinIn } from "react-icons/fa6";
-import { SiGithub } from "react-icons/si";
+import { Send } from "lucide-react";
 
 import { SectionNav } from "@/components/navigation/section-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
-import { contactInfo, contactSectionId } from "@/data/contact-info";
+import { contactLinks } from "@/data/contact-info";
+import { homeSectionIds, siteName } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 const currentYear = new Date().getFullYear();
 
 const socialLinks = [
-  { label: "GitHub", href: contactInfo.githubUrl, icon: SiGithub },
-  { label: "LinkedIn", href: contactInfo.linkedinUrl, icon: FaLinkedinIn },
-  { label: "Email", href: `mailto:${contactInfo.email}`, icon: Mail },
+  contactLinks.github,
+  contactLinks.linkedin,
+  contactLinks.email,
 ];
 
 const headingClassName =
-  "text-xl leading-tight font-bold tracking-tight text-foreground [font-family:Georgia,'Times_New_Roman',serif]";
+  "text-xl leading-tight font-bold tracking-tight text-foreground font-editorial";
 
 export function Footer() {
   return (
@@ -26,7 +25,7 @@ export function Footer() {
         <div className="grid gap-x-5 gap-y-6 border-t border-border/80 py-7 text-sm leading-relaxed text-muted-foreground min-[23rem]:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] sm:grid-cols-2 sm:gap-x-8 sm:gap-y-8 sm:py-9 sm:text-[0.9375rem] md:grid-cols-3 lg:py-10 xl:gap-x-10">
           <div className="min-w-0 min-[23rem]:col-span-2 md:col-span-1">
             <h2 className={cn(headingClassName, "text-2xl")}>
-              Gisele Pecapedra
+              {siteName}
             </h2>
             <p className="mt-1 font-semibold text-foreground">
               Frontend Engineer
@@ -41,10 +40,8 @@ export function Footer() {
               className="mt-4 flex flex-wrap gap-2"
               role="list"
             >
-              {socialLinks.map(({ label, href, icon: Icon }) => {
-                if (!href) return null;
-
-                const external = !href.startsWith("mailto:");
+              {socialLinks.map(({ label, icon: Icon, ...link }) => {
+                if (!link.href) return null;
 
                 return (
                   <li key={label}>
@@ -54,12 +51,7 @@ export function Footer() {
                       variant="outline"
                       className="rounded-xl border-border bg-transparent text-brand-clay shadow-none"
                     >
-                      <a
-                        href={href}
-                        aria-label={label}
-                        target={external ? "_blank" : undefined}
-                        rel={external ? "noopener noreferrer" : undefined}
-                      >
+                      <a {...link} aria-label={label}>
                         <Icon aria-hidden="true" className="size-4.5" />
                       </a>
                     </Button>
@@ -85,7 +77,7 @@ export function Footer() {
               size="lg"
               className="mt-4 h-11 gap-2.5 rounded-lg font-semibold transition-[transform,box-shadow] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
             >
-              <a href={`/#${contactSectionId}`}>
+              <a href={`/#${homeSectionIds.contact}`}>
                 <Send aria-hidden="true" className="size-4.5" />
                 Get in touch
               </a>
@@ -94,7 +86,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-border/80 py-4 text-sm text-muted-foreground">
-          <p>© {currentYear} Gisele Pecapedra. All rights reserved.</p>
+          <p>
+            © {currentYear}
+            {` ${siteName}. All rights reserved.`}
+          </p>
           <ThemeToggle />
         </div>
       </div>

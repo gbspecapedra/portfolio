@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SectionNav } from "@/components/navigation/section-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { siteName } from "@/data/site";
 
 export function Navbar() {
   return (
@@ -10,7 +11,7 @@ export function Navbar() {
           href="/"
           className="shrink-0 text-2xl leading-tight tracking-tight text-foreground sm:text-3xl lg:text-[2.375rem]"
         >
-          Gisele Pecapedra
+          {siteName}
         </Link>
 
         <SectionNav />

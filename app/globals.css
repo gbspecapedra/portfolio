@@ -9,6 +9,7 @@
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-editorial: Georgia, "Times New Roman", serif;
 
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -74,8 +75,6 @@
   --brand-clay: #A74732;
   --surface-soft: #F8EFEA;
 
-  /* Keep existing signature treatments connected to the theme. */
-  --signature: var(--brand-clay);
   --hero-grad-1: color-mix(in oklch, var(--brand-clay) 10%, transparent);
   --hero-grad-2: color-mix(in oklch, var(--brand-sage) 10%, transparent);
   --hero-blob-1: 0.08;
@@ -141,35 +140,10 @@
    UTILITIES
    ========================= */
 @layer utilities {
-  .btn-sig {
-    background: var(--primary);
-    color: var(--primary-foreground);
-    border: 1px solid var(--primary);
-  }
-
-  .btn-sig:hover {
-    background: color-mix(in oklch, var(--primary) 90%, var(--background));
-    box-shadow: 0 16px 48px -28px
-      color-mix(in oklch, var(--signature) 45%, transparent);
-  }
-
   .badge-sig {
     background: var(--accent);
     border: 1px solid var(--border);
     color: var(--accent-foreground);
-  }
-
-  .card-sig {
-    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
-    border-color: var(--border);
-    background: var(--card);
-  }
-  .card-sig:hover {
-    transform: translateY(-2px);
-    border-color: color-mix(in oklch, var(--signature) 30%, var(--border));
-    box-shadow:
-      0 0 0 1px color-mix(in oklch, var(--signature) 18%, transparent),
-      0 16px 56px -28px color-mix(in oklch, var(--signature) 35%, transparent);
   }
 
   /* HERO BACKGROUND (stable + dark-safe) */

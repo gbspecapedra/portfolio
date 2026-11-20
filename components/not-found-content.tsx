@@ -2,6 +2,7 @@ import { ArrowLeft, CornerDownRight } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { homeSectionIds } from "@/data/site";
 
 export function NotFoundContent() {
   return (
@@ -13,12 +14,12 @@ export function NotFoundContent() {
           </p>
           <div
             aria-hidden="true"
-            className="mt-2 inline-flex items-baseline gap-3 text-[clamp(5.5rem,18vw,9.5rem)] leading-none tracking-[-0.07em] font-[Georgia,'Times_New_Roman',serif]"
+            className="mt-2 inline-flex items-baseline gap-3 text-[clamp(5.5rem,18vw,9.5rem)] leading-none tracking-[-0.07em] font-editorial"
           >
             404
             <span className="size-2 rounded-full bg-brand-clay sm:size-2.5" />
           </div>
-          <h1 className="mt-5 text-[clamp(1.875rem,4.2vw,3rem)] leading-[1.1] font-bold tracking-tight text-balance font-[Georgia,'Times_New_Roman',serif]">
+          <h1 className="mt-5 text-[clamp(1.875rem,4.2vw,3rem)] leading-[1.1] font-bold tracking-tight text-balance font-editorial">
             Looks like this route got lost.
           </h1>
           <p className="mx-auto mt-4 max-w-[42ch] text-base leading-relaxed text-pretty text-muted-foreground sm:text-lg lg:mx-0">
@@ -42,7 +43,7 @@ export function NotFoundContent() {
               variant="outline"
               className="h-12 rounded-lg border-brand-clay bg-transparent font-semibold text-accent-foreground motion-reduce:transition-none"
             >
-              <Link href="/#projects">Explore case studies</Link>
+              <Link href={`/#${homeSectionIds.projects}`}>Explore case studies</Link>
             </Button>
           </div>
         </div>

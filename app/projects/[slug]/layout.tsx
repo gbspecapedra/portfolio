@@ -1,14 +1,7 @@
 import type { ReactNode } from "react";
 
-import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
+import { SiteShell } from "@/components/site-shell";
 
 export default function ProjectLayout({ children }: { children: ReactNode }) {
-  return (
-    <>
-      <Navbar />
-      {children}
-      <Footer />
-    </>
-  );
+  return <SiteShell>{children}</SiteShell>;
 }

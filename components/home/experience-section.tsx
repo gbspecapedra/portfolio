@@ -9,6 +9,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { experience } from "@/data/experience";
+import { homeSectionIds } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 type CompanyMark = {
@@ -50,23 +51,41 @@ const companyMarks: Record<(typeof experience)[number]["id"], CompanyMark> = {
   },
 };
 
-const serif = "[font-family:Georgia,'Times_New_Roman',serif]";
-const badgeClassName =
-  "border-border bg-surface-soft/50 px-2 py-1 text-[11px] leading-tight font-semibold";
+function SkillsList({
+  label,
+  skills,
+  className,
+}: {
+  label: string;
+  skills: readonly string[];
+  className: string;
+}) {
+  return (
+    <ul aria-label={label} role="list" className={`flex flex-wrap ${className}`}>
+      {skills.map((skill) => (
+        <li key={skill}>
+          <Badge
+            variant="outline"
+            className="border-border bg-surface-soft/50 px-2 py-1 text-[11px] leading-tight font-semibold"
+          >
+            {skill}
+          </Badge>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export function ExperienceSection() {
   return (
     <section
-      id="experience"
+      id={homeSectionIds.experience}
       aria-labelledby="experience-heading"
       className="@container min-w-0 scroll-mt-32 lg:scroll-mt-28 min-[1100px]:flex min-[1100px]:flex-col min-[1100px]:self-stretch"
     >
       <h2
         id="experience-heading"
-        className={cn(
-          serif,
-          "text-[clamp(2rem,6.1cqw,2.875rem)] leading-tight font-bold tracking-[-0.04em] text-pretty after:mt-3 after:block after:h-0.75 after:w-14 after:rounded-full after:bg-brand-clay after:content-['']",
-        )}
+        className="font-editorial text-[clamp(2rem,6.1cqw,2.875rem)] leading-tight font-bold tracking-[-0.04em] text-pretty after:mt-3 after:block after:h-0.75 after:w-14 after:rounded-full after:bg-brand-clay after:content-['']"
       >
         Professional experience
       </h2>
@@ -115,10 +134,7 @@ export function ExperienceSection() {
 
                       <div className="min-w-0">
                         <AccordionTrigger
-                          className={cn(
-                            serif,
-                            "w-fit flex-none cursor-pointer items-center justify-start gap-1.5 py-0 text-xl leading-tight font-bold tracking-tight hover:text-brand-clay hover:no-underline @2xl:text-[1.375rem] [&>svg]:size-3.5 [&>svg]:translate-y-0",
-                          )}
+                          className="font-editorial w-fit flex-none cursor-pointer items-center justify-start gap-1.5 py-0 text-xl leading-tight font-bold tracking-tight hover:text-brand-clay hover:no-underline @2xl:text-[1.375rem] [&>svg]:size-3.5 [&>svg]:translate-y-0"
                         >
                           {item.title}
                           <span className="sr-only"> at {company}</span>
@@ -140,19 +156,7 @@ export function ExperienceSection() {
                         </p>
                       </div>
 
-                      <ul
-                        aria-label="Key skills"
-                        role="list"
-                        className="flex flex-wrap gap-1.5"
-                      >
-                        {item.skills.map((skill) => (
-                          <li key={skill}>
-                            <Badge variant="outline" className={badgeClassName}>
-                              {skill}
-                            </Badge>
-                          </li>
-                        ))}
-                      </ul>
+                      <SkillsList label="Key skills" skills={item.skills} className="gap-1.5" />
                     </CardContent>
 
                     <AccordionContent className="mx-3 border-t border-border/70 pt-3 @2xl:mx-3.5">
@@ -167,19 +171,11 @@ export function ExperienceSection() {
                           ))}
                         </ul>
                       )}
-                      <ul
-                        aria-label="Additional skills"
-                        role="list"
-                        className="mt-3 flex flex-wrap gap-2"
-                      >
-                        {item.additionalSkills.map((skill) => (
-                          <li key={skill}>
-                            <Badge variant="outline" className={badgeClassName}>
-                              {skill}
-                            </Badge>
-                          </li>
-                        ))}
-                      </ul>
+                      <SkillsList
+                        label="Additional skills"
+                        skills={item.additionalSkills}
+                        className="mt-3 gap-2"
+                      />
                     </AccordionContent>
                   </Card>
                 </AccordionItem>

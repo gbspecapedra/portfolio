@@ -5,6 +5,7 @@ import { NavButton } from "@/components/navigation/nav-button";
 import { ProjectHero } from "@/components/projects/project-hero";
 import { ProjectSections } from "@/components/projects/project-sections";
 import { getProjectBySlug, projects } from "@/data/projects";
+import { siteName } from "@/data/site";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: { canonical },
     openGraph: {
       type: "website",
-      siteName: "Gisele Pecapedra",
+      siteName,
       title,
       description,
       url: canonical,
@@ -65,7 +66,7 @@ export default async function ProjectPage({ params }: Props) {
         <ProjectHero project={project} />
         <ProjectSections sections={project.sections} />
         <nav aria-label="Project navigation" className="mt-7 sm:mt-9">
-          <NavButton variant="text" />
+          <NavButton />
         </nav>
       </div>
     </main>

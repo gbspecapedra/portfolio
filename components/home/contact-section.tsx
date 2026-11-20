@@ -1,10 +1,9 @@
-import { Mail } from "lucide-react";
-import { FaLinkedinIn } from "react-icons/fa6";
-import { SiGithub } from "react-icons/si";
-
-import { contactInfo, contactSectionId } from "@/data/contact-info";
+import { contactEmail, contactLinks } from "@/data/contact-info";
+import { homeSectionIds } from "@/data/site";
 
 import { ContactForm } from "./contact-form";
+
+const links = [contactLinks.email, contactLinks.linkedin, contactLinks.github];
 
 const sprigLeaves = [
   "right-[24%] bottom-[16%] h-[21%] w-[48%] -rotate-48",
@@ -15,16 +14,9 @@ const sprigLeaves = [
 ];
 
 export function ContactSection() {
-  const { email, linkedinUrl, githubUrl } = contactInfo;
-  const links = [
-    { label: "Email", href: `mailto:${email}`, icon: Mail },
-    { label: "LinkedIn", href: linkedinUrl, icon: FaLinkedinIn },
-    { label: "GitHub", href: githubUrl, icon: SiGithub },
-  ];
-
   return (
     <section
-      id={contactSectionId}
+      id={homeSectionIds.contact}
       aria-labelledby="contact-heading"
       className="isolate mt-[clamp(0.75rem,1.25vw,1.25rem)] scroll-mt-28 overflow-clip bg-[radial-gradient(ellipse_at_70%_35%,var(--contact-wash),transparent_68%)] pt-[clamp(2.25rem,3vw,3rem)] pb-[clamp(3.25rem,4.3vw,4rem)] [--contact-wash:color-mix(in_srgb,var(--brand-clay)_6%,transparent)]"
     >
@@ -35,7 +27,7 @@ export function ContactSection() {
           </p>
           <h2
             id="contact-heading"
-            className="text-[length:clamp(2.125rem,3.5vw,3.25rem)] leading-[1.1] font-bold tracking-[-0.04em] text-balance text-[#252237] [font-family:Georgia,'Times_New_Roman',serif] dark:text-foreground"
+            className="text-[length:clamp(2.125rem,3.5vw,3.25rem)] leading-[1.1] font-bold tracking-[-0.04em] text-balance text-[#252237] font-editorial dark:text-foreground"
           >
             Let’s work together.
           </h2>
@@ -44,21 +36,19 @@ export function ContactSection() {
             good conversation about frontend, product and accessibility.
           </p>
           <ul className="mt-[1.125rem] grid gap-2" role="list">
-            {links.map(({ label, href, icon: Icon }) => {
+            {links.map(({ label, icon: Icon, ...link }) => {
+              const { href } = link;
               if (!href) return null;
 
-              const isEmail = href.startsWith("mailto:");
-              const address = isEmail
-                ? email
+              const address = href.startsWith("mailto:")
+                ? contactEmail
                 : href.replace(/^https?:\/\/(www\.)?/, "");
 
               return (
                 <li key={label}>
                   <a
+                    {...link}
                     className="group inline-flex max-w-full items-center gap-[clamp(0.875rem,1.65vw,1.5rem)] rounded-[0.875rem] text-[length:clamp(0.9375rem,1.2vw,1.125rem)] leading-[1.35]"
-                    href={href}
-                    target={isEmail ? undefined : "_blank"}
-                    rel={isEmail ? undefined : "noopener noreferrer"}
                   >
                     <span
                       className="grid aspect-square w-[clamp(2.75rem,3.75vw,3.5rem)] shrink-0 place-items-center rounded-[0.875rem] bg-[#fae9df] text-brand-clay dark:bg-accent [&>svg]:h-auto [&>svg]:w-[55%]"
@@ -87,7 +77,7 @@ export function ContactSection() {
             <span className="absolute inset-[-9%_48%_30%_-12%] -rotate-16 rounded-[56%_44%_50%_50%] bg-(--contact-wash) min-[52rem]:start-[-29%]" />
             <span className="absolute inset-[40%_48%_4%_-8%] -rotate-28 rounded-[62%_38%_58%_42%] bg-(--contact-wash) min-[52rem]:start-[-22%]" />
           </div>
-          <ContactForm email={email} />
+          <ContactForm email={contactEmail} />
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-2.5 -bottom-10.5 aspect-square w-[clamp(6rem,12vw,11rem)] [--contact-leaf:#a4a787] [--contact-leaf-vein:#777e59] before:absolute before:top-[36%] before:left-[72%] before:h-[64%] before:w-[12%] before:-rotate-17 before:rounded-[70%_0_0] before:border-l-2 before:border-(--contact-leaf-vein) before:opacity-70 before:content-[''] min-[75rem]:-right-7 dark:[--contact-leaf:#8f9982] dark:[--contact-leaf-vein:#626d56]"

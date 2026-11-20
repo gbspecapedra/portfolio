@@ -39,7 +39,7 @@ export function ProjectHero({ project }: { project: Project }) {
       )}
     >
       <div className="min-w-0">
-        <NavButton variant="text" />
+        <NavButton />
 
         {meta?.type || badges.length ? (
           <div className="mt-5 flex flex-wrap items-center gap-1.5 sm:gap-2">
@@ -62,7 +62,7 @@ export function ProjectHero({ project }: { project: Project }) {
 
         <h1
           id="project-title"
-          className="mt-5 text-[clamp(2.75rem,6vw,4.75rem)] leading-[1.04] font-bold tracking-[-0.045em] wrap-break-word [font-family:Georgia,'Times_New_Roman',serif]"
+          className="mt-5 text-[clamp(2.75rem,6vw,4.75rem)] leading-[1.04] font-bold tracking-[-0.045em] wrap-break-word font-editorial"
         >
           {title}
         </h1>

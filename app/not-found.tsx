@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 
-import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
 import { NotFoundContent } from "@/components/not-found-content";
+import { SiteShell } from "@/components/site-shell";
 
 export const metadata: Metadata = {
   title: "Page not found",
@@ -13,10 +12,8 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <>
-      <Navbar />
+    <SiteShell>
       <NotFoundContent />
-      <Footer />
-    </>
+    </SiteShell>
   );
 }

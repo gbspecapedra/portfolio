@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Heart, Leaf, Sparkles } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { homeSectionIds, siteName } from "@/data/site";
 import headshot from "@/public/images/headshot.png";
 
 const values = [
@@ -25,7 +26,7 @@ const values = [
 export function AboutSection() {
   return (
     <section
-      id="about"
+      id={homeSectionIds.about}
       aria-labelledby="about-heading"
       className="@container min-w-0 scroll-mt-32 lg:scroll-mt-28"
     >
@@ -36,7 +37,7 @@ export function AboutSection() {
         <div>
           <h2
             id="about-heading"
-            className="text-[clamp(1.8125rem,4.75cqw,2.375rem)] leading-[1.1] font-bold tracking-[-0.04em] text-pretty [font-family:Georgia,'Times_New_Roman',serif] @min-[37rem]:[&>span]:block"
+            className="text-[clamp(1.8125rem,4.75cqw,2.375rem)] leading-[1.1] font-bold tracking-[-0.04em] text-pretty font-editorial @min-[37rem]:[&>span]:block"
           >
             <span>A frontend engineer</span>{" "}
             <span>who cares about people,</span>{" "}
@@ -68,7 +69,7 @@ export function AboutSection() {
           </div>
           <Image
             src={headshot}
-            alt="Gisele Pecapedra"
+            alt={siteName}
             sizes="(max-width: 319px) calc(100vw - 32px), (max-width: 1099px) 320px, 18vw"
             className="aspect-square w-full rounded-[1.75rem] border border-border/70 bg-[radial-gradient(ellipse_at_45%_20%,var(--color-secondary),var(--color-accent))] object-cover shadow-sm"
           />

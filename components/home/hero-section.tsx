@@ -8,6 +8,7 @@ import {
   Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { homeSectionIds } from "@/data/site";
 import { cn } from "@/lib/utils";
 import heroImage from "@/public/images/hero-image.png";
 
@@ -35,7 +36,7 @@ export function HeroSection() {
           </p>
           <h1
             id="hero-heading"
-            className="text-[clamp(20px,6.5vw,31px)] leading-[1.14] font-bold tracking-[-0.04em] font-[Georgia,'Times_New_Roman',serif] min-[480px]:text-[clamp(29px,5.4vw,46px)] min-[960px]:text-[clamp(30px,3.25vw,40px)] min-[1200px]:text-[clamp(32px,3.05vw,45px)] [&>span]:block [&>span]:whitespace-nowrap"
+            className="text-[clamp(20px,6.5vw,31px)] leading-[1.14] font-bold tracking-[-0.04em] font-editorial min-[480px]:text-[clamp(29px,5.4vw,46px)] min-[960px]:text-[clamp(30px,3.25vw,40px)] min-[1200px]:text-[clamp(32px,3.05vw,45px)] [&>span]:block [&>span]:whitespace-nowrap"
           >
             <span>Building reliable, accessible,</span>{" "}
             <span>and scalable interfaces</span>{" "}
@@ -62,7 +63,7 @@ export function HeroSection() {
                 "gap-2.5 border border-[#c37b65] bg-[linear-gradient(115deg,#b65e43,var(--primary))] text-[#fffaf6] has-[>svg]:px-4 min-[480px]:gap-4.5 min-[480px]:has-[>svg]:px-5 min-[1200px]:has-[>svg]:px-7.5 dark:bg-none dark:text-primary-foreground",
               )}
             >
-              <a href="#projects">
+              <a href={`#${homeSectionIds.projects}`}>
                 Explore case studies{" "}
                 <ArrowRight aria-hidden="true" className="size-5.75" />
               </a>
@@ -76,7 +77,7 @@ export function HeroSection() {
                 "border-[1.5px] border-brand-clay bg-transparent text-accent-foreground",
               )}
             >
-              <a href="#contact">Get in touch</a>
+              <a href={`#${homeSectionIds.contact}`}>Get in touch</a>
             </Button>
           </div>
         </div>

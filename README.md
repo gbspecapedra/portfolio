@@ -82,6 +82,16 @@ npm run build
 npm start
 ```
 
+Run the browser and accessibility regression tests against a production build:
+
+```sh
+npx playwright install --only-shell chromium
+npm run build
+npm run test:e2e
+```
+
+Playwright starts its own local server on port 3100. Contact checks use test data and verify the draft URL without opening an email app. The GitHub Actions workflow runs the same checks and saves Playwright traces on failure.
+
 Type checks run with TypeScript 7. ESLint's TypeScript parser still requires the compiler API, so `typescript` aliases Microsoft's `@typescript/typescript6` compatibility package while `@typescript/native` aliases TypeScript 7. This follows the [official side-by-side setup](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6-0). `npm run typecheck` generates Next.js route types before checking the project, so it also works on a fresh checkout.
 
 The scoped `minimatch` overrides keep ESLint's TypeScript parser and accessibility plugin on a patched glob matcher. Remove them when those packages require minimatch 11 or newer.

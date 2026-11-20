@@ -30,7 +30,7 @@ export function ProjectCard({ project }: { project: Project }) {
       <CardContent className="flex flex-1 flex-col items-start px-5 pt-3.5 pb-4">
         <h3
           id={titleId}
-          className="text-2xl leading-tight font-bold tracking-tight font-[Georgia,'Times_New_Roman',serif]"
+          className="text-2xl leading-tight font-bold tracking-tight font-editorial"
         >
           {title}
         </h3>

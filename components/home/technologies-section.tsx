@@ -37,7 +37,7 @@ export function TechnologiesSection() {
       <div>
         <h2
           id="technologies-heading"
-          className="text-[clamp(1.375rem,2vw,1.5625rem)] leading-tight font-bold tracking-tight [font-family:Georgia,'Times_New_Roman',serif]"
+          className="text-[clamp(1.375rem,2vw,1.5625rem)] leading-tight font-bold tracking-tight font-editorial"
         >
           Technologies &amp; Practices
         </h2>

@@ -38,7 +38,7 @@ export function HowIWorkSection() {
         <div className="border-b border-border pb-6 min-[1100px]:border-r min-[1100px]:border-b-0 min-[1100px]:pt-2 min-[1100px]:pr-6 min-[1100px]:pb-0">
           <h2
             id="how-i-work-heading"
-            className="text-[clamp(2rem,3.3vw,2.625rem)] leading-tight font-bold tracking-tight font-[Georgia,'Times_New_Roman',serif]"
+            className="text-[clamp(2rem,3.3vw,2.625rem)] leading-tight font-bold tracking-tight font-editorial"
           >
             How I work
           </h2>
@@ -60,7 +60,7 @@ export function HowIWorkSection() {
                 strokeWidth={1.5}
                 className="size-9 text-brand-clay xl:size-11"
               />
-              <h3 className="mt-2.5 text-[1.375rem] leading-tight font-bold tracking-tight font-[Georgia,'Times_New_Roman',serif] xl:text-[1.625rem]">
+              <h3 className="mt-2.5 text-[1.375rem] leading-tight font-bold tracking-tight font-editorial xl:text-[1.625rem]">
                 {title}
               </h3>
               <p className="mt-2 text-[15px] leading-snug text-muted-foreground xl:text-base">

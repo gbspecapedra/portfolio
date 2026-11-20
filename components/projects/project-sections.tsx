@@ -34,7 +34,9 @@ const sectionIcons: Record<NonNullable<ProjectSection["icon"]>, LucideIcon> = {
 
 const headingTags = ["h2", "h3", "h4", "h5", "h6"] as const;
 const headingClassName =
-  "font-bold leading-tight tracking-[-0.025em] wrap-break-word [font-family:Georgia,'Times_New_Roman',serif]";
+  "font-bold leading-tight tracking-[-0.025em] wrap-break-word font-editorial";
+const calloutClassName =
+  "rounded-e-lg border-s-2 border-brand-clay/65 bg-secondary/55 px-3 py-2";
 
 function hasSectionBody(section: ProjectSection): boolean {
   return Boolean(
@@ -58,7 +60,7 @@ function SectionContent({ section }: { section: ProjectSection }) {
   return (
     <>
       {decision?.trim() && (
-        <p className="rounded-e-lg border-s-2 border-brand-clay/65 bg-secondary/55 px-3 py-2">
+        <p className={calloutClassName}>
           <strong className="text-accent-foreground">Decision.</strong> {decision}
         </p>
       )}
@@ -66,7 +68,7 @@ function SectionContent({ section }: { section: ProjectSection }) {
         <p key={paragraph}>{paragraph}</p>
       ))}
       {tradeOff?.trim() && (
-        <p className="rounded-e-lg border-s-2 border-brand-clay/65 bg-secondary/55 px-3 py-2">
+        <p className={calloutClassName}>
           <strong className="text-accent-foreground">Trade-off.</strong> {tradeOff}
         </p>
       )}
