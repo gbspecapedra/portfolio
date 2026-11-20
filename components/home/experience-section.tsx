@@ -1,115 +1,189 @@
-import { Reveal } from "@/components/reveal";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { experience } from "@/data/experience";
+import { Cross, Grape, Play } from "lucide-react";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { experience } from "@/data/experience";
+import { cn } from "@/lib/utils";
 
-function StatPill({ children }: { children: string }) {
-  return (
-    <span className="inline-flex items-center rounded-full border border-border bg-surface-soft px-2.5 py-1 text-xs text-muted-foreground">
-      {children}
-    </span>
-  );
-}
+type CompanyMark = {
+  label: string;
+  useShortName?: boolean;
+  className: string;
+  icon?: typeof Grape;
+  iconClassName?: string;
+};
+
+const companyMarks: Record<(typeof experience)[number]["id"], CompanyMark> = {
+  commerce7: {
+    label: "Commerce7",
+    className: "bg-[#dce9dc] text-[#203e30]",
+  },
+  winedirect: {
+    label: "WineDirect",
+    className: "bg-[#572641] text-white",
+    icon: Grape,
+    iconClassName: "size-5 @min-[42rem]:size-7",
+  },
+  "up-learn": {
+    label: "Up Learn",
+    className: "bg-[#eadef4] text-[#261e36]",
+    icon: Play,
+    iconClassName:
+      "size-6 rounded-full bg-[#713bd0] fill-white p-1.5 text-white @min-[42rem]:size-8 @min-[42rem]:p-2",
+  },
+  bridge: {
+    label: "Laboratório Bridge",
+    className: "bg-[#deefe7] text-[#173730] leading-tight",
+    icon: Cross,
+    iconClassName: "size-6 text-[#0b8069] @min-[42rem]:size-8",
+  },
+  feesc: {
+    label: "FEESC",
+    useShortName: true,
+    className: "bg-[#d9ebf8] text-[#0966a3] text-2xl @min-[42rem]:text-3xl",
+  },
+};
+
+const serif = "[font-family:Georgia,'Times_New_Roman',serif]";
+const badgeClassName =
+  "border-border bg-surface-soft/50 px-2 py-1 text-[11px] leading-tight font-semibold";
 
 export function ExperienceSection() {
-  const defaultOpen = experience
-    .slice(0, 2)
-    .map((item) => `${item.company}-${item.title}`);
-
   return (
-    <section id="experience" className="scroll-mt-10 pt-20">
-      <Reveal trigger="inView" delay={0}>
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className="text-xl font-semibold sm:text-2xl">Experience</h2>
-            <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-              Front-End Engineer (6+ years) focused on design systems,
-              accessibility (WCAG/ARIA), performance, testing, and clean
-              component architecture.
-            </p>
-          </div>
+    <section
+      id="experience"
+      aria-labelledby="experience-heading"
+      className="@container min-w-0 scroll-mt-32 lg:scroll-mt-28 min-[1100px]:flex min-[1100px]:flex-col min-[1100px]:self-stretch"
+    >
+      <h2
+        id="experience-heading"
+        className={cn(
+          serif,
+          "text-[clamp(2rem,6.1cqw,2.875rem)] leading-tight font-bold tracking-[-0.04em] text-pretty after:mt-3 after:block after:h-[3px] after:w-14 after:rounded-full after:bg-brand-clay after:content-['']",
+        )}
+      >
+        Professional experience
+      </h2>
 
-          <div className="flex flex-wrap gap-2">
-            <StatPill>React • TypeScript • Next.js</StatPill>
-            <StatPill>WCAG/ARIA</StatPill>
-            <StatPill>Jest + RTL</StatPill>
-          </div>
-        </div>
-      </Reveal>
-
-      <div className="mt-6 space-y-4">
-        <Accordion
-          type="multiple"
-          defaultValue={defaultOpen}
-          className="space-y-4"
-        >
-          {experience.map((item, idx) => {
-            const value = `${item.company}-${item.title}`;
+      {/* About sets the height of the shared row when the sections sit side by side. */}
+      <Accordion
+        type="multiple"
+        role="region"
+        aria-label="Career timeline"
+        tabIndex={0}
+        className="mt-5 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring sm:mt-6 min-[1100px]:-ml-1 min-[1100px]:min-h-0 min-[1100px]:flex-1 min-[1100px]:overflow-y-auto min-[1100px]:contain-size min-[1100px]:scrollbar-thin min-[1100px]:scrollbar-gutter-stable min-[1100px]:scrollbar-thumb-brand-clay min-[1100px]:scrollbar-track-surface-soft min-[1100px]:py-1 min-[1100px]:pr-2 min-[1100px]:pl-1"
+      >
+        <ol aria-label="Employment history" role="list" className="grid gap-2.5">
+          {experience.map((item) => {
+            const mark = companyMarks[item.id];
+            const Icon = mark.icon;
+            const company = mark.useShortName ? mark.label : item.company;
 
             return (
-              <Reveal key={value} trigger="inView" delay={140 + idx * 140}>
-                <AccordionItem value={value} className="border-none">
-                  <Card className="card-sig">
-                    <CardContent className="p-0">
-                      <AccordionTrigger className="px-6 py-0 hover:no-underline">
-                        <div className="flex w-full flex-col gap-2 text-left sm:flex-row sm:items-start sm:justify-between">
-                          <div className="space-y-1">
-                            <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                              <h3 className="text-base font-semibold sm:text-lg">
-                                {item.title}
-                              </h3>
-                              <span className="text-sm text-muted-foreground">
-                                @ {item.company}
-                              </span>
-                            </div>
+              <li
+                key={item.id}
+                className="relative pl-5 before:absolute before:top-0 before:-bottom-2.5 before:left-1 before:w-px before:bg-brand-clay/45 after:absolute after:top-9 after:left-0 after:size-[9px] after:-translate-y-1/2 after:rounded-full after:bg-brand-clay first:before:top-9 last:before:bottom-auto last:before:h-9 @min-[26rem]:pl-7 @min-[26rem]:after:top-12 @min-[26rem]:first:before:top-12 @min-[26rem]:last:before:h-12"
+              >
+                <AccordionItem value={item.id} className="border-none">
+                  <Card className="gap-0 rounded-[1.25rem] border-border/50 bg-card/75 py-0 shadow-[0_4px_12px_-5px_var(--color-border)]">
+                    <CardContent className="grid min-w-0 items-center gap-x-3 gap-y-2.5 p-3 @min-[26rem]:grid-cols-[7rem_minmax(0,1fr)] @min-[38rem]:grid-cols-[clamp(7rem,19cqw,10.5rem)_minmax(0,1fr)_12rem] @min-[42rem]:gap-x-4 @min-[42rem]:p-3.5">
+                      <div
+                        aria-hidden="true"
+                        className={cn(
+                          "flex min-h-11 w-fit max-w-full items-center justify-center gap-1.5 rounded-xl px-2.5 py-2 text-sm font-bold tracking-tight @min-[26rem]:row-span-2 @min-[26rem]:min-h-20 @min-[26rem]:w-full @min-[38rem]:row-span-1 @min-[42rem]:min-h-22 @min-[42rem]:gap-2 @min-[42rem]:text-base",
+                          mark.className,
+                        )}
+                      >
+                        {Icon && (
+                          <Icon
+                            strokeWidth={1.75}
+                            className={cn("shrink-0", mark.iconClassName)}
+                          />
+                        )}
+                        <span>{mark.label}</span>
+                      </div>
 
-                            <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-                              <span>{item.location}</span>
-                              <span className="opacity-60">•</span>
-                              <span>{item.dates}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </AccordionTrigger>
+                      <div className="min-w-0">
+                        <AccordionTrigger
+                          className={cn(
+                            serif,
+                            "w-fit flex-none cursor-pointer items-center justify-start gap-1.5 py-0 text-xl leading-tight font-bold tracking-tight hover:text-brand-clay hover:no-underline @min-[42rem]:text-[1.375rem] [&>svg]:size-3.5 [&>svg]:translate-y-0",
+                          )}
+                        >
+                          {item.title}
+                          <span className="sr-only"> at {company}</span>
+                        </AccordionTrigger>
+                        <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[13px] leading-snug font-medium text-muted-foreground">
+                          <span>{company}</span>
+                          <span className="inline-flex items-center gap-2 whitespace-nowrap">
+                            <span
+                              aria-hidden="true"
+                              className="hidden @min-[44rem]:inline"
+                            >
+                              ·
+                            </span>
+                            {item.dates}
+                          </span>
+                        </p>
+                        <p className="mt-1.5 text-[13px] leading-snug @min-[42rem]:text-sm">
+                          {item.summary}
+                        </p>
+                      </div>
 
-                      <AccordionContent className="px-6 py-3">
-                        <div className="space-y-3">
-                          <p className="max-w-3xl text-sm text-muted-foreground">
-                            {item.summary}
-                          </p>
-
-                          <ul className="space-y-2 text-sm text-muted-foreground">
-                            {item.impact.map((b) => (
-                              <li key={b} className="flex gap-2">
-                                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--signature)]" />
-                                <span>{b}</span>
-                              </li>
-                            ))}
-                          </ul>
-
-                          <div className="flex flex-wrap gap-2 pt-1">
-                            {item.skills.map((s) => (
-                              <Badge key={s} variant="secondary">
-                                {s}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </AccordionContent>
+                      <ul
+                        aria-label="Key skills"
+                        role="list"
+                        className="flex flex-wrap gap-1.5"
+                      >
+                        {item.skills.map((skill) => (
+                          <li key={skill}>
+                            <Badge variant="outline" className={badgeClassName}>
+                              {skill}
+                            </Badge>
+                          </li>
+                        ))}
+                      </ul>
                     </CardContent>
+
+                    <AccordionContent className="mx-3 border-t border-border/70 pt-3 @min-[42rem]:mx-3.5">
+                      <p className="text-sm font-medium text-muted-foreground">
+                        {mark.useShortName && <>{item.company} · </>}
+                        {item.location}
+                      </p>
+                      {item.impact.length > 0 && (
+                        <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed marker:text-brand-clay">
+                          {item.impact.map((bullet) => (
+                            <li key={bullet}>{bullet}</li>
+                          ))}
+                        </ul>
+                      )}
+                      <ul
+                        aria-label="Additional skills"
+                        role="list"
+                        className="mt-3 flex flex-wrap gap-2"
+                      >
+                        {item.additionalSkills.map((skill) => (
+                          <li key={skill}>
+                            <Badge variant="outline" className={badgeClassName}>
+                              {skill}
+                            </Badge>
+                          </li>
+                        ))}
+                      </ul>
+                    </AccordionContent>
                   </Card>
                 </AccordionItem>
-              </Reveal>
+              </li>
             );
           })}
-        </Accordion>
-      </div>
+        </ol>
+      </Accordion>
     </section>
   );
 }

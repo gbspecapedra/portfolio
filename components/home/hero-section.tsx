@@ -25,9 +25,8 @@ const heroButtonClassName =
 export function HeroSection() {
   return (
     <section
-      id="about"
       aria-labelledby="hero-heading"
-      className="mx-auto max-w-[1456px] scroll-mt-[110px] px-4 pt-[26px] pb-2 min-[480px]:px-6 min-[480px]:pt-8 min-[480px]:pb-3 min-[960px]:pt-5 min-[1200px]:px-[30px] min-[1200px]:pt-0"
+      className="mx-auto max-w-[1456px] px-4 pt-[26px] pb-2 min-[480px]:px-6 min-[480px]:pt-8 min-[480px]:pb-3 min-[960px]:pt-5 min-[1200px]:px-[30px] min-[1200px]:pt-0"
     >
       <div className="mx-auto grid min-h-[460px] max-w-[680px] grid-cols-1 items-center min-[960px]:max-w-none min-[960px]:grid-cols-[41%_59%] min-[960px]:pl-2 min-[1200px]:min-h-[510px] min-[1200px]:pl-[30px]">
         <div className="relative z-2 min-w-0 min-[960px]:py-[22px]">
