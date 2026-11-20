@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import type { Project } from "@/data/projects";
+import { projectPath, type Project } from "@/data/projects";
 
 export function ProjectCard({ project }: { project: Project }) {
   const { slug, title, subtitle, image, card } = project;
@@ -45,7 +45,7 @@ export function ProjectCard({ project }: { project: Project }) {
           className="h-auto w-fit gap-2 p-0 text-base font-semibold motion-reduce:transition-none has-[>svg]:px-0"
         >
           <Link
-            href={`/projects/${slug}`}
+            href={projectPath(slug)}
             aria-labelledby={`${linkLabelId} ${titleId}`}
             className="after:absolute after:inset-0"
           >

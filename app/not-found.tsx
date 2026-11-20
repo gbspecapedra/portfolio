@@ -5,9 +5,6 @@ import { SiteShell } from "@/components/site-shell";
 
 export const metadata: Metadata = {
   title: "Page not found",
-  alternates: { canonical: null },
-  openGraph: null,
-  twitter: null,
 };
 
 export default function NotFound() {

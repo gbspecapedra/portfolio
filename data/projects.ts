@@ -48,6 +48,7 @@ export type Project = {
   slug: string;
   title: string;
   subtitle: string;
+  seoDescription?: string;
   tags?: string[];
   meta?: ProjectMeta;
   image?: ProjectImage;
@@ -66,6 +67,8 @@ export const projects: Project[] = [
     title: "eMed",
     subtitle:
       "From appointment scheduling to managing patient histories and lab results, the complexity of medical clinic operations.",
+    seoDescription:
+      "A case study in building a role-aware clinic management platform for appointment scheduling, patient records, and lab results.",
     tags: ["UI Systems", "Full-Stack", "Healthcare Workflows"],
 
     meta: {
@@ -784,4 +787,8 @@ export const projects: Project[] = [
 
 export function getProjectBySlug(slug: string) {
   return projects.find((p) => p.slug === slug);
+}
+
+export function projectPath(slug: string) {
+  return `/projects/${slug}`;
 }

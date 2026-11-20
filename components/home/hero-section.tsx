@@ -86,8 +86,8 @@ export function HeroSection() {
             src={heroImage}
             alt=""
             className="block h-auto w-full"
-            sizes="(max-width: 727px) calc(100vw - 32px), (max-width: 959px) 680px, (max-width: 1455px) 59vw, 825px"
-            priority
+            sizes="(width < 480px) calc(100vw - 32px), (width < 728px) calc(100vw - 48px), (width < 960px) 680px, (width < 1200px) calc(59vw - 33px), (width < 1456px) calc(59vw - 53px), 806px"
+            preload
           />
         </div>
       </div>

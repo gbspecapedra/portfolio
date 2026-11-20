@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { JsonLd } from "@/components/json-ld";
 import { NavButton } from "@/components/navigation/nav-button";
 import { ProjectHero } from "@/components/projects/project-hero";
 import { ProjectSections } from "@/components/projects/project-sections";
-import { getProjectBySlug, projects } from "@/data/projects";
-import { siteName } from "@/data/site";
+import { getProjectBySlug, projectPath, projects } from "@/data/projects";
+import { homeSectionIds, siteUrl } from "@/data/site";
+import { pageMetadata, personId, websiteId } from "@/lib/seo";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -21,37 +23,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
 
-  if (!project) {
-    return {
-      title: "Project not found",
-      alternates: { canonical: null },
-      robots: { index: false },
-    };
-  }
+  if (!project) notFound();
 
-  const { title, subtitle: description, image } = project;
-  const canonical = `/projects/${project.slug}`;
+  const { image } = project;
+  const title = `${project.title} Case Study`;
 
   return {
+    ...pageMetadata({
+      url: new URL(projectPath(slug), siteUrl).href,
+      title,
+      description: project.seoDescription ?? project.subtitle,
+      image: image && {
+        url: image.src,
+        width: image.width,
+        height: image.height,
+        alt: image.alt,
+      },
+    }),
     title,
-    description,
-    alternates: { canonical },
-    openGraph: {
-      type: "website",
-      siteName,
-      title,
-      description,
-      url: canonical,
-      images: image
-        ? [{ url: image.src, width: image.width, height: image.height, alt: image.alt }]
-        : [],
-    },
-    twitter: {
-      card: image ? "summary_large_image" : "summary",
-      title,
-      description,
-      images: image ? [{ url: image.src, alt: image.alt }] : [],
-    },
   };
 }
 
@@ -60,15 +49,52 @@ export default async function ProjectPage({ params }: Props) {
   const project = getProjectBySlug(slug);
   if (!project) notFound();
 
+  const url = new URL(projectPath(slug), siteUrl).href;
+  const breadcrumbId = `${url}#breadcrumb`;
+  const projectData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": url,
+        url,
+        name: project.title,
+        description: project.seoDescription ?? project.subtitle,
+        genre: "Case study",
+        author: { "@id": personId },
+        isPartOf: { "@id": websiteId },
+        breadcrumb: { "@id": breadcrumbId },
+        image: project.image && new URL(project.image.src, siteUrl).href,
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Case Studies",
+            item: new URL(`/#${homeSectionIds.projects}`, siteUrl).href,
+          },
+          { "@type": "ListItem", position: 2, name: project.title, item: url },
+        ],
+      },
+    ],
+  };
+
   return (
     <main className="hero-bg bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-9 lg:pt-10 lg:pb-12 xl:px-8">
+      <JsonLd data={projectData} />
+      <article
+        aria-labelledby="project-title"
+        className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-9 lg:pt-10 lg:pb-12 xl:px-8"
+      >
         <ProjectHero project={project} />
         <ProjectSections sections={project.sections} />
         <nav aria-label="Project navigation" className="mt-7 sm:mt-9">
           <NavButton />
         </nav>
-      </div>
+      </article>
     </main>
   );
 }

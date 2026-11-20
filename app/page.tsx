@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import {
   AboutSection,
   ContactSection,
@@ -7,12 +9,60 @@ import {
   ProjectsSection,
   TechnologiesSection,
 } from "@/components/home";
+import { JsonLd } from "@/components/json-ld";
 import { SiteShell } from "@/components/site-shell";
-import { homeSectionIds } from "@/data/site";
+import { contactLinks } from "@/data/contact-info";
+import { homeSectionIds, siteName, siteUrl } from "@/data/site";
+import {
+  homeDescription,
+  homeTitle,
+  pageMetadata,
+  personId,
+  websiteId,
+} from "@/lib/seo";
+
+const homeUrl = new URL("/", siteUrl).href;
+
+export const metadata: Metadata = {
+  ...pageMetadata({ url: homeUrl, title: homeTitle, description: homeDescription }),
+  title: { absolute: homeTitle },
+};
+
+const profileData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": websiteId,
+      name: siteName,
+      url: homeUrl,
+      inLanguage: "en",
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": homeUrl,
+      url: homeUrl,
+      name: homeTitle,
+      description: homeDescription,
+      isPartOf: { "@id": websiteId },
+      mainEntity: { "@id": personId },
+    },
+    {
+      "@type": "Person",
+      "@id": personId,
+      name: siteName,
+      url: homeUrl,
+      jobTitle: "Frontend Engineer",
+      image: new URL("/images/headshot.png", siteUrl).href,
+      sameAs: [contactLinks.linkedin.href, contactLinks.github.href],
+    },
+  ],
+};
 
 export default function HomePage() {
   return (
     <SiteShell>
+      <JsonLd data={profileData} />
       <main id={homeSectionIds.home} className="hero-bg scroll-mt-28 bg-background">
         <HeroSection />
         <ProjectsSection />
