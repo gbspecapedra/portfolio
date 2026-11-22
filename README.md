@@ -86,11 +86,11 @@ Run the browser and accessibility regression tests against a production build:
 
 ```sh
 npx playwright install --only-shell chromium
-npm run build
+FORMSPREE_FORM_ID=portfoliofixture npm run build
 npm run test:e2e
 ```
 
-Playwright starts its own local server on port 3100. Contact checks use test data and verify the draft URL without opening an email app. The GitHub Actions workflow runs the same checks and saves Playwright traces on failure.
+Playwright starts its own local server on port 3100. It intercepts Formspree submissions and uses test data. The GitHub Actions workflow runs the same checks and saves Playwright traces on failure.
 
 Type checks run with TypeScript 7. ESLint's TypeScript parser still requires the compiler API, so `typescript` aliases Microsoft's `@typescript/typescript6` compatibility package while `@typescript/native` aliases TypeScript 7. This follows the [official side-by-side setup](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6-0). `npm run typecheck` generates Next.js route types before checking the project, so it also works on a fresh checkout.
 
@@ -115,6 +115,12 @@ In the Vercel project's **Settings → Environment Variables**, set `GA_MEASUREM
 In Google Analytics, open **Admin → Data streams** and select the portfolio’s web stream. Turn on **Enhanced measurement**, then check that **Page loads** and **Page changes based on browser history events** are enabled under **Page views → Show advanced settings**. This captures direct visits and navigation between the homepage and case studies. [Google’s single-page app guide](https://developers.google.com/analytics/devguides/collection/ga4/single-page-applications)
 
 After deploying, visit the homepage and open a case study. Check **Reports → Realtime** for `page_view` events.
+
+## Contact form
+
+Copy the ID after `/f/` in the form endpoint on Formspree’s **Integration** tab. In the Vercel project's **Settings → Environment Variables**, set `FORMSPREE_FORM_ID` to that ID for **Production**, then deploy. Set the notification recipient in the Formspree dashboard. [Formspree React integration](https://help.formspree.io/articles/working-with-react/the-formspree-react-library/)
+
+For local testing, set `FORMSPREE_FORM_ID` in the ignored `.env.local` file. The endpoint is visible to the browser and Formspree stores the notification recipient. Builds without a form ID use an email draft.
 
 ## Project structure
 

@@ -60,6 +60,7 @@ test("synchronizes theme controls and remembers the selected theme", async ({ pa
 });
 
 test("contact fields are keyboard reachable and use native validation", async ({ page }) => {
+  await page.route("https://formspree.io/f/**", (route) => route.abort());
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/#contact");
   const form = page.getByRole("form", { name: "Contact form" });
@@ -68,8 +69,11 @@ test("contact fields are keyboard reachable and use native validation", async ({
   const message = form.getByRole("textbox", { name: "Message", exact: true });
   const send = form.getByRole("button", { name: "Send message" });
 
-  await expect(form).toHaveAttribute("action", /^mailto:/);
-  await expect(send).toHaveAccessibleDescription("Opens your email app.");
+  const action = await form.getAttribute("action");
+  expect(action).toMatch(/^(?:mailto:|https:\/\/formspree\.io\/f\/[a-z0-9]+$)/i);
+  if (action?.startsWith("mailto:")) {
+    await expect(send).toHaveAccessibleDescription("Opens your email app.");
+  }
   await name.focus();
   await page.keyboard.press("Tab");
   await expect(email).toBeFocused();
@@ -89,6 +93,64 @@ test("contact fields are keyboard reachable and use native validation", async ({
   await expect(email).toBeFocused();
   await expect(form.locator("input:invalid")).toBeFocused();
   await expect(page).toHaveURL(/\/#contact$/);
+});
+
+test("shows Formspree submission errors and lets visitors retry", async ({ page }) => {
+  await page.goto("/#contact");
+  const form = page.getByRole("form", { name: "Contact form" });
+  const action = (await form.getAttribute("action")) ?? "";
+  test.skip(action.startsWith("mailto:"), "Build with a Formspree form ID to test submissions.");
+  expect(action).toMatch(/^https:\/\/formspree\.io\/f\/[a-z0-9]+$/i);
+
+  let attempts = 0;
+  let releaseFirstResponse: (() => void) | undefined;
+  const firstResponse = new Promise<void>((resolve) => {
+    releaseFirstResponse = resolve;
+  });
+  await page.route(action, async (route) => {
+    attempts++;
+    if (attempts === 1) {
+      await firstResponse;
+      await route.fulfill({
+        status: 422,
+        json: { errors: [{ field: "email", code: "TYPE_EMAIL", message: "is not accepted" }] },
+      });
+      return;
+    }
+
+    await route.fulfill({ json: { next: "/thanks" } });
+  });
+
+  const name = form.getByRole("textbox", { name: "Name", exact: true });
+  const email = form.getByRole("textbox", { name: "Email", exact: true });
+  const message = form.getByRole("textbox", { name: "Message", exact: true });
+  const send = form.getByRole("button", { name: "Send message" });
+  await name.fill("Ada & Jo");
+  await email.fill("ada+jo@example.test");
+  await message.fill("A test message from the portfolio.");
+
+  try {
+    await send.click();
+    await expect(form.getByRole("button", { name: "Sending message…" })).toBeDisabled();
+  } finally {
+    releaseFirstResponse?.();
+  }
+  await expect(form.getByRole("alert")).toContainText("Email is not accepted");
+  await expect(name).toHaveValue("Ada & Jo");
+  await expect(message).toHaveValue("A test message from the portfolio.");
+  await email.fill("ada@example.test");
+
+  const requestPromise = page.waitForRequest((request) => request.url() === action && request.method() === "POST");
+  await send.click();
+  const request = await requestPromise;
+  const fields = await new Response(request.postData(), { headers: request.headers() }).formData();
+  expect(fields.get("name")).toBe("Ada & Jo");
+  expect(fields.get("email")).toBe("ada@example.test");
+  expect(fields.get("message")).toBe("A test message from the portfolio.");
+  await expect(page.getByRole("status").filter({ hasText: "Message sent" })).toBeVisible();
+  await expect(form).toBeHidden();
+  await expect(page).toHaveURL(/\/#contact$/);
+  expect(attempts).toBe(2);
 });
 
 test("encodes contact data as a mailto draft", () => {

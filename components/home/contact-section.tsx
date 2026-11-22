@@ -14,6 +14,11 @@ const sprigLeaves = [
 ];
 
 export function ContactSection() {
+  const configuredFormId = process.env.FORMSPREE_FORM_ID?.trim();
+  const formId = configuredFormId && /^[a-z0-9]+$/i.test(configuredFormId)
+    ? configuredFormId
+    : undefined;
+
   return (
     <section
       id={homeSectionIds.contact}
@@ -77,7 +82,7 @@ export function ContactSection() {
             <span className="absolute inset-[-9%_48%_30%_-12%] -rotate-16 rounded-[56%_44%_50%_50%] bg-(--contact-wash) min-[52rem]:start-[-29%]" />
             <span className="absolute inset-[40%_48%_4%_-8%] -rotate-28 rounded-[62%_38%_58%_42%] bg-(--contact-wash) min-[52rem]:start-[-22%]" />
           </div>
-          <ContactForm email={contactEmail} />
+          <ContactForm email={contactEmail} formId={formId} />
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-2.5 -bottom-10.5 aspect-square w-[clamp(6rem,12vw,11rem)] [--contact-leaf:#a4a787] [--contact-leaf-vein:#777e59] before:absolute before:top-[36%] before:left-[72%] before:h-[64%] before:w-[12%] before:-rotate-17 before:rounded-[70%_0_0] before:border-l-2 before:border-(--contact-leaf-vein) before:opacity-70 before:content-[''] min-[75rem]:-right-7 dark:[--contact-leaf:#8f9982] dark:[--contact-leaf-vein:#626d56]"

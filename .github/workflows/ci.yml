@@ -27,6 +27,8 @@ jobs:
           npm run typecheck
           npm run test:lint
       - run: npm run build
+        env:
+          FORMSPREE_FORM_ID: portfoliofixture
       - run: npx playwright install --with-deps --only-shell chromium
       - run: npm run test:e2e
       - uses: actions/upload-artifact@v7
