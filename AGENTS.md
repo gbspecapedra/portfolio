@@ -37,7 +37,13 @@ Help recruiters, hiring managers, engineering and design peers, and potential co
 
 ## 6. Design Philosophy and Brand Identity
 
-The CSS calls the design **Warm Editorial**. Use warm paper and charcoal surfaces, clay accents, restrained sage, editorial serif headings, and readable sans-serif body copy. Short clay rules, generous spacing, subdued borders, and soft surfaces create hierarchy. The hero's layered illustration and the portrait's botanical accents are specific to those sections. For new sections, repeat the hierarchy and restraint found in the existing sections. Preserve the current visual identity unless the request explicitly calls for redesign.
+**Warm Editorial** is the default visual standard. Use warm paper and charcoal surfaces, clay accents, restrained sage, editorial serif headings, and readable sans-serif body copy. Short clay rules, generous spacing, subdued borders, and soft surfaces create hierarchy. The hero's layered illustration and the portrait's botanical accents are specific to those sections. For new sections, repeat the hierarchy and restraint found in the existing sections.
+
+### Design System Preservation
+
+- Before implementing any UI change, read the relevant sections of this guide and inspect the affected components and design tokens. Check the existing implementation before introducing any new colors, typography, spacing conventions, or component variants. Reuse existing tokens and components wherever practical.
+- Preserve visual consistency in both light and dark themes. Redesign requires an explicit request.
+- If a requested change conflicts with established design guidelines, explain the conflict and recommend the solution that best fits the existing design system.
 
 ## 7. Color System and Design Tokens
 
@@ -217,8 +223,10 @@ Use this workflow for every change.
 1. Run the relevant lint, type-check, test, and build commands above. Record any check you could not run and why.
 2. Review impacted interactions, narrow and wide layouts, light and dark themes, keyboard focus, and reduced motion where applicable. Check metadata and integration behavior when touched.
 3. Review the diff for unrelated edits, duplication, visual regressions, and sensitive values. Report the changes, checks, and any remaining risks.
-4. Update this guide when the change establishes a durable convention, architecture decision, or design system rule.
+4. Apply the documentation maintenance rules below when a task establishes or changes a durable convention, architecture decision, or design system rule.
 
 ## 25. Documentation Maintenance Rules
 
-Keep this root guide authoritative for repository-wide agent behavior. Cite the owning source when documenting durable rules. Label local exceptions and recommendations so agents can recognize when a pattern applies. Keep dependency versions in package files, service setup in `README.md`, and content inventories in their data modules. Update a source reference or verified token alongside the durable change that affects it.
+Keep this root guide authoritative for repository-wide agent behavior. Cite the owning source when documenting durable rules. Label local exceptions and recommendations so agents can recognize when a pattern applies. Keep dependency versions in package files, service setup in `README.md`, and content inventories in their data modules.
+
+When a task intentionally changes a design system convention, update the relevant documentation in the same task, including any affected source references or verified tokens. Reserve updates to `AGENTS.md` for durable conventions, architecture decisions, and design system rules. Ordinary feature changes that follow existing conventions require no update to this guide.
