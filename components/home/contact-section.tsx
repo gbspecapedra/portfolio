@@ -1,9 +1,8 @@
-import { contactEmail, contactLinks } from "@/data/contact-info";
+import { getContactLinks } from "@/lib/contact-links";
+import type { Homepage, SiteSettings } from "@/lib/prismic/map-content";
 import { homeSectionIds } from "@/data/site";
 
 import { ContactForm } from "./contact-form";
-
-const links = [contactLinks.email, contactLinks.linkedin, contactLinks.github];
 
 const sprigLeaves = [
   "right-[24%] bottom-[16%] h-[21%] w-[48%] -rotate-48",
@@ -13,7 +12,13 @@ const sprigLeaves = [
   "right-[15%] bottom-[18%] h-[15%] w-[32%] rotate-91",
 ];
 
-export function ContactSection() {
+export function ContactSection({ contact, settings }: {
+  contact: Homepage["contact"];
+  settings: SiteSettings;
+}) {
+  const { email } = settings;
+  const { linkedin, github, email: emailLink } = getContactLinks(settings);
+  const links = [emailLink, linkedin, github];
   const configuredFormId = process.env.FORMSPREE_FORM_ID?.trim();
   const formId = configuredFormId && /^[a-z0-9]+$/i.test(configuredFormId)
     ? configuredFormId
@@ -28,17 +33,16 @@ export function ContactSection() {
       <div className="mx-auto grid max-w-[91rem] items-center gap-[clamp(2rem,5vw,5rem)] px-4 min-[30rem]:px-6 min-[52rem]:grid-cols-[minmax(0,1.12fr)_minmax(0,1fr)] min-[52rem]:items-start min-[75rem]:px-[clamp(2.75rem,4vw,3.75rem)]">
         <div>
           <p className="mb-2.5 text-sm/normal font-[750] tracking-[0.2em] text-brand-clay uppercase">
-            Contact
+            {contact.eyebrow}
           </p>
           <h2
             id="contact-heading"
             className="text-[length:clamp(2.125rem,3.5vw,3.25rem)] leading-[1.1] font-bold tracking-[-0.04em] text-balance text-[#252237] font-editorial dark:text-foreground"
           >
-            Let’s work together.
+            {contact.heading}
           </h2>
           <p className="mt-4 max-w-[37ch] text-[length:clamp(1rem,1.5vw,1.25rem)] leading-[1.45]">
-            I’m always open to new opportunities, interesting challenges or a
-            good conversation about frontend, product and accessibility.
+            {contact.description}
           </p>
           <ul className="mt-[1.125rem] grid gap-2" role="list">
             {links.map(({ label, icon: Icon, ...link }) => {
@@ -46,7 +50,7 @@ export function ContactSection() {
               if (!href) return null;
 
               const address = href.startsWith("mailto:")
-                ? contactEmail
+                ? email
                 : href.replace(/^https?:\/\/(www\.)?/, "");
 
               return (
@@ -82,7 +86,7 @@ export function ContactSection() {
             <span className="absolute inset-[-9%_48%_30%_-12%] -rotate-16 rounded-[56%_44%_50%_50%] bg-(--contact-wash) min-[52rem]:start-[-29%]" />
             <span className="absolute inset-[40%_48%_4%_-8%] -rotate-28 rounded-[62%_38%_58%_42%] bg-(--contact-wash) min-[52rem]:start-[-22%]" />
           </div>
-          <ContactForm email={contactEmail} formId={formId} />
+          <ContactForm email={email} formId={formId} />
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-2.5 -bottom-10.5 aspect-square w-[clamp(6rem,12vw,11rem)] [--contact-leaf:#a4a787] [--contact-leaf-vein:#777e59] before:absolute before:top-[36%] before:left-[72%] before:h-[64%] before:w-[12%] before:-rotate-17 before:rounded-[70%_0_0] before:border-l-2 before:border-(--contact-leaf-vein) before:opacity-70 before:content-[''] min-[75rem]:-right-7 dark:[--contact-leaf:#8f9982] dark:[--contact-leaf-vein:#626d56]"

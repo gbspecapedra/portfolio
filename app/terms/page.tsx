@@ -2,14 +2,15 @@ import Link from "next/link";
 
 import { LegalPage } from "@/components/legal-page";
 import { homeSectionIds, legalPages } from "@/data/site";
+import { getSiteSettings } from "@/lib/prismic/content";
 import { legalPageMetadata } from "@/lib/seo";
 
 const page = legalPages.terms;
 
-export const metadata = legalPageMetadata(
-  page,
-  "Terms for using Gisele Pecapedra’s portfolio, including content ownership, permitted use and third-party materials.",
-);
+export async function generateMetadata() {
+  const settings = await getSiteSettings();
+  return legalPageMetadata(page, `Terms for using ${settings.name}’s portfolio, including content ownership, permitted use and third-party materials.`, settings);
+}
 
 export default function TermsPage() {
   return (

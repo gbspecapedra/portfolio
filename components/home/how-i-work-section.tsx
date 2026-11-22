@@ -1,34 +1,15 @@
 import { CodeXml, Flag, Handshake } from "lucide-react";
 import { HiOutlineChartBar } from "react-icons/hi2";
+import type { Homepage } from "@/lib/prismic/map-content";
 
-const workflow = [
-  {
-    title: "Collaborate",
-    icon: Handshake,
-    description:
-      "Work closely with designers, product managers, and engineers to turn ideas into solid, feasible solutions.",
-  },
-  {
-    title: "Implement",
-    icon: CodeXml,
-    description:
-      "Build high-quality, accessible, and maintainable interfaces with a focus on reuse, consistency, and long-term evolution.",
-  },
-  {
-    title: "Optimize",
-    icon: HiOutlineChartBar,
-    description:
-      "Continuously improve performance, accessibility, and usability based on data, feedback, and product goals.",
-  },
-  {
-    title: "Deliver",
-    icon: Flag,
-    description:
-      "Ship with quality and ownership, balancing technical excellence, user experience, and business impact.",
-  },
-];
+const workflowIcons = {
+  collaborate: Handshake,
+  implement: CodeXml,
+  optimize: HiOutlineChartBar,
+  deliver: Flag,
+};
 
-export function HowIWorkSection() {
+export function HowIWorkSection({ workflow }: { workflow: Homepage["workflow"] }) {
   return (
     <section
       aria-labelledby="how-i-work-heading"
@@ -40,12 +21,11 @@ export function HowIWorkSection() {
             id="how-i-work-heading"
             className="text-[clamp(2rem,3.3vw,2.625rem)] leading-tight font-bold tracking-tight font-editorial"
           >
-            How I work
+            {workflow.heading}
           </h2>
           <div aria-hidden="true" className="mt-4 h-0.75 w-16 bg-brand-clay" />
           <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground">
-            A practical, collaborative, and user-centered approach to building
-            and scaling frontend experiences.
+            {workflow.intro}
           </p>
         </div>
 
@@ -53,21 +33,26 @@ export function HowIWorkSection() {
           role="list"
           className="grid gap-6 min-[480px]:grid-cols-2 lg:grid-cols-4 xl:gap-8"
         >
-          {workflow.map(({ title, icon: Icon, description }) => (
-            <li key={title}>
-              <Icon
-                aria-hidden="true"
-                strokeWidth={1.5}
-                className="size-9 text-brand-clay xl:size-11"
-              />
-              <h3 className="mt-2.5 text-[1.375rem] leading-tight font-bold tracking-tight font-editorial xl:text-[1.625rem]">
-                {title}
-              </h3>
-              <p className="mt-2 text-[15px] leading-snug text-muted-foreground xl:text-base">
-                {description}
-              </p>
-            </li>
-          ))}
+          {workflow.items.map(({ title, icon, description }) => {
+            const Icon = icon && workflowIcons[icon];
+            return (
+              <li key={title}>
+                {Icon && (
+                  <Icon
+                    aria-hidden="true"
+                    strokeWidth={1.5}
+                    className="size-9 text-brand-clay xl:size-11"
+                  />
+                )}
+                <h3 className="mt-2.5 text-[1.375rem] leading-tight font-bold tracking-tight font-editorial xl:text-[1.625rem]">
+                  {title}
+                </h3>
+                <p className="mt-2 text-[15px] leading-snug text-muted-foreground xl:text-base">
+                  {description}
+                </p>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>

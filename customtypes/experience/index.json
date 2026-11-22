@@ -1,0 +1,107 @@
+{
+  "id": "experience",
+  "label": "Experience",
+  "repeatable": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "Stable role identifier",
+          "placeholder": "Keep the identifier stable after publishing"
+        }
+      },
+      "company": {
+        "type": "Text",
+        "config": {
+          "label": "Organization"
+        }
+      },
+      "company_short": {
+        "type": "Text",
+        "config": {
+          "label": "Optional short name"
+        }
+      },
+      "role": {
+        "type": "Text",
+        "config": {
+          "label": "Role"
+        }
+      },
+      "location": {
+        "type": "Text",
+        "config": {
+          "label": "Location"
+        }
+      },
+      "start_month": {
+        "type": "Text",
+        "config": {
+          "label": "Start month (YYYY-MM)",
+          "placeholder": "2025-04"
+        }
+      },
+      "end_month": {
+        "type": "Text",
+        "config": {
+          "label": "End month (YYYY-MM)",
+          "placeholder": "Leave empty for a current role"
+        }
+      },
+      "current": {
+        "type": "Boolean",
+        "config": {
+          "label": "Current role",
+          "default_value": false
+        }
+      },
+      "summary": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Role summary",
+          "multi": "paragraph",
+          "allowTargetBlank": false
+        }
+      },
+      "impact": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Responsibilities and achievements",
+          "multi": "list-item",
+          "allowTargetBlank": false
+        }
+      },
+      "skills": {
+        "type": "Group",
+        "config": {
+          "label": "Primary skills",
+          "fields": {
+            "label": {
+              "type": "Text",
+              "config": {
+                "label": "Skill"
+              }
+            }
+          }
+        }
+      },
+      "additional_skills": {
+        "type": "Group",
+        "config": {
+          "label": "Additional skills",
+          "fields": {
+            "label": {
+              "type": "Text",
+              "config": {
+                "label": "Skill"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "status": true,
+  "format": "custom"
+}

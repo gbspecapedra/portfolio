@@ -1,0 +1,296 @@
+{
+  "id": "project",
+  "label": "Project",
+  "repeatable": true,
+  "json": {
+    "Overview": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "Public route UID",
+          "placeholder": "Keep the UID stable after publishing"
+        }
+      },
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "Project title"
+        }
+      },
+      "subtitle": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Short introduction",
+          "multi": "paragraph",
+          "allowTargetBlank": false
+        }
+      },
+      "tags": {
+        "type": "Group",
+        "config": {
+          "label": "Technology and practice tags",
+          "fields": {
+            "label": {
+              "type": "Text",
+              "config": {
+                "label": "Tag"
+              }
+            }
+          }
+        }
+      },
+      "image": {
+        "type": "Image",
+        "config": {
+          "label": "Hero and card image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "links": {
+        "type": "Group",
+        "config": {
+          "label": "Resources",
+          "fields": {
+            "label": {
+              "type": "Text",
+              "config": {
+                "label": "Link label"
+              }
+            },
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "Resource URL",
+                "select": "web"
+              }
+            },
+            "external": {
+              "type": "Boolean",
+              "config": {
+                "label": "Open in a new tab",
+                "default_value": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "Facts": {
+      "role": {
+        "type": "Text",
+        "config": {
+          "label": "Role"
+        }
+      },
+      "project_type": {
+        "type": "Select",
+        "config": {
+          "label": "Project type",
+          "options": [
+            "Personal",
+            "Academic",
+            "Assessment",
+            "Client",
+            "Professional"
+          ]
+        }
+      },
+      "duration": {
+        "type": "Text",
+        "config": {
+          "label": "Duration"
+        }
+      },
+      "year": {
+        "type": "Text",
+        "config": {
+          "label": "Year"
+        }
+      },
+      "summary_role": {
+        "type": "Text",
+        "config": {
+          "label": "Context role"
+        }
+      },
+      "focus": {
+        "type": "Text",
+        "config": {
+          "label": "Focus"
+        }
+      },
+      "outcome": {
+        "type": "Text",
+        "config": {
+          "label": "Outcome"
+        }
+      }
+    },
+    "Listing": {
+      "show_card": {
+        "type": "Boolean",
+        "config": {
+          "label": "Show in home listing",
+          "default_value": false
+        }
+      },
+      "featured": {
+        "type": "Boolean",
+        "config": {
+          "label": "Feature in home listing",
+          "default_value": false
+        }
+      },
+      "display_order": {
+        "type": "Number",
+        "config": {
+          "label": "Display order (lowest first)"
+        }
+      },
+      "pitch": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Optional card introduction",
+          "multi": "paragraph",
+          "allowTargetBlank": false
+        }
+      }
+    },
+    "Case study": {
+      "sections": {
+        "type": "Group",
+        "config": {
+          "label": "Ordered case study sections",
+          "fields": {
+            "section_id": {
+              "type": "Text",
+              "config": {
+                "label": "Stable section ID",
+                "placeholder": "Lowercase with hyphens. Preserve existing IDs."
+              }
+            },
+            "parent_path": {
+              "type": "Text",
+              "config": {
+                "label": "Optional parent path",
+                "placeholder": "Example: process/navigation. Leave blank for top-level sections."
+              }
+            },
+            "title": {
+              "type": "Text",
+              "config": {
+                "label": "Heading"
+              }
+            },
+            "icon": {
+              "type": "Select",
+              "config": {
+                "label": "Optional icon",
+                "options": [
+                  "target",
+                  "clipboard",
+                  "search",
+                  "scale",
+                  "smartphone",
+                  "layers",
+                  "accessibility",
+                  "lightbulb",
+                  "chart",
+                  "star",
+                  "laptop"
+                ]
+              }
+            },
+            "body": {
+              "type": "StructuredText",
+              "config": {
+                "label": "Paragraphs",
+                "multi": "paragraph",
+                "allowTargetBlank": false
+              }
+            },
+            "bullets": {
+              "type": "StructuredText",
+              "config": {
+                "label": "Bullet points",
+                "multi": "list-item",
+                "allowTargetBlank": false
+              }
+            },
+            "decision": {
+              "type": "StructuredText",
+              "config": {
+                "label": "Decision",
+                "multi": "paragraph",
+                "allowTargetBlank": false
+              }
+            },
+            "trade_off": {
+              "type": "StructuredText",
+              "config": {
+                "label": "Trade-off",
+                "multi": "paragraph",
+                "allowTargetBlank": false
+              }
+            },
+            "image": {
+              "type": "Image",
+              "config": {
+                "label": "Optional figure",
+                "constraint": {},
+                "thumbnails": []
+              }
+            },
+            "related_label": {
+              "type": "Text",
+              "config": {
+                "label": "Related case study label"
+              }
+            },
+            "related_project": {
+              "type": "Link",
+              "config": {
+                "label": "Related project",
+                "select": "document",
+                "customtypes": [
+                  "project"
+                ]
+              }
+            },
+            "related_fragment": {
+              "type": "Text",
+              "config": {
+                "label": "Target fragment without #"
+              }
+            }
+          }
+        }
+      }
+    },
+    "SEO": {
+      "meta_title": {
+        "type": "Text",
+        "config": {
+          "label": "Optional SEO title override"
+        }
+      },
+      "meta_description": {
+        "type": "Text",
+        "config": {
+          "label": "Optional SEO description"
+        }
+      },
+      "social_image": {
+        "type": "Image",
+        "config": {
+          "label": "Optional social image override",
+          "constraint": {},
+          "thumbnails": []
+        }
+      }
+    }
+  },
+  "status": true,
+  "format": "page"
+}

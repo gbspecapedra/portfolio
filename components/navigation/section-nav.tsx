@@ -6,14 +6,6 @@ import { useSyncExternalStore } from "react";
 import { homeSectionIds } from "@/data/site";
 import { cn } from "@/lib/utils";
 
-const sections = [
-  { label: "Home", id: homeSectionIds.home },
-  { label: "Case Studies", id: homeSectionIds.projects },
-  { label: "Experience", id: homeSectionIds.experience },
-  { label: "About", id: homeSectionIds.about },
-  { label: "Contact", id: homeSectionIds.contact },
-];
-
 function subscribeToHashChange(onChange: () => void) {
   window.addEventListener("hashchange", onChange);
   return () => window.removeEventListener("hashchange", onChange);
@@ -28,9 +20,13 @@ function getServerSectionId() {
 }
 
 export function SectionNav({
+  sections,
   variant = "header",
+  label = "Main navigation",
 }: {
+  sections: readonly { id: string; label: string }[];
   variant?: "header" | "footer";
+  label?: string;
 }) {
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -48,7 +44,7 @@ export function SectionNav({
 
   return (
     <nav
-      aria-label={isFooter ? "Explore" : "Main navigation"}
+      aria-label={label}
       className={
         isFooter
           ? "mt-2.5 grid justify-items-start gap-1.5"

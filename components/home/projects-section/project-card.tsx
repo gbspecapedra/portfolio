@@ -5,7 +5,8 @@ import { ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { projectPath, type Project } from "@/data/projects";
+import type { Project } from "@/data/project-types";
+import { projectPath } from "@/data/site";
 
 export function ProjectCard({ project }: { project: Project }) {
   const { slug, title, subtitle, image, card, meta } = project;

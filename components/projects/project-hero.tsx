@@ -7,7 +7,7 @@ import { SiGithub } from "react-icons/si";
 import { NavButton } from "@/components/navigation/nav-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import type { Project } from "@/data/projects";
+import type { Project } from "@/data/project-types";
 import { cn } from "@/lib/utils";
 
 const projectLinkStyles = new Map([

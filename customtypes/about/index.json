@@ -1,0 +1,87 @@
+{
+  "id": "about",
+  "label": "About",
+  "repeatable": false,
+  "json": {
+    "Main": {
+      "eyebrow": {
+        "type": "Text",
+        "config": {
+          "label": "Eyebrow"
+        }
+      },
+      "headline": {
+        "type": "Group",
+        "config": {
+          "label": "Headline lines",
+          "fields": {
+            "line": {
+              "type": "Text",
+              "config": {
+                "label": "Line",
+                "placeholder": "Lines display together on smaller screens"
+              }
+            }
+          }
+        }
+      },
+      "introduction": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Professional introduction",
+          "multi": "paragraph",
+          "allowTargetBlank": false
+        }
+      },
+      "portrait": {
+        "type": "Image",
+        "config": {
+          "label": "Portrait",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "resume_label": {
+        "type": "Text",
+        "config": {
+          "label": "Resume action label"
+        }
+      },
+      "values": {
+        "type": "Group",
+        "config": {
+          "label": "Professional values",
+          "fields": {
+            "icon": {
+              "type": "Select",
+              "config": {
+                "label": "Icon",
+                "options": [
+                  "people",
+                  "curiosity",
+                  "detail"
+                ]
+              }
+            },
+            "title": {
+              "type": "Text",
+              "config": {
+                "label": "Title"
+              }
+            },
+            "description": {
+              "type": "StructuredText",
+              "config": {
+                "label": "Description",
+                "multi": "paragraph",
+                "allowTargetBlank": false
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "status": true,
+  "format": "custom"
+}

@@ -1,0 +1,135 @@
+{
+  "id": "site_settings",
+  "label": "Site Settings",
+  "repeatable": false,
+  "json": {
+    "Identity": {
+      "display_name": {
+        "type": "Text",
+        "config": {
+          "label": "Public display name"
+        }
+      },
+      "professional_title": {
+        "type": "Text",
+        "config": {
+          "label": "Professional title"
+        }
+      },
+      "email": {
+        "type": "Text",
+        "config": {
+          "label": "Public contact email"
+        }
+      },
+      "linkedin": {
+        "type": "Link",
+        "config": {
+          "label": "LinkedIn profile",
+          "select": "web"
+        }
+      },
+      "github": {
+        "type": "Link",
+        "config": {
+          "label": "GitHub profile",
+          "select": "web"
+        }
+      },
+      "resume": {
+        "type": "Link",
+        "config": {
+          "label": "Public resume URL",
+          "select": "web"
+        }
+      }
+    },
+    "Navigation": {
+      "nav_home": {
+        "type": "Text",
+        "config": {
+          "label": "Home link"
+        }
+      },
+      "nav_projects": {
+        "type": "Text",
+        "config": {
+          "label": "Case studies link"
+        }
+      },
+      "nav_experience": {
+        "type": "Text",
+        "config": {
+          "label": "Experience link"
+        }
+      },
+      "nav_about": {
+        "type": "Text",
+        "config": {
+          "label": "About link"
+        }
+      },
+      "nav_contact": {
+        "type": "Text",
+        "config": {
+          "label": "Contact link"
+        }
+      }
+    },
+    "Footer": {
+      "footer_summary": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Professional summary",
+          "multi": "paragraph",
+          "allowTargetBlank": false
+        }
+      },
+      "footer_explore": {
+        "type": "Text",
+        "config": {
+          "label": "Navigation heading"
+        }
+      },
+      "footer_contact": {
+        "type": "Text",
+        "config": {
+          "label": "Contact heading"
+        }
+      },
+      "footer_invitation": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Contact invitation",
+          "multi": "paragraph",
+          "allowTargetBlank": false
+        }
+      },
+      "footer_action": {
+        "type": "Text",
+        "config": {
+          "label": "Contact action label"
+        }
+      },
+      "copyright": {
+        "type": "Text",
+        "config": {
+          "label": "Copyright pattern",
+          "placeholder": "© {year} {name}. All rights reserved."
+        }
+      }
+    },
+    "SEO": {
+      "social_image": {
+        "type": "Image",
+        "config": {
+          "label": "Default social image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      }
+    }
+  },
+  "status": true,
+  "format": "custom"
+}

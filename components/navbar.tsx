@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { SectionNav } from "@/components/navigation/section-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { siteName } from "@/data/site";
+import type { SiteSettings } from "@/lib/prismic/map-content";
 
-export function Navbar({ mainId }: { mainId: string }) {
+export function Navbar({ mainId, settings }: { mainId: string; settings: SiteSettings }) {
   return (
     <header className="relative top-0 z-50 bg-surface-soft/95 backdrop-blur-md [@media(min-height:26rem)]:sticky">
       <a
@@ -18,10 +18,10 @@ export function Navbar({ mainId }: { mainId: string }) {
           prefetch={false}
           className="shrink-0 text-2xl leading-tight tracking-tight text-foreground sm:text-3xl lg:text-[2.375rem]"
         >
-          {siteName}
+          {settings.name}
         </Link>
 
-        <SectionNav />
+        <SectionNav sections={settings.navigation} />
 
         <ThemeToggle />
       </div>

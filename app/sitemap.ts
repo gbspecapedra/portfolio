@@ -1,12 +1,12 @@
 import type { MetadataRoute } from "next";
 
-import { projectPath, projects } from "@/data/projects";
-import { legalPages, siteUrl } from "@/data/site";
+import { legalPages, projectPath, siteUrl } from "@/data/site";
+import { getPublishedProjectUids } from "@/lib/prismic/content";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     "/",
-    ...projects.map(({ slug }) => projectPath(slug)),
+    ...(await getPublishedProjectUids()).map(projectPath),
     ...Object.values(legalPages).map(({ path }) => path),
   ].map((path) => ({
     url: new URL(path, siteUrl).href,

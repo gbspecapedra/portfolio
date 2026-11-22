@@ -12,6 +12,7 @@ Help recruiters, hiring managers, engineering and design peers, and potential co
 
 - Next.js 16 App Router, React 19, and strict TypeScript. Use the Node release pinned in `.nvmrc` and npm with `npm ci`. `package.json` and `package-lock.json` hold dependency requirements and resolutions.
 - Tailwind CSS 4 runs through `@tailwindcss/postcss` in `postcss.config.mjs`. `app/globals.css` is the CSS-first theme configuration. `components.json` records the shadcn/ui New York, RSC, TSX, and CSS-variable settings. Primitives are checked-in source, with Radix Accordion and Slot, CVA variants, and `cn()` for class merging.
+- Prismic supplies editable production content. The official Prismic client and Next.js preview helpers run at the server boundary.
 - Use the existing next-themes, Lucide, React Icons, and Formspree integrations where they match the task. ESLint flat config, the Node test runner, Playwright Chromium, and axe provide validation.
 
 ## 4. Repository Structure
@@ -23,7 +24,10 @@ Help recruiters, hiring managers, engineering and design peers, and potential co
 | `components/home/` | Home sections, featured case study cards, and contact form |
 | `components/projects/` | Shared case study hero and recursive content renderer |
 | `components/navigation/` and `components/ui/` | Navigation controls and reusable UI primitives |
-| `data/` | Typed project and experience content, site identity, route and anchor constants, and public contact details |
+| `data/` | Static route and anchor constants and UI content types |
+| `customtypes/`, `slices/`, and `prismicio-types.d.ts` | Prismic model JSON, retained starter slices and generated document types |
+| `lib/prismic/` | Server client, typed queries and normalization |
+| `scripts/prismic/` | Model sync, migration mapping and the original content snapshot |
 | `lib/` | SEO helpers, class merging, mail draft formatting, and client-side GA integration |
 | `public/` | Portfolio media, social preview, and search-engine verification files |
 | `tests/` and `.github/workflows/ci.yml` | Regression tests and CI validation |
@@ -32,8 +36,8 @@ Help recruiters, hiring managers, engineering and design peers, and potential co
 
 - Use Server Components by default. The root layout owns the HTML document, metadata defaults, and theme and consent providers. `SiteShell` composes `Navbar`, page content, and `Footer`. Route content remains server-rendered when passed as children through the client providers.
 - Keep `"use client"` at the interactive boundary. Existing boundaries include theme, consent, hash-aware navigation, Radix accordion, and the contact form. Pass only the data needed by the client from server components, especially when reading build environment variables.
-- Routes render from typed local modules at build time. Content is bundled TypeScript. The repository has no database, content API, CMS, authentication, or shared application state store. Existing state belongs to the URL, next-themes, browser consent storage, Radix, or the form. Preserve progressive rendering of content and navigation with JavaScript disabled.
-- `app/projects/[slug]/page.tsx` uses `generateStaticParams()`, `dynamicParams = false`, and shared `getProjectBySlug()` and `projectPath()` helpers from `data/projects.ts`. It resolves the async route params for content and metadata. Extend the typed data and shared renderers for case study changes.
+- Prismic repository `7l7juw0m` is the source of truth for editable production content. Routes use generated document types and request-scoped query helpers in `lib/prismic/content.ts`. Preserve progressive rendering with JavaScript disabled. Application state stays in the URL, next-themes, browser consent storage, Radix or the form.
+- `app/projects/[slug]/page.tsx` pre-renders published UIDs with `generateStaticParams()` and renders newly published UIDs on demand after the published index refreshes. Reuse `getProject()` for metadata and content and `projectPath()` from `data/site.ts` for navigation. Missing public projects use the standard server-rendered 404 through the published UID check in `proxy.ts`. Draft Mode bypasses that check. The Proxy index has a 15-second process-local cache because it runs outside the App Router fetch cache. Required singleton and upstream failures surface a diagnostic during prerendering.
 
 ## 6. Design Philosophy and Brand Identity
 
@@ -122,7 +126,7 @@ Search `components/`, `data/`, and `lib/` before adding components, utilities, o
 ## 12. Icons, Images, and Media
 
 - Prefer Lucide for UI and section icons. Existing React Icons imports supply brand and selected other icons. Import named icons from the established library and keep decorative SVGs `aria-hidden`. Give icon-only controls accessible names. Common action icons are 16–20px, while section and feature icons are larger.
-- Use `next/image` with responsive `sizes` and an intrinsic aspect ratio. The home hero illustration and About headshot are static PNG imports under `public/images/`. Case study screenshots are WebP under `public/images/projects/`. Current thumbnails are 1200 × 572 and use an approximately 2:1 crop with `fill` and `object-cover object-left`. The case study hero renders the full image from typed dimensions and alt text. Both page heroes preload their image at high priority. Lazy home thumbnails and the portrait use `sizes="auto, …"` with viewport-based fallbacks. Optimizer source paths are configured in `next.config.ts`.
+- Use `next/image` with responsive `sizes` and an intrinsic aspect ratio. The home hero illustration, About portrait and case study screenshots are Prismic Image fields. Original asset paths under `public/` remain available. The optimizer allows the verified repository’s image CDN path. Current thumbnails are 1200 × 572 and use an approximately 2:1 crop with `fill` and `object-cover object-left`. The case study hero renders the full image from typed dimensions and alt text. Both page heroes preload their image at high priority. Lazy home thumbnails and the portrait use `sizes="auto, …"` with viewport-based fallbacks. Optimizer source paths are configured in `next.config.ts`.
 - Use empty alt text for decorative or redundant visuals, as in the home hero and linked project thumbnails. Use meaningful alt text for the headshot and informative case study imagery. Update the social image path, width, height, and alt together. The default cover is `public/og-cover.png` (1200 × 630). App icons live in `app/favicon.ico`, `app/icon.png`, and `app/apple-icon.png`.
 
 ## 13. Animations and Interactions
@@ -140,23 +144,29 @@ Search `components/`, `data/`, and `lib/` before adding components, utilities, o
 
 ## 15. SEO and Performance
 
-- Use `siteUrl` and `siteName` in `data/site.ts` and the helpers in `lib/seo.ts` for canonical URLs, descriptions, Open Graph, and Twitter cards. The root layout defines the metadata base and title template. Home has an absolute title. Case studies have unique metadata derived from project data and use the project image when provided.
+- Use `siteUrl` in `data/site.ts`, the CMS display name and the helpers in `lib/seo.ts` for canonical URLs, descriptions, Open Graph, and Twitter cards. The root layout defines the metadata base and title template. Home has an absolute title. Case studies have unique metadata derived from project data and use the project image when provided.
 - Keep home `WebSite`, `ProfilePage`, and `Person` JSON-LD and project `WebPage` and `BreadcrumbList` graphs consistent with routes and shared IDs. Use `JsonLd` for serialization and escaping. `app/sitemap.ts` includes canonical home, legal, and project URLs. `app/robots.ts` allows crawling and advertises the sitemap. Preserve the 308 redirects and non-indexable 404 behavior covered by `tests/seo.spec.ts`.
 - Protect Core Web Vitals by keeping static rendering, sizing media to avoid layout shifts, using responsive images, and limiting preload to likely above-the-fold image candidates. Keep client JavaScript and third-party requests scoped to features that require them.
 
 ## 16. Content and Localization
 
-- Add or update case studies in `data/projects.ts`. Use a stable, unique lowercase URL-friendly `slug`, title, and subtitle. A `card` opts into the home listing, `featured` moves it ahead of unfeatured cards, and `pitch` overrides the home card description. `seoDescription` overrides the subtitle for description metadata. Use typed `meta`, `tags`, `links`, and `image` where they add value.
-- Keep `ProjectSection` IDs stable and unique among siblings. The renderer prefixes nested IDs with the parent path, skips empty blocks, and supports paragraphs, lists, images, decisions, trade-offs, and related links. Check incoming and outgoing fragment links when editing IDs.
-- Keep employment content in `data/experience.ts`. Changes to role IDs must stay in sync with the typed `companyMarks` map in `ExperienceSection`. Keep site identity, legal route labels, anchor IDs, and contact links in their existing `data/` modules. Section-specific copy lives in its component and legal copy in its route.
-- The site is English via `<html lang="en">`, with no locale routing or message catalog. `LegalPage` formats ISO update dates in English and UTC. Match the tone of nearby copy and substantiate project claims through existing content or user-provided evidence.
+- Read this guide first and confirm the target Prismic repository before changing models or content. Use the existing Homepage, Site Settings, About, Project and Experience models. Keep editable production copy and metadata in Prismic. Keep route IDs, legal disclosures, application messages, icons, themes, styling and layout rules in code.
+- Preserve published Project UIDs and section IDs. Use ordered section rows with optional parent paths. The renderer prefixes nested IDs and skips empty sections. Use Project relationships plus fragments for cross-case-study links. Cards use visibility, feature priority and display order from the same Project document.
+- Preserve Experience UIDs, month precision and chronology. Known employer marks use UIDs for local styling and can display the public short name. Roles without an existing mark use the shared surface style.
+- Modify schemas additively and regenerate types with `npm run prismic:typegen` using the pinned CLI options in the README. Review the local and remote models before running `npm run prismic:sync -- --apply`. Use the existing query layer. Keep CMS requests and credentials on the server, with normalized optional fields passed to existing components.
+- Use the migration plan, write preflight and release review workflow in the README and [migration inventory](docs/prismic-migration.md). Keep the source snapshot as an offline recovery record. Use generic fixture content to test mappings, routes and rendering. Preserve the Warm Editorial system and verify accessibility and SEO with each feature.
+- The site is English via `<html lang="en">`, with `en-us` as the repository master locale. `LegalPage` formats ISO update dates in English and UTC. Match the tone of nearby copy and substantiate claims.
 
 ## 17. Integrations and Environment Configuration
 
-Vercel hosting and dashboard setup are documented in `README.md`. The checked-in GitHub Actions workflow handles validation for pull requests and pushes to `main`. Local content and navigation work with zero service configuration.
+Vercel hosting and dashboard setup are documented in `README.md`. The checked-in GitHub Actions workflow handles validation for pull requests and pushes to `main`. Production and local development read published CMS content. Fixture validation can run offline.
 
 | Name | Behavior and source |
 | --- | --- |
+| `PRISMIC_REPOSITORY_NAME` | Must match `7l7juw0m` in `prismic.config.json`. |
+| `PRISMIC_ACCESS_TOKEN` | Optional for the current public Content API and required for private access. Keep it server-side. |
+| `PRISMIC_WEBHOOK_SECRET` | Authenticates publish and unpublish webhooks before invalidating the `prismic` Data Cache tag. Published queries revalidate hourly. |
+| `PRISMIC_WRITE_TOKEN` | Local model sync and migration scripts only. |
 | `FORMSPREE_FORM_ID` | Optional, trimmed and accepted only when alphanumeric. The server `ContactSection` passes it to `ContactForm` for a browser POST to Formspree. Missing or invalid values fall back to an encoded email draft via `lib/contact-draft.ts`. The form ID is browser-visible. |
 | `GA_MEASUREMENT_ID` | Optional, trimmed and matched against `^G-[A-Z0-9]+$` in `app/layout.tsx`. The client loads the tag only after consent. The measurement ID is browser-visible when supplied. |
 | `VERCEL_ENV` | The root layout exposes a valid analytics ID only when this equals `production`. Vercel supplies it as a system environment variable. |
@@ -173,7 +183,8 @@ Use TypeScript, explicit content schemas where needed, `import type` for type-on
 
   ```sh
   npx playwright install --only-shell chromium
-  FORMSPREE_FORM_ID=portfoliofixture VERCEL_ENV=production GA_MEASUREMENT_ID=G-PORTFOLIOFIXTURE npm run build
+  npm run test:content
+  npm run build:fixture
   npm run test:e2e
   ```
 
@@ -183,6 +194,7 @@ Use TypeScript, explicit content schemas where needed, `import type` for type-on
 
 - Keep credentials and sensitive configuration out of source, client props, fixtures, and logs. Use ignored local environment files or hosting settings. Treat contact submissions as personal information, and keep names, email addresses, and messages out of analytics. Maintain the privacy and accessibility disclosures alongside relevant behavior changes.
 - `components/cookie-consent.tsx` stores the versioned choice `portfolio-analytics-consent-v1`, syncs it across tabs when storage is available, and falls back to the current visit if storage is blocked. Keep analytics off before opt-in and after rejection. `lib/google-analytics.ts` uses the disable flag and removes accessible first-party GA cookies on withdrawal. It also checks consent when a pending tag finishes loading. Keep advertising consent denied and let the Google tag's automatic load/history page views own page-view reporting.
+- Full-site Prismic previews use Draft Mode and bypass the published cache. The toolbar only loads in draft sessions. Sitemap queries always use the published ref. Keep the webhook secret and write credentials server-side.
 - Preserve `rel` protections on links that open a new tab and use trusted sources and descriptive alt text for published imagery. Keep JSON-LD escaping in `components/json-ld.tsx`.
 
 ## 21. Rules for Adding New Features

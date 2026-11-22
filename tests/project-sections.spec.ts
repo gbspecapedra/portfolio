@@ -3,7 +3,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
 import { ProjectSections } from "@/components/projects/project-sections";
-import type { ProjectSection } from "@/data/projects";
+import type { ProjectSection } from "@/data/project-types";
 
 test("omits empty case study sections, including groups with only empty descendants", () => {
   const sections: ProjectSection[] = [

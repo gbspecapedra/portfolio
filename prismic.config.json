@@ -1,0 +1,13 @@
+{
+  "repositoryName": "7l7juw0m",
+  "routes": [
+    {
+      "type": "homepage",
+      "path": "/"
+    },
+    {
+      "type": "project",
+      "path": "/projects/:uid"
+    }
+  ]
+}

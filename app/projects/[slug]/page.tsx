@@ -6,40 +6,32 @@ import { NavButton } from "@/components/navigation/nav-button";
 import { ProjectHero } from "@/components/projects/project-hero";
 import { ProjectSections } from "@/components/projects/project-sections";
 import { SiteMain } from "@/components/site-shell";
-import { getProjectBySlug, projectPath, projects } from "@/data/projects";
-import { homeSectionIds, siteUrl } from "@/data/site";
+import { homeSectionIds, projectPath, siteUrl } from "@/data/site";
+import { getProject, getPublishedProjectUids, getSiteSettings } from "@/lib/prismic/content";
 import { pageMetadata, personId, websiteId } from "@/lib/seo";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return projects.map(({ slug }) => ({ slug }));
+export async function generateStaticParams() {
+  return (await getPublishedProjectUids()).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProject(slug);
+  if (!project) return { title: "Page not found", robots: { index: false } };
 
-  if (!project) notFound();
-
-  const { image } = project;
-  const title = `${project.title} Case Study`;
-
+  const settings = await getSiteSettings();
+  const title = project.seoTitle ?? `${project.title} Case Study`;
   return {
     ...pageMetadata({
       url: new URL(projectPath(slug), siteUrl).href,
       title,
       description: project.seoDescription ?? project.subtitle,
-      image: image && {
-        url: image.src,
-        width: image.width,
-        height: image.height,
-        alt: image.alt,
-      },
+      image: project.socialImage ?? project.image,
+      settings,
     }),
     title,
   };
@@ -47,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const [project, settings] = await Promise.all([getProject(slug), getSiteSettings()]);
   if (!project) notFound();
 
   const { image } = project;
@@ -81,7 +73,7 @@ export default async function ProjectPage({ params }: Props) {
           {
             "@type": "ListItem",
             position: 1,
-            name: "Case Studies",
+            name: settings.navigation.find(({ id }) => id === homeSectionIds.projects)?.label,
             item: new URL(`/#${homeSectionIds.projects}`, siteUrl).href,
           },
           { "@type": "ListItem", position: 2, name: project.title, item: url },

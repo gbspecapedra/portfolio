@@ -26,7 +26,8 @@ jobs:
           npm run lint
           npm run typecheck
           npm run test:lint
-      - run: npm run build
+          npm run test:content
+      - run: npm run build:fixture
         env:
           FORMSPREE_FORM_ID: portfoliofixture
           VERCEL_ENV: production

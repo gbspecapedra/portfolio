@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
-import type { ProjectSection } from "@/data/projects";
+import type { ProjectSection } from "@/data/project-types";
 import { cn } from "@/lib/utils";
 
 const sectionIcons: Record<NonNullable<ProjectSection["icon"]>, LucideIcon> = {
