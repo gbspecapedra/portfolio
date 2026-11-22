@@ -116,7 +116,7 @@ Visitors opt in before the Google tag is requested. The footer’s **Manage Cook
 
 In Google Analytics, open **Admin → Data streams** and select the portfolio’s web stream. Turn on **Enhanced measurement**, then check that **Page loads** and **Page changes based on browser history events** are enabled under **Page views → Show advanced settings**. The Google tag measures page loads and navigation. [Google’s single-page app guide](https://developers.google.com/analytics/devguides/collection/ga4/single-page-applications)
 
-After deploying, start with a fresh browser profile. In the browser’s network panel, verify that the Google tag and collection requests are absent before a choice and after rejecting. Enable debug mode for the test browser, accept analytics, then open a case study and a legal page. Check **DebugView** for one `page_view` per page. Turn analytics off in **Manage Cookies** and check that navigation and reloads produce no collection requests and that first-party GA cookies have been removed.
+After deploying, start with a fresh browser profile. In the browser’s network panel, verify that the Google tag and collection requests are absent before a choice and after rejecting. Enable debug mode for the test browser, accept analytics, then open a case study and a legal page. Check **DebugView** for one `page_view` per page. Turn analytics off in **Manage Cookies** and check that first-party GA cookies are removed and that navigation and reloads produce no new page views. In a regular browser session, Google may still deliver a batch of events recorded before withdrawal. [Google’s event batching documentation](https://support.google.com/analytics/answer/9322688)
 
 ## Contact form
 

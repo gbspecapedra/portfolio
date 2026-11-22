@@ -59,9 +59,10 @@ export default function PrivacyPage() {
         <p>
           Analytics is off until you accept it. You can accept or reject it on
           your first visit and change your choice at any time using <strong>Manage
-          Cookies</strong> in the footer. Turning analytics off stops future tracking
-          and removes the Google Analytics cookies this site can access. Your
-          browser keeps your updated choice.
+          Cookies</strong> in the footer. Turning analytics off stops new tracking
+          and removes the Google Analytics cookies this site can access. Google may
+          still receive events queued while analytics was on. Your browser keeps
+          your updated choice.
         </p>
       </section>
       <section>

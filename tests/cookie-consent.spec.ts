@@ -118,8 +118,9 @@ test("loads GA once per document, syncs withdrawal across tabs and removes GA co
   await expect.poll(() => pageViews).toEqual(["/", "/terms", "/terms", "/accessibility"]);
   await manage.click();
   await expect(analytics).toBeChecked();
+  await expect(analytics).toHaveJSProperty("form", null);
   await analytics.uncheck();
-  await save.click();
+  await save.press("Enter");
   await expect(manage).toBeFocused();
   await expect.poll(async () => (await context.cookies()).filter(({ name }) => name.startsWith("_ga"))).toEqual([]);
 

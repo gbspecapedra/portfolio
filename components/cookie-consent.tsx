@@ -180,61 +180,58 @@ export function CookieConsent({
         aria-labelledby="cookie-dialog-title"
         className="m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-md overflow-auto rounded-xl border bg-background p-4 text-foreground shadow-lg backdrop:bg-foreground/35 sm:p-6 dark:backdrop:bg-black/60"
       >
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
-            dialogRef.current?.close();
-            saveChoice(draftEnabled ? "accepted" : "rejected");
-          }}
-        >
-          <h2 id="cookie-dialog-title" className="text-2xl font-bold tracking-tight font-editorial">
-            Cookie preferences
-          </h2>
-          <div className="mt-4 space-y-4 text-sm leading-relaxed">
-            <section aria-labelledby="essential-cookies-title">
-              <div className="flex flex-wrap items-baseline gap-x-3">
-                <h3 id="essential-cookies-title" className="font-semibold">Essential</h3>
-                <span className="text-muted-foreground">Always on</span>
-              </div>
-              <p className="mt-1 text-muted-foreground">
-                Browser storage remembers your cookie choice and theme. These settings
-                keep your preferences as you move around the website.
-              </p>
-            </section>
-            <div className="border-t pt-3">
-              <label className="inline-flex min-h-9 cursor-pointer items-center gap-2 font-semibold">
-                <input
-                  type="checkbox"
-                  checked={draftEnabled}
-                  aria-describedby="analytics-cookies-description"
-                  onChange={(event) => setDraftEnabled(event.currentTarget.checked)}
-                  className="size-4 accent-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-                />
-                Analytics
-              </label>
-              <p id="analytics-cookies-description" className="text-muted-foreground">
-                Optional Google Analytics cookies help me understand which pages people
-                visit and how they use the site.
-              </p>
+        <h2 id="cookie-dialog-title" className="text-2xl font-bold tracking-tight font-editorial">
+          Cookie preferences
+        </h2>
+        <div className="mt-4 space-y-4 text-sm leading-relaxed">
+          <section aria-labelledby="essential-cookies-title">
+            <div className="flex flex-wrap items-baseline gap-x-3">
+              <h3 id="essential-cookies-title" className="font-semibold">Essential</h3>
+              <span className="text-muted-foreground">Always on</span>
             </div>
+            <p className="mt-1 text-muted-foreground">
+              Browser storage remembers your cookie choice and theme. These settings
+              keep your preferences as you move around the website.
+            </p>
+          </section>
+          <div className="border-t pt-3">
+            <label className="inline-flex min-h-9 cursor-pointer items-center gap-2 font-semibold">
+              <input
+                type="checkbox"
+                checked={draftEnabled}
+                aria-describedby="analytics-cookies-description"
+                onChange={(event) => setDraftEnabled(event.currentTarget.checked)}
+                className="size-4 accent-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+              />
+              Analytics
+            </label>
+            <p id="analytics-cookies-description" className="text-muted-foreground">
+              Optional Google Analytics cookies help me understand which pages people
+              visit and how they use the site.
+            </p>
           </div>
-          <div className="mt-5 flex flex-wrap justify-end gap-2.5">
-            <Button
-              type="button"
-              variant="outline"
-              className={actionClassName}
-              onClick={() => dialogRef.current?.close()}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              className={`${actionClassName} motion-reduce:hover:translate-y-0`}
-            >
-              Save preferences
-            </Button>
-          </div>
-        </form>
+        </div>
+        <div className="mt-5 flex flex-wrap justify-end gap-2.5">
+          <Button
+            type="button"
+            variant="outline"
+            className={actionClassName}
+            onClick={() => dialogRef.current?.close()}
+          >
+            Cancel
+          </Button>
+          {/* Save in browser storage without triggering GA's automatic form measurement. */}
+          <Button
+            type="button"
+            className={`${actionClassName} motion-reduce:hover:translate-y-0`}
+            onClick={() => {
+              saveChoice(draftEnabled ? "accepted" : "rejected");
+              dialogRef.current?.close();
+            }}
+          >
+            Save preferences
+          </Button>
+        </div>
       </dialog>
     </CookiePreferencesContext>
   );
