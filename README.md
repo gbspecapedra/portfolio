@@ -108,6 +108,14 @@ The configuration keeps the official Next.js Core Web Vitals rules through `@nex
 
 Use the Node version in `.nvmrc` to avoid engine warnings; if your terminal reports Node 23, run `nvm use` before `npm ci`.
 
+## Google Analytics
+
+In the Vercel project's **Settings → Environment Variables**, set `GA_MEASUREMENT_ID` to the web stream's Measurement ID and select **Production**. Check that **Enable access to System Environment Variables** is selected, then deploy so the build picks up the value. The ID is supplied to the Google tag in the visitor's browser. [Vercel environment variables](https://vercel.com/docs/environment-variables/managing-environment-variables)
+
+In Google Analytics, open **Admin → Data streams** and select the portfolio’s web stream. Turn on **Enhanced measurement**, then check that **Page loads** and **Page changes based on browser history events** are enabled under **Page views → Show advanced settings**. This captures direct visits and navigation between the homepage and case studies. [Google’s single-page app guide](https://developers.google.com/analytics/devguides/collection/ga4/single-page-applications)
+
+After deploying, visit the homepage and open a case study. Check **Reports → Realtime** for `page_view` events.
+
 ## Project structure
 
 ```text
@@ -190,7 +198,6 @@ Animations are minimal and purpose-driven.
 ## 🔮 What I’d Do Next
 
 **Short-term**
-- Analytics for engagement signals
 - Keyboard navigation audit
 - Optional project filtering
 

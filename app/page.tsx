@@ -24,7 +24,11 @@ import {
 const homeUrl = new URL("/", siteUrl).href;
 
 export const metadata: Metadata = {
-  ...pageMetadata({ url: homeUrl, title: homeTitle, description: homeDescription }),
+  ...pageMetadata({
+    url: homeUrl,
+    title: homeTitle,
+    description: homeDescription,
+  }),
   title: { absolute: homeTitle },
 };
 
@@ -63,10 +67,13 @@ export default function HomePage() {
   return (
     <SiteShell>
       <JsonLd data={profileData} />
-      <main id={homeSectionIds.home} className="hero-bg scroll-mt-28 bg-background">
+      <main
+        id={homeSectionIds.home}
+        className="hero-bg scroll-mt-28 bg-background"
+      >
         <HeroSection />
         <ProjectsSection />
-        <div className="mx-auto grid max-w-[1456px] items-start gap-y-14 px-4 pt-14 min-[480px]:px-6 sm:gap-y-16 sm:pt-16 lg:pt-20 min-[1100px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] min-[1100px]:gap-x-9 min-[1200px]:px-[30px] xl:gap-x-11">
+        <div className="mx-auto grid max-w-364 items-start gap-y-14 px-4 pt-14 min-[480px]:px-6 sm:gap-y-16 sm:pt-16 lg:pt-20 min-[1100px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] min-[1100px]:gap-x-9 min-[1200px]:px-7.5 xl:gap-x-11">
           <ExperienceSection />
           <AboutSection />
         </div>
