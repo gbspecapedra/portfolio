@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { Heart, Leaf, Sparkles } from "lucide-react";
+import { Download, Heart, Leaf, Sparkles } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { homeSectionIds, siteName } from "@/data/site";
 import headshot from "@/public/images/headshot.png";
@@ -13,12 +14,14 @@ const values = [
   },
   {
     title: "Curious & open-minded",
-    description: "I’m always learning, exploring new ideas and sharing knowledge.",
+    description:
+      "I’m always learning, exploring new ideas and sharing knowledge.",
     icon: Leaf,
   },
   {
     title: "Detail-oriented",
-    description: "I care about quality, accessibility and long-term maintainability.",
+    description:
+      "I care about quality, accessibility and long-term maintainability.",
     icon: Sparkles,
   },
 ];
@@ -47,9 +50,20 @@ export function AboutSection() {
             I’m a senior frontend engineer focused on building accessible,
             scalable and maintainable interfaces. I enjoy solving complex
             problems, collaborating with different perspectives, and turning
-            ideas into practical, reliable solutions that create real value
-            for users.
+            ideas into practical, reliable solutions that create real value for
+            users.
           </p>
+          <Button
+            asChild
+            variant="outline"
+            size="lg"
+            className="mt-5 h-auto min-h-11 max-w-full rounded-lg font-semibold whitespace-normal"
+          >
+            <a href="/Gisele-Pecapedra-Resume.pdf" download>
+              <Download aria-hidden="true" />
+              Download Resume (PDF)
+            </a>
+          </Button>
         </div>
 
         <div className="relative isolate w-full max-w-72 justify-self-center @min-[31rem]:-mt-2 @min-[31rem]:max-w-80">

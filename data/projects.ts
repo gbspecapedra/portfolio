@@ -67,7 +67,7 @@ export const projects: Project[] = [
     slug: "emed",
     title: "eMed",
     subtitle:
-      "From appointment scheduling to managing patient histories and lab results, the complexity of medical clinic operations.",
+      "A clinic management platform for scheduling appointments and managing patient records and lab results across staff roles.",
     seoDescription:
       "A case study in building a role-aware clinic management platform for appointment scheduling, patient records, and lab results.",
     tags: ["UI Systems", "Full-Stack", "Healthcare Workflows"],
@@ -77,7 +77,7 @@ export const projects: Project[] = [
       type: "Academic",
       duration: "2 months",
       year: "2022",
-      summaryRole: "Full-Stack (UI-led)",
+      summaryRole: "Full-Stack Developer (UI-led)",
       focus: "Role-based workflows + secure data handling",
       outcome: "Delivered a functional end-to-end system",
     },
@@ -98,7 +98,7 @@ export const projects: Project[] = [
     ],
     card: {
       pitch:
-        "Built a role-aware clinic management platform—from appointments to patient records and lab results—turning complex clinical workflows into a clear, responsive experience.",
+        "A clinic management platform with role-based workflows for appointments, patient records, and lab results.",
     },
     sections: [
       {
@@ -263,7 +263,7 @@ export const projects: Project[] = [
 
     card: {
       pitch:
-        "A mobile-first UX project designed to reduce decision fatigue for parents by prioritizing trust signals, relevant filters, and parent-driven content.",
+        "A mobile prototype that helps parents choose outings using trust signals, filters, and parent contributions.",
     },
 
     sections: [
@@ -433,7 +433,7 @@ export const projects: Project[] = [
     card: {
       featured: true,
       pitch:
-        "A 4-hour take-home project treated as a real MVP: a reliable USPS label creation flow focused on domain correctness, predictable UX, and scalable architecture.",
+        "A USPS label creation flow built in four hours, with typed validation and clear steps from address entry to PDF preview.",
     },
 
     sections: [
@@ -620,7 +620,7 @@ export const projects: Project[] = [
 
     card: {
       pitch:
-        "Sleek fintech UI prototype built to showcase interaction quality, motion, and theme-aware components under a 2–3 day deadline. Emphasizes design-system fidelity and production-like structure with realistic data.",
+        "A fintech UI prototype that explores motion, light and dark themes, and reusable dashboard components.",
     },
 
     sections: [

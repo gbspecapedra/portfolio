@@ -73,7 +73,7 @@ Help recruiters, hiring managers, engineering and design peers, and potential co
 
 - Radius base is `0.625rem`. The `sm`, `md`, `lg`, and `xl` theme radii are base minus 4px, base minus 2px, base, and base plus 4px (6/8/10/14px at a 16px root). Cards start at `rounded-xl border shadow-sm`. Feature panels often use `rounded-2xl` or `rounded-3xl`. Badges and theme controls use pills.
 - `.hero-bg` supplies static radial washes for the home, case studies, and 404. Clay/sage OKLCH mixes are 10%/10% in light and 8%/6% in dark. The secondary blurred radials use 0.08/0.06 and 0.05/0.04 clay/sage opacity factors respectively. Project cards use a restrained card-to-soft-surface gradient. The home contact area and footer transition through `surface-soft/70`.
-- Treat component-specific colors and shadows as local. The hero CTA's light gradient starts at `#B65E43` and uses `#FFFAF6` text. The contact form uses a light `#FCF8F4` panel, `var(--card)` in dark, and field borders `#A18F84` / `#877571`. Employer marks, technology icon accents, and the decorative contact sprig also use local colors. See `components/home/hero-section.tsx`, `contact-form.tsx`, `experience-section.tsx`, `technologies-section.tsx`, and `contact-section.tsx` in that directory.
+- Home hero actions use the shared `Button` colors in `components/home/hero-section.tsx`. Treat component-specific colors and shadows as local. The contact form uses a light `#FCF8F4` panel, `var(--card)` in dark, and a border mixed from 78% muted foreground and 22% panel color in light mode and `#877571` in dark mode. Employer marks, technology icon accents, and the decorative contact sprig also use local colors. See `contact-form.tsx`, `experience-section.tsx`, `technologies-section.tsx`, and `contact-section.tsx` under `components/home/`.
 
 ## 8. Typography System
 
@@ -81,7 +81,7 @@ Help recruiters, hiring managers, engineering and design peers, and potential co
 
 | Pattern | Implemented values and source |
 | --- | --- |
-| Home hero | Bold, line height `1.14`, tracking `-0.04em`. At base, 480px, 960px, and 1200px its respective clamps are `20px, 6.5vw, 31px`, `29px, 5.4vw, 46px`, `30px, 3.25vw, 40px`, and `32px, 3.05vw, 45px`. The three fixed lines are specific to the current hero copy in `components/home/hero-section.tsx`. |
+| Home hero | Bold, line height `1.14`, tracking `-0.04em`. The headline wraps naturally within an 18ch measure and uses `clamp(1.875rem, 5vw, 2.875rem)` at base and `clamp(2rem, 3.25vw, 2.875rem)` from 960px. See `components/home/hero-section.tsx`. |
 | Case study and legal titles | `ProjectHero` uses `clamp(2.75rem, 6vw, 4.75rem)`, line height `1.04`, tracking `-0.045em`. `LegalPage` and `NotFoundContent` use `clamp(1.875rem, 4.2vw, 3rem)`, line height `1.1`, and `tracking-tight` (`-0.025em`). |
 | Section and card titles | Home heading sizes fit each section. Case Studies uses `clamp(1.75rem, 4vw, 2.25rem)` at `1.15`. About and Experience scale with container width via `cqw`. Project cards use `text-2xl` (1.5rem), `leading-tight` (1.25), and `tracking-tight`. |
 | Body, labels, and controls | Body is typically `text-sm` to `text-base` (0.875–1rem), with `leading-snug` (1.375) for compact cards and `leading-relaxed` (1.625) for prose. Project hero subtitle grows from `text-lg` to `text-xl` (1.125–1.25rem). Uppercase clay labels use about 11–14px, weight 700 or locally 750, and `0.2em` tracking. Default button and badge text is weight 500, and labeled calls to action often use 600. |
@@ -94,7 +94,7 @@ Help recruiters, hiring managers, engineering and design peers, and potential co
 
 | Area | Responsive behavior |
 | --- | --- |
-| Header and project cards | Header links wrap to a second row below `lg`. Cards are one column by default, two at `sm`, and four at `lg`. See `navbar.tsx`, `navigation/section-nav.tsx`, and `home/projects-section/index.tsx` under `components/`. |
+| Header and project cards | Header links sit below the site name and theme controls at widths below `lg`. Cards are one column by default, two at `sm`, and four at `xl`. See `navbar.tsx`, `navigation/section-nav.tsx`, and `home/projects-section/index.tsx` under `components/`. |
 | Home and case study heroes | Home splits 41%/59% at 960px. The case study hero splits at 900px when it has an image. See `HeroSection` and `ProjectHero`. |
 | Experience and About | `app/page.tsx` stacks these sections until 1100px, then uses a 1.15:1 grid with a keyboard-focusable, independently scrolling timeline. Inside those sections, use the existing container queries, such as `@min-[26rem]` / `@min-[38rem]` in Experience and `@min-[31rem]` in About. |
 | Contact and footer | Contact name and email pair at 30rem, and the main contact columns split at 52rem. Footer introduces two columns at 23rem, a balanced two-column grid at `sm`, and three at `md`. See `contact-section.tsx`, `contact-form.tsx`, and `footer.tsx`. |
@@ -127,9 +127,9 @@ Search `components/`, `data/`, and `lib/` before adding components, utilities, o
 
 ## 13. Animations and Interactions
 
-- Use restrained CSS transitions. The primary button uses a 200ms ease-out, a 2px hover lift, and a small shadow. Project cards transition border and shadow and also highlight on focus within. The Radix accordion rotates its chevron over 200ms. Its state-driven `tw-animate-css` expand/collapse animations default to 200ms ease-out. Current scroll behavior uses native hash navigation and anchor offsets.
+- Use restrained CSS transitions. In `components/ui/button.tsx`, buttons transition colors by default. The primary variant transitions background, shadow, and translation with a 200ms ease-out and a 2px hover lift. Project cards transition border and shadow and also highlight on focus within. The Radix accordion rotates its chevron over 200ms. Its state-driven `tw-animate-css` expand/collapse animations default to 200ms ease-out. Current scroll behavior uses native hash navigation and anchor offsets.
 - Match hover, active, focus, disabled, and pending behavior to the nearest component. Keep focus visible with or without hover. Several controls use `motion-reduce:transition-none` and suppress hover translation locally. Coverage is component-specific. When you add or change a moving interaction, disable nonessential transitions, transforms, or animations for reduced motion and verify that the control remains clear.
-- `ThemeProvider` applies a class with next-themes, defaults to dark, enables system support, and suppresses transitions when switching themes. The two-option `ThemeToggle` displays Light and Dark, reflects the resolved theme after hydration, and persists the selection through next-themes.
+- `components/theme-provider.tsx` applies a theme class before paint. Only `light` and `dark` in the existing `theme` storage key count as manual choices. Without one, next-themes follows the operating system. It suppresses transitions during theme changes. `components/theme-toggle.tsx` styles Light and Dark from the applied class and exposes their pressed state after hydration.
 
 ## 14. Accessibility Standards
 

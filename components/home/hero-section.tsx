@@ -1,14 +1,13 @@
 import Image from "next/image";
 import {
   Accessibility,
-  ArrowRight,
   Grid2X2,
   Layers,
   UsersRound,
   Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { homeSectionIds } from "@/data/site";
+import { homeSectionIds, siteName } from "@/data/site";
 import { cn } from "@/lib/utils";
 import heroImage from "@/public/images/hero-image.png";
 
@@ -21,7 +20,7 @@ const strengths = [
 ];
 
 const heroButtonClassName =
-  "h-12 rounded-[11px] px-4 text-sm font-semibold min-[480px]:px-5 min-[480px]:text-[15px] min-[1200px]:h-[55px] min-[1200px]:px-[30px] min-[1200px]:text-lg";
+  "h-11 rounded-lg px-4 text-sm font-semibold min-[1200px]:h-12 min-[1200px]:px-5 min-[1200px]:text-base";
 
 export function HeroSection() {
   return (
@@ -31,42 +30,23 @@ export function HeroSection() {
     >
       <div className="mx-auto grid min-h-115 max-w-170 grid-cols-1 items-center min-[960px]:max-w-none min-[960px]:grid-cols-[41%_59%] min-[960px]:pl-2 min-[1200px]:min-h-127.5 min-[1200px]:pl-7.5">
         <div className="relative z-2 min-w-0 min-[960px]:py-5.5">
-          <p className="mb-4.5 text-[11px] font-[750] tracking-[0.2em] text-brand-clay uppercase min-[480px]:mb-5.5 min-[480px]:text-sm">
-            Frontend Engineer
+          <p className="mb-3 text-xs font-bold tracking-[0.2em] text-brand-clay uppercase sm:mb-4 sm:text-sm">
+            {siteName}
           </p>
           <h1
             id="hero-heading"
-            className="text-[clamp(20px,6.5vw,31px)] leading-[1.14] font-bold tracking-[-0.04em] font-editorial min-[480px]:text-[clamp(29px,5.4vw,46px)] min-[960px]:text-[clamp(30px,3.25vw,40px)] min-[1200px]:text-[clamp(32px,3.05vw,45px)] [&>span]:block [&>span]:whitespace-nowrap"
+            className="max-w-[18ch] text-[clamp(1.875rem,5vw,2.875rem)] leading-[1.14] font-bold tracking-[-0.04em] text-balance font-editorial min-[960px]:text-[clamp(2rem,3.25vw,2.875rem)]"
           >
-            <span>Building reliable, accessible,</span>{" "}
-            <span>and scalable interfaces</span>{" "}
-            <span>
-              with{" "}
-              <span className="relative after:absolute after:-bottom-3 after:left-[-4%] after:h-3 after:w-[110%] after:-rotate-2 after:rounded-[50%] after:border-t-[3px] after:border-brand-clay after:content-['']">
-                clarity
-              </span>{" "}
-              and care.
-            </span>
+            Frontend engineering with clarity and care.
           </h1>
-          <p className="mt-7 max-w-150 text-base leading-[1.55] text-foreground min-[480px]:mt-7.5 min-[480px]:text-lg min-[480px]:leading-[1.44] min-[960px]:max-w-142.5 min-[960px]:text-base min-[1200px]:mt-9 min-[1200px]:text-[clamp(16px,1.38vw,20px)]">
-            I translate complex product requirements into maintainable frontend
-            systems, collaborating closely with designers, product managers, and
-            backend engineers. I use React, TypeScript, and Next.js to build
-            accessible interfaces and reusable design systems.
+          <p className="mt-4 max-w-[46ch] text-base leading-relaxed text-muted-foreground min-[480px]:text-lg min-[960px]:text-base min-[1200px]:mt-5 min-[1200px]:text-lg">
+            I work with design, product, and engineering teams to turn complex
+            requirements into accessible interfaces and reusable design systems
+            with React and TypeScript.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3 min-[480px]:mt-7 min-[480px]:gap-3.5 min-[1200px]:mt-8.5 min-[1200px]:gap-6">
-            <Button
-              asChild
-              size="lg"
-              className={cn(
-                heroButtonClassName,
-                "gap-2.5 border border-[#c37b65] bg-[linear-gradient(115deg,color-mix(in_srgb,var(--primary)_94%,var(--primary-foreground)),var(--primary))] has-[>svg]:px-4 min-[480px]:gap-4.5 min-[480px]:has-[>svg]:px-5 min-[1200px]:has-[>svg]:px-7.5 dark:bg-none",
-              )}
-            >
-              <a href={`#${homeSectionIds.projects}`}>
-                Explore case studies{" "}
-                <ArrowRight aria-hidden="true" className="size-5.75" />
-              </a>
+          <div className="mt-5 flex flex-wrap gap-2.5 sm:mt-6 sm:gap-3">
+            <Button asChild size="lg" className={heroButtonClassName}>
+              <a href={`#${homeSectionIds.projects}`}>Explore case studies</a>
             </Button>
             <Button
               asChild
@@ -74,7 +54,7 @@ export function HeroSection() {
               variant="outline"
               className={cn(
                 heroButtonClassName,
-                "border-[1.5px] border-brand-clay bg-transparent text-accent-foreground",
+                "bg-transparent",
               )}
             >
               <a href={`#${homeSectionIds.contact}`}>Get in touch</a>
@@ -95,6 +75,7 @@ export function HeroSection() {
       <ul
         className="mt-6 grid list-none grid-cols-2 gap-y-5 rounded-[18px] bg-surface-soft/85 px-1.5 py-5.5 min-[480px]:mt-7 min-[480px]:grid-cols-6 min-[480px]:gap-y-6.5 min-[480px]:rounded-3xl min-[480px]:px-2.5 min-[480px]:py-6 min-[960px]:mt-6.25 min-[960px]:grid-cols-5 min-[960px]:gap-y-0 min-[960px]:py-5.75 min-[1200px]:mt-10"
         aria-label="Core strengths"
+        role="list"
       >
         {strengths.map(({ icon: Icon, label, detail }, index) => (
           <li

@@ -77,7 +77,7 @@ export function Footer() {
             <Button
               asChild
               size="lg"
-              className="mt-4 h-11 gap-2.5 rounded-lg font-semibold transition-[transform,box-shadow] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+              className="mt-4 h-11 gap-2.5 rounded-lg font-semibold"
             >
               <a href={`/#${homeSectionIds.contact}`}>
                 <Send aria-hidden="true" className="size-4.5" />

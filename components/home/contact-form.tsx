@@ -2,7 +2,7 @@
 
 import { type TUseForm, useForm, ValidationError } from "@formspree/react";
 import { Send } from "lucide-react";
-import type { SubmitEventHandler } from "react";
+import { useEffect, useRef, type SubmitEventHandler } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 const fieldClassName = "grid min-w-0 gap-[0.35rem]";
 const labelClassName = "text-[length:clamp(0.875rem,1.1vw,1rem)] font-bold";
 const controlClassName =
-  "w-full min-w-0 rounded-[0.625rem] border border-(--contact-field-border) bg-(--contact-panel) px-3.5 py-2 text-base leading-6 placeholder:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring aria-invalid:border-destructive";
+  "min-h-11 w-full min-w-0 rounded-[0.625rem] border border-(--contact-field-border) bg-(--contact-panel) px-3.5 py-2 text-base leading-6 placeholder:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring aria-invalid:border-destructive";
 const cardClassName =
   "grid grid-cols-1 gap-5 rounded-[clamp(1.25rem,2.35vw,2rem)] border-border/45 bg-(--contact-panel) p-[clamp(1rem,2.25vw,1.75rem)] shadow-[0_12px_32px_-20px_var(--hero-grad-1),0_5px_18px_var(--hero-grad-1)] [--contact-panel:#fcf8f4] [--contact-field-border:color-mix(in_srgb,var(--muted-foreground)_78%,var(--contact-panel))] dark:[--contact-panel:var(--card)] dark:[--contact-field-border:#877571]";
 
@@ -64,6 +64,17 @@ function ContactFormCard({
   const invalidName = Boolean(errors?.getFieldErrors("name").length);
   const invalidEmail = Boolean(errors?.getFieldErrors("email").length);
   const invalidMessage = Boolean(errors?.getFieldErrors("message").length);
+  const statusRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const status = statusRef.current;
+    if (!succeeded || !status) return;
+
+    const focusedElement = document.activeElement;
+    if (focusedElement === document.body || status.parentElement?.contains(focusedElement)) {
+      status.focus();
+    }
+  }, [succeeded]);
 
   return (
     <Card className={cardClassName}>
@@ -151,7 +162,12 @@ function ContactFormCard({
         </div>
       </form>
       {submission && (
-        <p className={succeeded ? "font-semibold" : "sr-only"} role="status">
+        <p
+          ref={statusRef}
+          className={succeeded ? "scroll-mt-32 rounded-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring" : "sr-only"}
+          role="status"
+          tabIndex={succeeded ? -1 : undefined}
+        >
           {submitting && "Sending message…"}
           {succeeded && "Message sent. Thank you for reaching out!"}
         </p>

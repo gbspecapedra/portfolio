@@ -96,6 +96,33 @@ test("renders the portfolio profile and links to its case studies without JavaSc
   }
 });
 
+test("downloads the résumé with the keyboard on mobile and desktop without JavaScript", async ({ page, request }) => {
+  const filename = "Gisele-Pecapedra-Resume.pdf";
+  const path = `/${filename}`;
+  const response = await request.get(path);
+  expect(response.ok()).toBe(true);
+  expect(response.headers()["content-type"]).toMatch(/^application\/pdf\b/);
+  expect((await response.body()).subarray(0, 5).toString()).toBe("%PDF-");
+
+  for (const width of [320, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/#about");
+    const link = page.getByRole("link", { name: "Download Résumé (PDF)", exact: true });
+    await expect(link).toHaveAttribute("href", path);
+    await link.focus();
+    await expect(link).toBeFocused();
+    await expect(link).toBeInViewport();
+
+    const [download] = await Promise.all([
+      page.waitForEvent("download"),
+      page.keyboard.press("Enter"),
+    ]);
+    expect(download.suggestedFilename()).toBe(filename);
+    expect(await download.failure()).toBeNull();
+    await expect(page).toHaveURL(/\/#about$/);
+  }
+});
+
 for (const { path, title, subtitle, seoDescription, image } of caseStudies) {
   test(`renders unique metadata and structured data for ${title}`, async ({ page, request }) => {
     const response = await page.goto(path);
@@ -207,6 +234,20 @@ test("links directly between the two case-study sections about state", async ({ 
   await page.getByRole("link", { name: "See how ShipFlow handles state in a multi-step form." }).click();
   await expect(page).toHaveURL(/\/projects\/shipflow#process-step-based-ux-with-explicit-state$/);
   await expect(page.locator("#process-step-based-ux-with-explicit-state")).toBeVisible();
+});
+
+test("lets readers jump to a case study outcome below the sticky header without JavaScript", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.goto("/projects/shipflow");
+  const outline = page.getByRole("navigation", { name: "In this case study" });
+  await outline.getByRole("link", { name: "5. Outcome", exact: true }).press("Enter");
+
+  await expect(page).toHaveURL(/\/projects\/shipflow#outcome$/);
+  const heading = page.getByRole("heading", { name: "5. Outcome", exact: true });
+  await expect(heading).toBeInViewport();
+  expect(await heading.evaluate((element) =>
+    element.getBoundingClientRect().top - document.querySelector("header")!.getBoundingClientRect().bottom,
+  )).toBeGreaterThanOrEqual(0);
 });
 
 test("permanently redirects legacy case studies and returns non-indexable 404s for unknown routes", async ({ page, request }) => {

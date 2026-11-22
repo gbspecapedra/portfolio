@@ -4,14 +4,25 @@ import { useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const subscribeToMount = () => () => undefined;
 const getClientSnapshot = () => true;
 const getServerSnapshot = () => false;
 
 const themeOptions = [
-  { theme: "light", label: "Light theme", icon: Sun },
-  { theme: "dark", label: "Dark theme", icon: Moon },
+  {
+    theme: "light",
+    label: "Light theme",
+    icon: Sun,
+    selectedClass: "[.light_&]:border-brand-clay/25 [.light_&]:bg-background [.light_&]:text-brand-clay [.light_&]:shadow-xs",
+  },
+  {
+    theme: "dark",
+    label: "Dark theme",
+    icon: Moon,
+    selectedClass: "dark:border-brand-clay/25 dark:bg-background dark:text-brand-clay dark:shadow-xs",
+  },
 ] as const;
 
 export function ThemeToggle() {
@@ -24,7 +35,7 @@ export function ThemeToggle() {
       aria-label="Color theme"
       className="inline-flex shrink-0 items-center gap-0.5 rounded-full border border-border bg-accent/50 p-0.5 text-muted-foreground"
     >
-      {themeOptions.map(({ theme, label, icon: Icon }) => (
+      {themeOptions.map(({ theme, label, icon: Icon, selectedClass }) => (
         <Button
           key={theme}
           type="button"
@@ -33,7 +44,7 @@ export function ThemeToggle() {
           aria-label={label}
           aria-pressed={mounted ? resolvedTheme === theme : undefined}
           onClick={() => setTheme(theme)}
-          className="rounded-full border border-transparent aria-pressed:border-brand-clay/25 aria-pressed:bg-background aria-pressed:text-brand-clay aria-pressed:shadow-xs"
+          className={cn("rounded-full border border-transparent", selectedClass)}
         >
           <Icon aria-hidden="true" />
         </Button>

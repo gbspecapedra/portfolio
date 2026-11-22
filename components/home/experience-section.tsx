@@ -134,7 +134,7 @@ export function ExperienceSection() {
 
                       <div className="min-w-0">
                         <AccordionTrigger
-                          className="font-editorial w-fit flex-none cursor-pointer items-center justify-start gap-1.5 py-0 text-xl leading-tight font-bold tracking-tight hover:text-brand-clay hover:no-underline @2xl:text-[1.375rem] [&>svg]:size-3.5 [&>svg]:translate-y-0"
+                          className="font-editorial min-h-8 w-fit flex-none cursor-pointer items-center justify-start gap-1.5 py-0 text-xl leading-tight font-bold tracking-tight hover:text-brand-clay hover:no-underline aria-expanded:text-brand-clay @2xl:text-[1.375rem] [&>svg]:size-3.5 [&>svg]:translate-y-0"
                         >
                           {item.title}
                           <span className="sr-only"> at {company}</span>
