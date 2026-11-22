@@ -97,6 +97,7 @@ test("contact fields are keyboard reachable and use native validation", async ({
 
 test("shows Formspree submission errors and lets visitors retry", async ({ page }) => {
   await page.goto("/#contact");
+  await page.getByRole("button", { name: "Reject Analytics" }).click();
   const form = page.getByRole("form", { name: "Contact form" });
   const action = (await form.getAttribute("action")) ?? "";
   test.skip(action.startsWith("mailto:"), "Build with a Formspree form ID to test submissions.");

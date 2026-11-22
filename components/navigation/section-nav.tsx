@@ -71,7 +71,7 @@ export function SectionNav({
                   ? "text-muted-foreground"
                   : "text-foreground",
               isFooter
-                ? "rounded-sm hover:underline hover:underline-offset-4 aria-[current]:font-semibold"
+                ? "inline-flex min-h-6 items-center rounded-sm hover:underline hover:underline-offset-4 aria-[current]:font-semibold"
                 : cn(
                     "border-b-2 px-0.5 py-2 whitespace-nowrap sm:px-1",
                     isActive ? "border-brand-clay" : "border-transparent",

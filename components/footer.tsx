@@ -1,10 +1,12 @@
 import { Send } from "lucide-react";
+import Link from "next/link";
 
+import { ManageCookiesButton } from "@/components/cookie-consent";
 import { SectionNav } from "@/components/navigation/section-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { contactLinks } from "@/data/contact-info";
-import { homeSectionIds, siteName } from "@/data/site";
+import { homeSectionIds, legalPages, siteName } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 const currentYear = new Date().getFullYear();
@@ -90,7 +92,24 @@ export function Footer() {
             © {currentYear}
             {` ${siteName}. All rights reserved.`}
           </p>
-          <ThemeToggle />
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <nav
+              aria-label="Legal and cookie preferences"
+              className="flex flex-wrap items-center gap-x-4"
+            >
+              {Object.values(legalPages).map(({ path, label }) => (
+                <Link
+                  key={path}
+                  href={path}
+                  className="inline-flex min-h-9 items-center rounded-sm transition-colors hover:text-brand-clay hover:underline hover:underline-offset-4 motion-reduce:transition-none"
+                >
+                  {label}
+                </Link>
+              ))}
+              <ManageCookiesButton />
+            </nav>
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </footer>

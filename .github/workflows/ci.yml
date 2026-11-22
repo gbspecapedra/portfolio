@@ -29,6 +29,8 @@ jobs:
       - run: npm run build
         env:
           FORMSPREE_FORM_ID: portfoliofixture
+          VERCEL_ENV: production
+          GA_MEASUREMENT_ID: G-PORTFOLIOFIXTURE
       - run: npx playwright install --with-deps --only-shell chromium
       - run: npm run test:e2e
       - uses: actions/upload-artifact@v7

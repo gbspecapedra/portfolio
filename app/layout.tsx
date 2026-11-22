@@ -1,6 +1,6 @@
-import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import "./globals.css";
+import { CookieConsent } from "@/components/cookie-consent";
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteName, siteUrl } from "@/data/site";
 
@@ -18,17 +18,20 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const gaMeasurementId = process.env.GA_MEASUREMENT_ID?.trim();
+  const measurementId = process.env.GA_MEASUREMENT_ID?.trim();
+  const analyticsId =
+    process.env.VERCEL_ENV === "production" &&
+    measurementId &&
+    /^G-[A-Z0-9]+$/.test(measurementId)
+      ? measurementId
+      : undefined;
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
-        {process.env.VERCEL_ENV === "production" &&
-          gaMeasurementId &&
-          /^G-[A-Z0-9]+$/.test(gaMeasurementId) && (
-            <GoogleAnalytics gaId={gaMeasurementId} />
-          )}
+        <ThemeProvider>
+          <CookieConsent analyticsId={analyticsId}>{children}</CookieConsent>
+        </ThemeProvider>
       </body>
     </html>
   );

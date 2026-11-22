@@ -52,3 +52,13 @@ export function pageMetadata({
     },
   };
 }
+
+export function legalPageMetadata(
+  { path, title }: { path: string; title: string },
+  description: string,
+): Metadata {
+  return {
+    ...pageMetadata({ url: new URL(path, siteUrl).href, title, description }),
+    title,
+  };
+}

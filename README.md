@@ -86,11 +86,11 @@ Run the browser and accessibility regression tests against a production build:
 
 ```sh
 npx playwright install --only-shell chromium
-FORMSPREE_FORM_ID=portfoliofixture npm run build
+FORMSPREE_FORM_ID=portfoliofixture VERCEL_ENV=production GA_MEASUREMENT_ID=G-PORTFOLIOFIXTURE npm run build
 npm run test:e2e
 ```
 
-Playwright starts its own local server on port 3100. It intercepts Formspree submissions and uses test data. The GitHub Actions workflow runs the same checks and saves Playwright traces on failure.
+Playwright starts its own local server on port 3100. It intercepts Formspree submissions and Google Analytics requests and uses test data. The GitHub Actions workflow runs the same checks and saves Playwright traces on failure.
 
 Type checks run with TypeScript 7. ESLint's TypeScript parser still requires the compiler API, so `typescript` aliases Microsoft's `@typescript/typescript6` compatibility package while `@typescript/native` aliases TypeScript 7. This follows the [official side-by-side setup](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6-0). `npm run typecheck` generates Next.js route types before checking the project, so it also works on a fresh checkout.
 
@@ -112,9 +112,11 @@ Use the Node version in `.nvmrc` to avoid engine warnings; if your terminal repo
 
 In the Vercel project's **Settings → Environment Variables**, set `GA_MEASUREMENT_ID` to the web stream's Measurement ID and select **Production**. Check that **Enable access to System Environment Variables** is selected, then deploy so the build picks up the value. The ID is supplied to the Google tag in the visitor's browser. [Vercel environment variables](https://vercel.com/docs/environment-variables/managing-environment-variables)
 
-In Google Analytics, open **Admin → Data streams** and select the portfolio’s web stream. Turn on **Enhanced measurement**, then check that **Page loads** and **Page changes based on browser history events** are enabled under **Page views → Show advanced settings**. This captures direct visits and navigation between the homepage and case studies. [Google’s single-page app guide](https://developers.google.com/analytics/devguides/collection/ga4/single-page-applications)
+Visitors opt in before the Google tag is requested. The footer’s **Manage Cookies** button lets them change that choice. The site saves one versioned analytics preference in browser storage. Withdrawal disables the tag immediately and clears accessible first-party GA cookies. Advertising consent stays denied.
 
-After deploying, visit the homepage and open a case study. Check **Reports → Realtime** for `page_view` events.
+In Google Analytics, open **Admin → Data streams** and select the portfolio’s web stream. Turn on **Enhanced measurement**, then check that **Page loads** and **Page changes based on browser history events** are enabled under **Page views → Show advanced settings**. The Google tag measures page loads and navigation. [Google’s single-page app guide](https://developers.google.com/analytics/devguides/collection/ga4/single-page-applications)
+
+After deploying, start with a fresh browser profile. In the browser’s network panel, verify that the Google tag and collection requests are absent before a choice and after rejecting. Enable debug mode for the test browser, accept analytics, then open a case study and a legal page. Check **DebugView** for one `page_view` per page. Turn analytics off in **Manage Cookies** and check that navigation and reloads produce no collection requests and that first-party GA cookies have been removed.
 
 ## Contact form
 

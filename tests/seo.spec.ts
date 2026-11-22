@@ -7,6 +7,11 @@ const caseStudies = projects.map((project) => ({
   ...project,
   path: `/projects/${project.slug}`,
 }));
+const legalPages = [
+  { path: "/privacy", title: "Privacy & Cookies" },
+  { path: "/terms", title: "Terms of Use" },
+  { path: "/accessibility", title: "Accessibility Statement" },
+];
 
 test.use({ javaScriptEnabled: false });
 
@@ -27,7 +32,28 @@ test("lists only canonical portfolio pages in the sitemap advertised by robots.t
   expect(entries.toSorted()).toEqual([
     `${origin}/`,
     ...caseStudies.map(({ path }) => `${origin}${path}`),
+    ...legalPages.map(({ path }) => `${origin}${path}`),
   ].toSorted());
+});
+
+test("serves indexable legal pages with unique metadata without JavaScript", async ({ page }) => {
+  const descriptions = new Set<string>();
+
+  for (const { path, title } of legalPages) {
+    const response = await page.goto(path);
+    expect(response?.status()).toBe(200);
+    expect(response?.headers()["x-robots-tag"] ?? "").not.toMatch(/noindex/i);
+    await expect(page.locator('head meta[name="robots"][content*="noindex"]')).toHaveCount(0);
+    await expect(page).toHaveTitle(`${title} — Gisele Pecapedra`);
+    await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute("href", `${origin}${path}`);
+    await expect(page.getByRole("main").getByRole("article", { name: title })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: title })).toBeVisible();
+    const description = await page.locator('head meta[name="description"]').getAttribute("content");
+    expect(description).toBeTruthy();
+    descriptions.add(description ?? "");
+  }
+
+  expect(descriptions.size).toBe(3);
 });
 
 test("renders the portfolio profile and links to its case studies without JavaScript", async ({ page }) => {
