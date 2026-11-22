@@ -64,7 +64,7 @@ export function SectionNav({
             href={`${isHome ? "" : "/"}#${id}`}
             aria-current={isActive ? (isHome ? "location" : "page") : undefined}
             className={cn(
-              "transition-colors hover:text-brand-clay",
+              "transition-colors hover:text-brand-clay motion-reduce:transition-none",
               isActive
                 ? "text-brand-clay"
                 : isFooter

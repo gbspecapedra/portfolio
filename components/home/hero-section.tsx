@@ -60,7 +60,7 @@ export function HeroSection() {
               size="lg"
               className={cn(
                 heroButtonClassName,
-                "gap-2.5 border border-[#c37b65] bg-[linear-gradient(115deg,#b65e43,var(--primary))] text-[#fffaf6] has-[>svg]:px-4 min-[480px]:gap-4.5 min-[480px]:has-[>svg]:px-5 min-[1200px]:has-[>svg]:px-7.5 dark:bg-none dark:text-primary-foreground",
+                "gap-2.5 border border-[#c37b65] bg-[linear-gradient(115deg,color-mix(in_srgb,var(--primary)_94%,var(--primary-foreground)),var(--primary))] has-[>svg]:px-4 min-[480px]:gap-4.5 min-[480px]:has-[>svg]:px-5 min-[1200px]:has-[>svg]:px-7.5 dark:bg-none",
               )}
             >
               <a href={`#${homeSectionIds.projects}`}>

@@ -15,6 +15,18 @@ const legalPages = [
 
 test.use({ javaScriptEnabled: false });
 
+test("the first tab stop skips to the main landmark without JavaScript", async ({ page }) => {
+  for (const path of ["/", "/projects/emed", "/privacy", "/unknown-page", "/projects/unknown-project"]) {
+    await page.goto(path);
+    const skip = page.getByRole("link", { name: "Skip to main content" });
+    await page.keyboard.press("Tab");
+    await expect(skip).toBeFocused();
+    await expect(skip).toBeInViewport();
+    await page.keyboard.press("Enter");
+    await expect(page.getByRole("main")).toBeFocused();
+  }
+});
+
 test("lists only canonical portfolio pages in the sitemap advertised by robots.txt", async ({ request }) => {
   const robots = await request.get("/robots.txt");
   expect(robots.ok()).toBe(true);

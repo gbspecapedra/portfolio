@@ -89,29 +89,44 @@ export function CookieConsent({
   }, [analyticsId]);
 
   useEffect(() => {
-    const banner = bannerRef.current;
-    if (choice !== null || !banner) return;
-
     function revealFocusedControl(event: FocusEvent) {
       const control = event.target;
       if (
         !(control instanceof HTMLElement) ||
         !control.matches(":focus-visible") ||
-        banner?.contains(control) ||
+        control.tagName === "MAIN" ||
         control.closest("dialog")
       ) return;
 
-      const panel = banner?.getBoundingClientRect();
+      const banner = bannerRef.current;
+      if (banner?.contains(control)) return;
+
       const focus = control.getBoundingClientRect();
+      // Keep focus visible between the two sticky regions.
+      const header = document.querySelector("body > header");
+      const headerBottom = header && !header.contains(control) &&
+        getComputedStyle(header).position === "sticky"
+        ? header.getBoundingClientRect().bottom
+        : 0;
+      const panel = banner?.getBoundingClientRect();
+      const focusGap = 6;
+
+      if (headerBottom && focus.top < headerBottom + focusGap) {
+        window.scrollBy({ top: focus.top - headerBottom - focusGap, behavior: "instant" });
+        return;
+      }
+
       if (panel && focus.bottom > panel.top && focus.top < panel.bottom &&
         focus.left < panel.right && focus.right > panel.left) {
-        window.scrollBy({ top: focus.bottom - panel.top + 6, behavior: "instant" });
+        const scrollSpace = Math.max(0, focus.top - headerBottom - focusGap);
+        const overlap = focus.bottom - panel.top + focusGap;
+        window.scrollBy({ top: Math.min(overlap, scrollSpace), behavior: "instant" });
       }
     }
 
     document.addEventListener("focusin", revealFocusedControl);
     return () => document.removeEventListener("focusin", revealFocusedControl);
-  }, [choice]);
+  }, []);
 
   function saveChoice(next: Choice) {
     try {
