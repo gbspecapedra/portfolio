@@ -70,7 +70,7 @@ export function AboutSection() {
           <Image
             src={headshot}
             alt={siteName}
-            sizes="(max-width: 319px) calc(100vw - 32px), (max-width: 1099px) 320px, 18vw"
+            sizes="auto, (max-width: 319px) calc(100vw - 32px), (max-width: 1099px) 320px, 18vw"
             className="aspect-square w-full rounded-[1.75rem] border border-border/70 bg-[radial-gradient(ellipse_at_45%_20%,var(--color-secondary),var(--color-accent))] object-cover shadow-sm"
           />
         </div>

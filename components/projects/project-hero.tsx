@@ -169,6 +169,7 @@ export function ProjectHero({ project }: { project: Project }) {
               className="block h-auto w-full rounded-xl"
               sizes="(max-width: 639px) calc(100vw - 50px), (max-width: 899px) calc(100vw - 146px), (max-width: 1279px) 43vw, 525px"
               preload
+              fetchPriority="high"
             />
           </div>
         </div>
