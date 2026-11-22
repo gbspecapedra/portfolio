@@ -88,6 +88,7 @@ export function HeroSection() {
             className="block h-auto w-full"
             sizes="(width < 480px) calc(100vw - 32px), (width < 728px) calc(100vw - 48px), (width < 960px) 680px, (width < 1200px) calc(59vw - 33px), (width < 1456px) calc(59vw - 53px), 806px"
             preload
+            fetchPriority="high"
           />
         </div>
       </div>

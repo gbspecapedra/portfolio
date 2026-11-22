@@ -77,7 +77,7 @@ Help recruiters, hiring managers, engineering and design peers, and potential co
 
 ## 8. Typography System
 
-`font-editorial` is `Georgia, "Times New Roman", serif` in `app/globals.css`. Bold editorial headings are a repeated pattern. The Geist variables referenced by `--font-sans` and `--font-mono` lack values and a font loader. Body and UI text inherit the Tailwind Preflight fallback (`-apple-system`, `BlinkMacSystemFont`, `"Segoe UI"`, `Roboto`, `"Helvetica Neue"`, `"Noto Sans"`, `Arial`, `sans-serif`, followed by emoji fonts). The 404 mockup explicitly uses `ui-monospace, monospace`. Use the editorial utility for comparable headings and inherit body typography.
+`font-editorial` is `Georgia, "Times New Roman", serif` in `app/globals.css`. Bold editorial headings are a repeated pattern. Body and UI text inherit the Tailwind Preflight system stack (`-apple-system`, `BlinkMacSystemFont`, `"Segoe UI"`, `Roboto`, `"Helvetica Neue"`, `"Noto Sans"`, `Arial`, `sans-serif`, followed by emoji fonts). The 404 mockup explicitly uses `ui-monospace, monospace`. Use the editorial utility for comparable headings and inherit body typography.
 
 | Pattern | Implemented values and source |
 | --- | --- |
@@ -122,7 +122,7 @@ Search `components/`, `data/`, and `lib/` before adding components, utilities, o
 ## 12. Icons, Images, and Media
 
 - Prefer Lucide for UI and section icons. Existing React Icons imports supply brand and selected other icons. Import named icons from the established library and keep decorative SVGs `aria-hidden`. Give icon-only controls accessible names. Common action icons are 16–20px, while section and feature icons are larger.
-- Use `next/image` with responsive `sizes` and an intrinsic aspect ratio. The home hero illustration and About headshot are static PNG imports under `public/images/`. Case study screenshots are WebP under `public/images/projects/`. Current thumbnails are 1200 × 572 and use an approximately 2:1 crop with `fill` and `object-cover object-left`. The case study hero renders the full image from typed dimensions and alt text. Both page heroes preload their above-the-fold image.
+- Use `next/image` with responsive `sizes` and an intrinsic aspect ratio. The home hero illustration and About headshot are static PNG imports under `public/images/`. Case study screenshots are WebP under `public/images/projects/`. Current thumbnails are 1200 × 572 and use an approximately 2:1 crop with `fill` and `object-cover object-left`. The case study hero renders the full image from typed dimensions and alt text. Both page heroes preload their image at high priority. Lazy home thumbnails and the portrait use `sizes="auto, …"` with viewport-based fallbacks. Optimizer source paths are configured in `next.config.ts`.
 - Use empty alt text for decorative or redundant visuals, as in the home hero and linked project thumbnails. Use meaningful alt text for the headshot and informative case study imagery. Update the social image path, width, height, and alt together. The default cover is `public/og-cover.png` (1200 × 630). App icons live in `app/favicon.ico`, `app/icon.png`, and `app/apple-icon.png`.
 
 ## 13. Animations and Interactions

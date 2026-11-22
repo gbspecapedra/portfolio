@@ -79,7 +79,12 @@ test("renders the portfolio profile and links to its case studies without JavaSc
 
   const data = JSON.parse(await page.locator('script[type="application/ld+json"]').innerText());
   expect(data["@graph"]).toEqual(expect.arrayContaining([
-    expect.objectContaining({ "@type": "WebSite", "@id": `${origin}/#website`, url: `${origin}/` }),
+    expect.objectContaining({
+      "@type": "WebSite",
+      "@id": `${origin}/#website`,
+      url: `${origin}/`,
+      publisher: { "@id": `${origin}/#person` },
+    }),
     expect.objectContaining({ "@type": "ProfilePage", mainEntity: { "@id": `${origin}/#person` } }),
     expect.objectContaining({ "@type": "Person", "@id": `${origin}/#person`, name: "Gisele Pecapedra" }),
   ]));
@@ -115,17 +120,83 @@ for (const { path, title, subtitle, seoDescription, image } of caseStudies) {
 
     const data = JSON.parse(await page.locator('script[type="application/ld+json"]').innerText());
     expect(data["@graph"]).toEqual(expect.arrayContaining([
-      expect.objectContaining({ "@type": "WebPage", "@id": canonical, name: title }),
+      expect.objectContaining({
+        "@type": "WebPage",
+        "@id": canonical,
+        name: title,
+        inLanguage: "en",
+        breadcrumb: { "@id": `${canonical}#breadcrumb` },
+        author: { "@id": `${origin}/#person` },
+        isPartOf: { "@id": `${origin}/#website` },
+      }),
       expect.objectContaining({
         "@type": "BreadcrumbList",
+        "@id": `${canonical}#breadcrumb`,
         itemListElement: [
           expect.objectContaining({ position: 1, item: `${origin}/#projects` }),
           expect.objectContaining({ position: 2, item: canonical }),
         ],
       }),
     ]));
+
+    const webPage = data["@graph"].find((node: { "@type": string }) => node["@type"] === "WebPage");
+    if (image) {
+      await expect(page.locator('head meta[property="og:image:width"]')).toHaveAttribute("content", String(image.width));
+      await expect(page.locator('head meta[property="og:image:height"]')).toHaveAttribute("content", String(image.height));
+      await expect(page.locator('head meta[property="og:image:alt"]')).toHaveAttribute("content", image.alt);
+      const dimensions = await page.evaluate(async (src) => {
+        const image = new Image();
+        image.src = src;
+        await image.decode();
+        return [image.naturalWidth, image.naturalHeight];
+      }, imagePath);
+      expect(dimensions).toEqual([image.width, image.height]);
+      expect(webPage.primaryImageOfPage).toEqual({
+        "@type": "ImageObject",
+        contentUrl: `${origin}${imagePath}`,
+        width: { "@type": "QuantitativeValue", value: image.width, unitText: "px" },
+        height: { "@type": "QuantitativeValue", value: image.height, unitText: "px" },
+      });
+    } else {
+      expect(webPage).not.toHaveProperty("primaryImageOfPage");
+    }
   });
 }
+
+test("preloads one responsive hero and serves optimized images without JavaScript", async ({ page, request }) => {
+  for (const path of ["/", "/projects/goplaces"]) {
+    await page.goto(path);
+    const preload = page.locator('head link[rel="preload"][as="image"]');
+    const hero = page.locator('main img[fetchpriority="high"]');
+    await expect(preload).toHaveCount(1);
+    await expect(hero).toHaveCount(1);
+    await expect(hero).not.toHaveAttribute("loading", "lazy");
+    await expect(preload).toHaveAttribute("fetchpriority", "high");
+    const srcSet = await hero.getAttribute("srcset");
+    expect(srcSet).toBeTruthy();
+    await expect(preload).toHaveAttribute("imagesrcset", srcSet!);
+    await expect(preload).toHaveAttribute("imagesizes", (await hero.getAttribute("sizes"))!);
+    await expect.poll(() => hero.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
+    const url = await hero.evaluate((image: HTMLImageElement) => image.currentSrc);
+    expect(new URL(url).pathname).toBe("/_next/image");
+    const response = await request.get(url, { headers: { Accept: "image/webp" } });
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toBe("image/webp");
+  }
+});
+
+test("serves security headers on pages and static assets", async ({ request }) => {
+  for (const path of ["/", "/projects/goplaces", "/privacy", "/unknown-page", "/og-cover.png"]) {
+    const response = await request.get(path);
+    const headers = response.headers();
+    expect(headers["x-powered-by"]).toBeUndefined();
+    expect(headers["x-content-type-options"]).toBe("nosniff");
+    expect(headers["referrer-policy"]).toBe("strict-origin-when-cross-origin");
+    expect(headers["content-security-policy"]).toContain("frame-ancestors 'none'");
+    expect(headers["content-security-policy"]).toContain("base-uri 'none'");
+    expect(headers["content-security-policy"]).toContain("object-src 'none'");
+  }
+});
 
 test("links directly between the two case-study sections about state", async ({ page }) => {
   await page.goto("/projects/shipflow#process-step-based-ux-with-explicit-state");

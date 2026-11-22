@@ -41,6 +41,7 @@ const profileData = {
       name: siteName,
       url: homeUrl,
       inLanguage: "en",
+      publisher: { "@id": personId },
     },
     {
       "@type": "ProfilePage",

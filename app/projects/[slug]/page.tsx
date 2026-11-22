@@ -50,6 +50,7 @@ export default async function ProjectPage({ params }: Props) {
   const project = getProjectBySlug(slug);
   if (!project) notFound();
 
+  const { image } = project;
   const url = new URL(projectPath(slug), siteUrl).href;
   const breadcrumbId = `${url}#breadcrumb`;
   const projectData = {
@@ -61,11 +62,17 @@ export default async function ProjectPage({ params }: Props) {
         url,
         name: project.title,
         description: project.seoDescription ?? project.subtitle,
+        inLanguage: "en",
         genre: "Case study",
         author: { "@id": personId },
         isPartOf: { "@id": websiteId },
         breadcrumb: { "@id": breadcrumbId },
-        image: project.image && new URL(project.image.src, siteUrl).href,
+        primaryImageOfPage: image && {
+          "@type": "ImageObject",
+          contentUrl: new URL(image.src, siteUrl).href,
+          width: { "@type": "QuantitativeValue", value: image.width, unitText: "px" },
+          height: { "@type": "QuantitativeValue", value: image.height, unitText: "px" },
+        },
       },
       {
         "@type": "BreadcrumbList",

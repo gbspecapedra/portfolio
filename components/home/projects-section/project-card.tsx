@@ -20,7 +20,7 @@ export function ProjectCard({ project }: { project: Project }) {
               src={image.src}
               alt=""
               fill
-              sizes="(min-width: 1456px) 297px, (min-width: 1024px) 21vw, (min-width: 640px) 44vw, 85vw"
+              sizes="auto, (min-width: 1456px) 297px, (min-width: 1024px) 21vw, (min-width: 640px) 44vw, 85vw"
               className="object-cover object-left"
             />
           </div>
