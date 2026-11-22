@@ -18,7 +18,7 @@ const projectLinkStyles = new Map([
 
 export function ProjectHero({ project }: { project: Project }) {
   const { title, subtitle, meta, tags, image, links } = project;
-  const badges = [meta?.role, meta?.duration, meta?.year].filter(Boolean);
+  const timing = [meta?.duration, meta?.year].filter(Boolean).join(" · ");
   const facts = [
     { label: "Role", value: meta?.summaryRole ?? meta?.role },
     { label: "Focus", value: meta?.focus },
@@ -41,22 +41,14 @@ export function ProjectHero({ project }: { project: Project }) {
       <div className="min-w-0">
         <NavButton />
 
-        {meta?.type || badges.length ? (
-          <div className="mt-5 flex flex-wrap items-center gap-1.5 sm:gap-2">
+        {meta?.type || timing ? (
+          <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm text-muted-foreground">
             {meta?.type && (
               <Badge className="badge-sig max-w-full px-2.5 py-1 text-sm wrap-break-word whitespace-normal">
                 {meta.type}
               </Badge>
             )}
-            {badges.map((value) => (
-              <Badge
-                key={value}
-                variant="secondary"
-                className="max-w-full px-2.5 py-1 text-sm wrap-break-word whitespace-normal"
-              >
-                {value}
-              </Badge>
-            ))}
+            {timing && <p>{timing}</p>}
           </div>
         ) : null}
 
@@ -73,6 +65,20 @@ export function ProjectHero({ project }: { project: Project }) {
         <p className="mt-4 max-w-[56ch] text-lg leading-relaxed text-foreground sm:text-xl">
           {subtitle}
         </p>
+
+        {facts.length ? (
+          <dl className="mt-5 max-w-[56ch] divide-y divide-border border-y text-sm leading-relaxed">
+            {facts.map(({ label, value }) => (
+              <div
+                key={label}
+                className="grid grid-cols-[4.5rem_minmax(0,1fr)] gap-x-3 py-2"
+              >
+                <dt className="font-semibold">{label}</dt>
+                <dd className="wrap-break-word text-muted-foreground">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : null}
 
         {tags?.length ? (
           <ul
@@ -91,22 +97,6 @@ export function ProjectHero({ project }: { project: Project }) {
               </li>
             ))}
           </ul>
-        ) : null}
-
-        {facts.length ? (
-          <dl className="mt-5 flex flex-wrap gap-2 text-sm">
-            {facts.map(({ label, value }) => (
-              <div
-                key={label}
-                className="flex min-w-0 flex-wrap gap-x-1 rounded-lg border border-border bg-card/70 px-2.5 py-1.5"
-              >
-                <dt className="font-semibold">{label}</dt>
-                <dd className="min-w-0 wrap-break-word text-muted-foreground">
-                  {value}
-                </dd>
-              </div>
-            ))}
-          </dl>
         ) : null}
 
         {sortedLinks?.length ? (

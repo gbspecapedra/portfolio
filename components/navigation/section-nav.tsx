@@ -52,7 +52,7 @@ export function SectionNav({
       className={
         isFooter
           ? "mt-2.5 grid justify-items-start gap-1.5"
-          : "order-3 flex w-full items-center justify-between gap-1 py-3 text-xs font-semibold sm:gap-3 sm:text-sm lg:order-0 lg:ml-auto lg:w-auto lg:gap-8 lg:py-0 lg:text-base xl:gap-10 xl:text-lg"
+          : "order-3 flex w-full flex-wrap items-center justify-between gap-x-1 gap-y-0.5 py-2.5 text-xs font-semibold sm:gap-x-3 sm:text-sm lg:order-0 lg:ml-auto lg:w-auto lg:flex-nowrap lg:gap-x-8 lg:py-0 lg:text-base xl:gap-x-10 xl:text-lg"
       }
     >
       {sections.map(({ label, id }) => {
@@ -73,8 +73,8 @@ export function SectionNav({
               isFooter
                 ? "inline-flex min-h-6 items-center rounded-sm hover:underline hover:underline-offset-4 aria-[current]:font-semibold"
                 : cn(
-                    "border-b-2 px-0.5 py-2 whitespace-nowrap sm:px-1",
-                    isActive ? "border-brand-clay" : "border-transparent",
+                    "inline-flex min-h-9 items-center border-b-2 py-2 sm:px-1",
+                    isActive ? "border-brand-clay" : "border-transparent hover:border-brand-clay/50",
                   ),
             )}
           >

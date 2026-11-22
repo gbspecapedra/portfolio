@@ -116,7 +116,7 @@ function ProjectSectionBlock({
   const Icon = section.icon ? sectionIcons[section.icon] : undefined;
   const subsections = section.sections?.filter(hasSectionContent);
   const contentClassName =
-    "min-w-0 space-y-2 text-base leading-relaxed wrap-break-word";
+    "max-w-[76ch] min-w-0 space-y-3 text-base leading-relaxed wrap-break-word";
   const sectionIcon = Icon && (
     <span
       aria-hidden="true"
@@ -141,7 +141,7 @@ function ProjectSectionBlock({
             className="h-0.5 w-12 rounded-full bg-brand-clay"
           />
           {hasSectionBody(section) && (
-            <div className={cn(contentClassName, "max-w-[94ch] text-muted-foreground")}>
+            <div className={cn(contentClassName, "text-muted-foreground")}>
               <SectionContent section={section} />
             </div>
           )}
@@ -188,7 +188,7 @@ function ProjectSectionBlock({
           <div
             className={cn(
               contentClassName,
-              "max-w-[100ch] text-card-foreground",
+              "text-card-foreground",
               Icon ? "col-span-full sm:mt-2" : "mt-2",
             )}
           >
@@ -206,6 +206,26 @@ export function ProjectSections({ sections }: { sections?: ProjectSection[] }) {
 
   return (
     <div className="mt-8 space-y-3 sm:mt-10 sm:space-y-4 lg:mt-11">
+      {populatedSections.length > 1 && (
+        <nav
+          aria-label="In this case study"
+          className="mb-6 rounded-xl border bg-surface-soft/60 px-4 py-3 sm:mb-8 sm:px-5"
+        >
+          <p className="text-sm font-semibold">In this case study</p>
+          <ul role="list" className="mt-1 flex flex-wrap gap-x-5">
+            {populatedSections.map(({ id, title }) => (
+              <li key={id}>
+                <a
+                  href={`#${id}`}
+                  className="inline-flex min-h-9 items-center rounded-sm py-1 text-sm leading-snug text-muted-foreground underline underline-offset-4 transition-colors hover:text-brand-clay focus-visible:text-brand-clay motion-reduce:transition-none"
+                >
+                  {title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
       {populatedSections.map((section) => (
         <ProjectSectionBlock key={section.id} section={section} depth={0} />
       ))}

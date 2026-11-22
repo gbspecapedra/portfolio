@@ -146,6 +146,7 @@ test("the light hero label and contact field boundary meet their contrast thresh
 });
 
 test("synchronizes theme controls and remembers the selected theme", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
   const header = page.getByRole("banner").getByRole("group", { name: "Color theme" });
   const footer = page.getByRole("contentinfo").getByRole("group", { name: "Color theme" });
@@ -160,9 +161,12 @@ test("synchronizes theme controls and remembers the selected theme", async ({ pa
 
   await page.reload();
   await expect(light).toHaveAttribute("aria-pressed", "true");
+  await page.emulateMedia({ colorScheme: "light" });
   await dark.press("Enter");
   await expect(page.locator("html")).toHaveClass(/\bdark\b/);
   await expect(header.getByRole("button", { name: "Dark theme" })).toHaveAttribute("aria-pressed", "true");
+  await page.reload();
+  await expect(dark).toHaveAttribute("aria-pressed", "true");
 });
 
 test("contact fields are keyboard reachable and use native validation", async ({ page }) => {
@@ -257,7 +261,9 @@ test("shows Formspree submission errors and lets visitors retry", async ({ page 
   expect(fields.get("name")).toBe("Ada & Jo");
   expect(fields.get("email")).toBe("ada@example.test");
   expect(fields.get("message")).toBe("A test message from the portfolio.");
-  await expect(page.getByRole("status").filter({ hasText: "Message sent" })).toBeVisible();
+  const confirmation = page.getByRole("status").filter({ hasText: "Message sent" });
+  await expect(confirmation).toBeVisible();
+  await expect(confirmation).toBeFocused();
   await expect(form).toBeHidden();
   await expect(page).toHaveURL(/\/#contact$/);
   expect(attempts).toBe(2);
