@@ -1,0 +1,296 @@
+{
+  "id": "homepage",
+  "label": "Homepage",
+  "repeatable": false,
+  "json": {
+    "Main": {
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "hero": {
+              "type": "SharedSlice"
+            },
+            "resource_links": {
+              "type": "SharedSlice"
+            },
+            "card_grid": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    },
+    "Hero": {
+      "hero_headline": {
+        "type": "Text",
+        "config": {
+          "label": "Headline"
+        }
+      },
+      "hero_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Introduction",
+          "multi": "paragraph",
+          "allowTargetBlank": false
+        }
+      },
+      "hero_image": {
+        "type": "Image",
+        "config": {
+          "label": "Decorative hero illustration",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "primary_label": {
+        "type": "Text",
+        "config": {
+          "label": "Primary action label"
+        }
+      },
+      "primary_destination": {
+        "type": "Select",
+        "config": {
+          "label": "Primary action destination",
+          "options": [
+            "Case studies",
+            "Experience",
+            "About",
+            "Contact"
+          ]
+        }
+      },
+      "secondary_label": {
+        "type": "Text",
+        "config": {
+          "label": "Secondary action label"
+        }
+      },
+      "secondary_destination": {
+        "type": "Select",
+        "config": {
+          "label": "Secondary action destination",
+          "options": [
+            "Case studies",
+            "Experience",
+            "About",
+            "Contact"
+          ]
+        }
+      },
+      "strengths": {
+        "type": "Group",
+        "config": {
+          "label": "Core strengths",
+          "fields": {
+            "icon": {
+              "type": "Select",
+              "config": {
+                "label": "Icon",
+                "options": [
+                  "architecture",
+                  "accessibility",
+                  "systems",
+                  "performance",
+                  "collaboration"
+                ]
+              }
+            },
+            "label": {
+              "type": "Text",
+              "config": {
+                "label": "Label"
+              }
+            },
+            "detail": {
+              "type": "Text",
+              "config": {
+                "label": "Optional second line"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Sections": {
+      "projects_heading": {
+        "type": "Text",
+        "config": {
+          "label": "Case studies heading"
+        }
+      },
+      "experience_heading": {
+        "type": "Text",
+        "config": {
+          "label": "Experience heading"
+        }
+      },
+      "workflow_heading": {
+        "type": "Text",
+        "config": {
+          "label": "How I work heading"
+        }
+      },
+      "workflow_intro": {
+        "type": "StructuredText",
+        "config": {
+          "label": "How I work introduction",
+          "multi": "paragraph",
+          "allowTargetBlank": false
+        }
+      },
+      "workflow": {
+        "type": "Group",
+        "config": {
+          "label": "Workflow steps",
+          "fields": {
+            "icon": {
+              "type": "Select",
+              "config": {
+                "label": "Icon",
+                "options": [
+                  "collaborate",
+                  "implement",
+                  "optimize",
+                  "deliver"
+                ]
+              }
+            },
+            "title": {
+              "type": "Text",
+              "config": {
+                "label": "Title"
+              }
+            },
+            "description": {
+              "type": "StructuredText",
+              "config": {
+                "label": "Description",
+                "multi": "paragraph",
+                "allowTargetBlank": false
+              }
+            }
+          }
+        }
+      },
+      "technologies_heading": {
+        "type": "Text",
+        "config": {
+          "label": "Technologies heading"
+        }
+      },
+      "technologies": {
+        "type": "Group",
+        "config": {
+          "label": "Technologies and practices",
+          "fields": {
+            "icon": {
+              "type": "Select",
+              "config": {
+                "label": "Icon",
+                "options": [
+                  "react",
+                  "typescript",
+                  "next",
+                  "storybook",
+                  "accessibility",
+                  "design",
+                  "git"
+                ]
+              }
+            },
+            "label": {
+              "type": "Text",
+              "config": {
+                "label": "Label"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Contact": {
+      "contact_eyebrow": {
+        "type": "Text",
+        "config": {
+          "label": "Eyebrow"
+        }
+      },
+      "contact_heading": {
+        "type": "Text",
+        "config": {
+          "label": "Headline"
+        }
+      },
+      "contact_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Contact introduction",
+          "multi": "paragraph",
+          "allowTargetBlank": false
+        }
+      }
+    },
+    "SEO & Metadata": {
+      "meta_title": {
+        "type": "Text",
+        "config": {
+          "label": "Meta Title",
+          "placeholder": "A title of the page used for social media and search engines"
+        }
+      },
+      "meta_description": {
+        "type": "Text",
+        "config": {
+          "label": "Meta Description",
+          "placeholder": "A brief summary of the page"
+        }
+      },
+      "social_image": {
+        "type": "Image",
+        "config": {
+          "label": "Optional homepage social image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      }
+    },
+    "Footer": {
+      "footer_copyright_text": {
+        "type": "Text",
+        "config": {
+          "label": "Copyright Text"
+        }
+      },
+      "footer_cookies_link": {
+        "type": "Link",
+        "config": {
+          "label": "Cookies Link",
+          "select": "web",
+          "allowTargetBlank": true,
+          "allowText": true
+        }
+      },
+      "footer_social_links": {
+        "type": "Link",
+        "config": {
+          "label": "Social Links",
+          "allowTargetBlank": true,
+          "allowText": true,
+          "repeat": true,
+          "variants": [
+            "X",
+            "YouTube",
+            "GitHub",
+            "LinkedIn"
+          ]
+        }
+      }
+    }
+  },
+  "status": true,
+  "format": "page"
+}

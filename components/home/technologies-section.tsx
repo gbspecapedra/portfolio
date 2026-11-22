@@ -9,26 +9,19 @@ import {
 } from "react-icons/si";
 
 import { Badge } from "@/components/ui/badge";
+import type { Homepage } from "@/lib/prismic/map-content";
 
-const technologies = [
-  { label: "React", icon: SiReact, color: "text-[#237889] dark:text-[#61dafb]" },
-  {
-    label: "TypeScript",
-    icon: SiTypescript,
-    color: "text-[#276ba7] dark:text-[#75b6f1]",
-  },
-  { label: "Next.js", icon: SiNextdotjs },
-  {
-    label: "Storybook",
-    icon: SiStorybook,
-    color: "text-[#d72d63] dark:text-[#ff77a2]",
-  },
-  { label: "Accessibility", icon: FaUniversalAccess },
-  { label: "Design Systems", icon: Layers },
-  { label: "Git & GitHub", icon: SiGithub },
-];
+const technologyIcons = {
+  react: { Icon: SiReact, color: "text-[#237889] dark:text-[#61dafb]" },
+  typescript: { Icon: SiTypescript, color: "text-[#276ba7] dark:text-[#75b6f1]" },
+  next: { Icon: SiNextdotjs, color: undefined },
+  storybook: { Icon: SiStorybook, color: "text-[#d72d63] dark:text-[#ff77a2]" },
+  accessibility: { Icon: FaUniversalAccess, color: undefined },
+  design: { Icon: Layers, color: undefined },
+  git: { Icon: SiGithub, color: undefined },
+};
 
-export function TechnologiesSection() {
+export function TechnologiesSection({ technologies }: { technologies: Homepage["technologies"] }) {
   return (
     <section
       aria-labelledby="technologies-heading"
@@ -39,7 +32,7 @@ export function TechnologiesSection() {
           id="technologies-heading"
           className="text-[clamp(1.375rem,2vw,1.5625rem)] leading-tight font-bold tracking-tight font-editorial"
         >
-          Technologies &amp; Practices
+          {technologies.heading}
         </h2>
         <div aria-hidden="true" className="mt-2.5 h-[3px] w-14 bg-brand-clay" />
       </div>
@@ -48,17 +41,20 @@ export function TechnologiesSection() {
         role="list"
         className="flex flex-wrap gap-2 xl:grow xl:justify-between min-[1400px]:gap-2.5"
       >
-        {technologies.map(({ label, icon: Icon, color }) => (
-          <li key={label}>
-            <Badge
-              variant="outline"
-              className="gap-1.5 border-border/70 px-2.5 py-2 text-[13px] font-semibold [&>svg]:size-[18px] min-[1400px]:gap-2 min-[1400px]:px-3 min-[1400px]:py-2.5 min-[1400px]:text-sm min-[1400px]:[&>svg]:size-5"
-            >
-              <Icon aria-hidden="true" className={color} />
-              {label}
-            </Badge>
-          </li>
-        ))}
+        {technologies.items.map(({ label, icon }) => {
+          const mark = icon ? technologyIcons[icon] : undefined;
+          return (
+            <li key={label}>
+              <Badge
+                variant="outline"
+                className="gap-1.5 border-border/70 px-2.5 py-2 text-[13px] font-semibold [&>svg]:size-[18px] min-[1400px]:gap-2 min-[1400px]:px-3 min-[1400px]:py-2.5 min-[1400px]:text-sm min-[1400px]:[&>svg]:size-5"
+              >
+                {mark && <mark.Icon aria-hidden="true" className={mark.color} />}
+                {label}
+              </Badge>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );

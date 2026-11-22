@@ -31,6 +31,7 @@ The goal of this portfolio is not to showcase every skill I have, but to clearly
 - Next.js 16 (App Router)
 - React 19
 - TypeScript
+- Prismic Content API with generated TypeScript types
 
 **UI & Styling**
 - Tailwind CSS 4 with Warm Editorial design tokens
@@ -64,32 +65,27 @@ nvm install
 nvm use
 ```
 
-Install dependencies and start the development server:
+Install dependencies and copy the example environment file if you are setting up a new checkout.
 
 ```sh
 npm ci
+cp -n .env.example .env.local
 npm run dev
 ```
 
-Open `http://localhost:3000`. The portfolio does not require environment variables or external service configuration.
+Open `http://localhost:3000`. Local development reads the published Prismic content. CI uses a fictional Prismic HTTP fixture and runs without a CMS credential.
 
 ```sh
 npm run lint
-npm run test:lint
 npm run typecheck
-npm run build
-npm start
-```
-
-Run the browser and accessibility regression tests against a production build:
-
-```sh
+npm run test:lint
+npm run test:content
 npx playwright install --only-shell chromium
-FORMSPREE_FORM_ID=portfoliofixture VERCEL_ENV=production GA_MEASUREMENT_ID=G-PORTFOLIOFIXTURE npm run build
+npm run build:fixture
 npm run test:e2e
 ```
 
-Playwright starts its own local server on port 3100. It intercepts Formspree submissions and Google Analytics requests and uses test data. The GitHub Actions workflow runs the same checks and saves Playwright traces on failure.
+The fixture commands set test-only Formspree, Google Analytics and Prismic variables for both the build and server. Playwright starts a production server on port 3100 and intercepts the Formspree and Google Analytics requests. GitHub Actions saves browser traces on failure. Run `npm run build` and `npm start` to test the published CMS content locally. Use `npm run build -- --webpack` or `npm run build:fixture -- --webpack` if a local sandbox prevents Turbopack from opening its worker socket.
 
 Type checks run with TypeScript 7. ESLint's TypeScript parser still requires the compiler API, so `typescript` aliases Microsoft's `@typescript/typescript6` compatibility package while `@typescript/native` aliases TypeScript 7. This follows the [official side-by-side setup](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6-0). `npm run typecheck` generates Next.js route types before checking the project, so it also works on a fresh checkout.
 
@@ -121,33 +117,57 @@ Copy the ID after `/f/` in the form endpoint on Formspree’s **Integration** ta
 
 For local testing, set `FORMSPREE_FORM_ID` in the ignored `.env.local` file. The endpoint is visible to the browser and Formspree stores the notification recipient. Builds without a form ID use an email draft.
 
-## Project structure
+## Prismic
 
-```text
-app/
-  page.tsx                       # Portfolio homepage
-  layout.tsx                     # Metadata, theme provider, and cookie consent
-  globals.css                    # Design tokens and global styles
-  projects/[slug]/
-    layout.tsx                   # Shared SiteShell for case studies
-    page.tsx                     # Static project case studies
-    not-found.tsx                # Unknown project fallback
-components/
-  home/                          # Hero, projects, experience, and contact sections
-  navigation/                    # Reusable navigation controls
-  projects/                      # Project hero and case study sections
-  ui/                            # Shared UI primitives
-  ...                            # Navbar, footer, theme toggle, and interactions
-data/                            # Project content, experience, and contact details
-lib/                             # Shared utilities
-public/                          # Static assets
+[Repository 7l7juw0m](https://7l7juw0m.prismic.io/) stores the editable portfolio copy, public contact details, navigation, case studies, experience, homepage metadata and images. It is named **developer** in the dashboard. The token application label **developer-content** refers to the original local credential.
+
+| Variable | Where to set it |
+| --- | --- |
+| `PRISMIC_REPOSITORY_NAME` | The app defaults to `7l7juw0m` from `prismic.config.json`. If set, it must match. Set it explicitly for model sync and migration commands that contact Prismic. |
+| `PRISMIC_ACCESS_TOKEN` | Server-side Content API credential when required by repository visibility. The current API serves published content publicly, so Vercel can leave this unset. Use a Content API credential if access becomes private. |
+| `PRISMIC_WEBHOOK_SECRET` | Sensitive server-side secret for signed webhook requests. Match the existing secret on the target environment in Vercel and in Prismic. The endpoint returns 503 when the secret is unset. |
+| `PRISMIC_WRITE_TOKEN` | Local maintenance only. Use an authorized existing write credential for model sync and migration. |
+
+The Content API client and queries live in `lib/prismic/`. `prismic.config.json` defines the repository and routes. `customtypes/` holds model JSON and `prismicio-types.d.ts` is generated. The three Shared Slice models in `slices/` belong to the original starter schema. The portfolio uses fixed section templates.
+
+### Edit and publish content
+
+- Edit **Homepage** for the hero, calls to action, contact copy, section headings, strengths, workflow, technologies and homepage SEO. **About** holds the biography, photo and values. **Site Settings** holds identity, navigation, footer, public contact details, the resume URL and the default social image.
+- Create a **Project** with a unique lowercase, hyphen-separated UID. Its page appears at `/projects/<uid>`. Turn on **Show in home listing** to show its card, use **Feature in home listing** for priority, and set **Display order** within that group. Keep established UIDs. The legacy `/developer/projects/<uid>` URL redirects permanently.
+- Add ordered rows in **Case study**. Use a unique section ID among siblings. Set a child’s parent path using slash-separated IDs such as `process/navigation`. Existing IDs generate public fragments. Use a Project relationship plus the full target fragment for links to another case study. Provide alt text for informative images.
+- Create an **Experience** entry with a stable UID and accurate `YYYY-MM` start and end values. Use **Current role** to display “Present.” The site orders the entries newest first.
+- Keep the Homepage, Site Settings and About singletons published with their required fields. A missing singleton or failed CMS request stops pre-rendering with a diagnostic. A missing or unpublished project returns a 404. The sitemap and pre-rendered project list use published data. Newly published project routes generate on request once their UIDs reach the route index. The published-UID check in `proxy.ts` serves the standard server-rendered 404 for unknown projects. The index expires after 15 seconds per server process, and the webhook clears it in its own process. [Next.js issue](https://github.com/vercel/next.js/issues/99287).
+
+Published fetches use Next.js cache tags with an hourly Production fallback and a one-minute revalidation interval on Vercel Preview. Draft Mode uses a validated Prismic ref, bypasses published caching, and marks preview pages noindex. For environment variables, dashboard setup and the differences between Vercel and application 401 responses, see the [Prismic deployment runbook](docs/prismic-deployment.md).
+
+### Change or migrate models
+
+Verify `7l7juw0m` before using model or content write commands. Review remote changes before editing an existing schema. Preserve existing fields, types and UIDs. The Types API sync command checks for additive changes and presents a dry run before any write. It does not remove shared slices or models.
+
+```sh
+npm run prismic:sync
+npm run prismic:sync -- --apply
+PRISMIC_CLI_TASK_ID=$(npx prismic@1.30.1 task-id)
+npm run prismic:typegen -- --task-id "$PRISMIC_CLI_TASK_ID" --user-intent "Generate the portfolio Prismic types."
+npm run typecheck
 ```
 
-Add or edit case studies in `data/projects.ts`. Each project needs a unique lowercase, URL-friendly slug, a title, and a short description in `subtitle`. The slug generates a static page at `/projects/[slug]`. Add a `card` to include the project on the homepage. Its optional `pitch` overrides the card description, and `featured` moves it ahead of unfeatured projects.
+For model investigations, sign in through the official CLI and use the Type Builder or CLI status workflow. [Prismic CLI](https://prismic.io/docs/cli) and [Types API](https://prismic.io/docs/custom-types-api).
 
-Use `meta` for project facts, `tags` for skills, and `links` for available resources. An optional `image` supplies the homepage thumbnail, hero, and social preview. Give it descriptive alt text and the asset's intrinsic dimensions. List any case study sections in display order, with a stable `id` and `title` for each entry. Sections support paragraphs, bullets, an image, highlighted decisions and trade-offs, and nested `sections` for groups such as Process & Key Decisions.
+```sh
+npm run prismic:migrate
+npm run prismic:migrate -- --check
+npm run prismic:migrate -- --apply
+npm run prismic:migrate -- --verify
+```
 
-Previous `/developer/projects/[slug]` URLs permanently redirect to the corresponding project page.
+The dry run uses the archived source snapshot and writes a local plan. The check inspects the repository and document conflicts. Apply stages new content in **Migration Releases**. Review and publish the release in Prismic, then run verify. An interrupted import with all draft IDs allocated can use `--resume` after the journal and dashboard have been reconciled. See the [content inventory and migration mapping](docs/prismic-migration.md).
+
+### Troubleshooting
+
+- If the build reports missing content, verify the configured repository, the singleton publication status, its required fields and Content API access. Use the fixture build to confirm application behavior independently of the live repository.
+- If a published change is missing, check the webhook delivery status and secret in both dashboards. Production content is eligible for time-based refresh after an hour. Protected Preview uses its separate one-minute interval.
+- If draft content does not appear, open a full-site preview from Prismic and check the registered host and preview path. Draft cookies are scoped to that host. Keep Prismic write credentials in the local maintenance environment.
 
 ## 📌 Assumptions
 
@@ -158,33 +178,9 @@ Previous `/developer/projects/[slug]` URLs permanently redirect to the correspon
 
 ## 📌 Key Decisions & Trade-offs
 
-### 🔹 Data-driven case studies
+### Case study rendering
 
-**Decision**  
-All project content lives in a structured data file (`projects.ts`).
-
-**Why**
-- Enforces consistency across case studies
-- Makes projects easy to add, reorder, or remove
-- Avoids duplicated layouts and logic
-
-**Trade-off**
-- Slight upfront structure cost  
-- Intentional for long-term maintainability
-
-### 🔹 Single dynamic `[slug]` page
-
-**Decision**  
-Use one parameterized route to pre-render all case studies from local data at build time.
-
-**Why**
-- Guarantees narrative consistency
-- Keeps the codebase small and readable
-- Prevents layout divergence over time
-
-**Trade-off**
-- Less freedom for one-off layouts  
-- Chosen deliberately to protect clarity
+One parameterized route and the shared case study components render the Prismic Project documents. Published routes are pre-rendered at build time, and newly published UIDs can render on demand.
 
 ### 🔹 Subtle motion only
 
@@ -207,13 +203,11 @@ Animations are minimal and purpose-driven.
 - Optional project filtering
 
 **Mid-term**
-- MDX support for richer storytelling
 - Deeper experience timeline
 
 **Long-term**
 - Internationalization
 - Writing / blog section
-- Content versioning
 
 ## ⁉️ Why This Exists
 

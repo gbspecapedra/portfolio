@@ -1,23 +1,25 @@
 import Link from "next/link";
 
 import { LegalPage } from "@/components/legal-page";
-import { homeSectionIds, legalPages, siteName } from "@/data/site";
+import { homeSectionIds, legalPages } from "@/data/site";
+import { getSiteSettings } from "@/lib/prismic/content";
 import { legalPageMetadata } from "@/lib/seo";
 
 const page = legalPages.privacy;
 
-export const metadata = legalPageMetadata(
-  page,
-  "How Gisele Pecapedra’s portfolio handles contact information, uses Google Analytics, and lets you manage analytics cookies.",
-);
+export async function generateMetadata() {
+  const settings = await getSiteSettings();
+  return legalPageMetadata(page, `How ${settings.name}’s portfolio handles contact information, uses Google Analytics, and lets you manage analytics cookies.`, settings);
+}
 
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const settings = await getSiteSettings();
   return (
     <LegalPage title={page.title} updated="2026-11-21">
       <section>
         <h2>About this policy</h2>
         <p>
-          I’m {siteName}, a frontend engineer based in British Columbia, Canada.
+          I’m {settings.name}, a frontend engineer based in British Columbia, Canada.
           This portfolio shares my work and provides a way to contact me. This
           policy explains what information the site collects, how I use it and
           what choices you have.
@@ -78,9 +80,9 @@ export default function PrivacyPage() {
       <section>
         <h2>Portfolio content</h2>
         <p>
-          This version of the portfolio delivers content from files bundled with
-          the site. Its public pages load without Prismic content delivery,
-          preview scripts or cookies.
+          Prismic stores the portfolio’s public copy and images. The site fetches
+          them on the server. An active editorial preview loads Prismic’s preview
+          toolbar and uses cookies to display draft content.
         </p>
       </section>
       <section>
@@ -94,9 +96,9 @@ export default function PrivacyPage() {
         <h2>Retention and third-party services</h2>
         <p>
           I aim to keep enquiry information only as long as needed to respond,
-          follow up or meet applicable requirements. Google Analytics, Formspree
-          and Vercel handle information for the services described above. Their
-          own policies and settings affect how long they retain information.
+          follow up or meet applicable requirements. Google Analytics, Formspree,
+          Prismic and Vercel handle information for the services described above.
+          Their own policies and settings affect how long they retain information.
         </p>
       </section>
       <section>

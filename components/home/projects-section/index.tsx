@@ -1,13 +1,9 @@
-import { projects } from "@/data/projects";
+import type { Project } from "@/data/project-types";
 import { homeSectionIds } from "@/data/site";
 
 import { ProjectCard } from "./project-card";
 
-const caseStudies = projects
-  .filter(({ card }) => card)
-  .sort((a, b) => Number(Boolean(b.card?.featured)) - Number(Boolean(a.card?.featured)));
-
-export function ProjectsSection() {
+export function ProjectsSection({ heading, projects }: { heading: string; projects: Project[] }) {
   return (
     <section
       id={homeSectionIds.projects}
@@ -18,7 +14,7 @@ export function ProjectsSection() {
         id="projects-heading"
         className="text-[clamp(1.75rem,4vw,2.25rem)] leading-[1.15] font-bold tracking-tight text-balance font-editorial"
       >
-        Case studies
+        {heading}
       </h2>
       <div
         aria-hidden="true"
@@ -26,7 +22,7 @@ export function ProjectsSection() {
       />
 
       <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:gap-6 xl:grid-cols-4">
-        {caseStudies.map((project) => (
+        {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}
       </div>

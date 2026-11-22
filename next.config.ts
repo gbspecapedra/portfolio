@@ -5,10 +5,15 @@ const nextConfig: NextConfig = {
   images: {
     deviceSizes: [640, 750, 828, 960, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [32, 48, 64, 96, 128, 256, 320, 384],
+    remotePatterns: [
+      { protocol: "https", hostname: "images.prismic.io", pathname: "/7l7juw0m/**" },
+    ],
     localPatterns: [
       { pathname: "/_next/static/media/**", search: "" },
       { pathname: "/_next/static/immutable/media/**", search: "" },
       { pathname: "/images/projects/**", search: "" },
+      { pathname: "/images/hero-image.png", search: "" },
+      { pathname: "/images/headshot.png", search: "" },
     ],
   },
   async headers() {
@@ -22,6 +27,13 @@ const nextConfig: NextConfig = {
           },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+        ],
+      },
+      {
+        source: "/api/preview",
+        headers: [
+          { key: "Cache-Control", value: "private, no-store" },
+          { key: "Referrer-Policy", value: "no-referrer" },
         ],
       },
     ];

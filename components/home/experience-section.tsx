@@ -8,44 +8,38 @@ import {
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { experience } from "@/data/experience";
+import type { Experience } from "@/lib/prismic/map-content";
 import { homeSectionIds } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 type CompanyMark = {
-  label: string;
   useShortName?: boolean;
   className: string;
   icon?: typeof Grape;
   iconClassName?: string;
 };
 
-const companyMarks: Record<(typeof experience)[number]["id"], CompanyMark> = {
+const companyMarks: Partial<Record<string, CompanyMark>> = {
   commerce7: {
-    label: "Commerce7",
     className: "bg-[#dce9dc] text-[#203e30]",
   },
   winedirect: {
-    label: "WineDirect",
     className: "bg-[#572641] text-white",
     icon: Grape,
     iconClassName: "size-5 @min-[42rem]:size-7",
   },
   "up-learn": {
-    label: "Up Learn",
     className: "bg-[#eadef4] text-[#261e36]",
     icon: Play,
     iconClassName:
       "size-6 rounded-full bg-[#713bd0] fill-white p-1.5 text-white @min-[42rem]:size-8 @min-[42rem]:p-2",
   },
   bridge: {
-    label: "Laboratório Bridge",
     className: "bg-[#deefe7] text-[#173730] leading-tight",
     icon: Cross,
     iconClassName: "size-6 text-[#0b8069] @min-[42rem]:size-8",
   },
   feesc: {
-    label: "FEESC",
     useShortName: true,
     className: "bg-[#d9ebf8] text-[#0966a3] text-2xl @min-[42rem]:text-3xl",
   },
@@ -76,7 +70,7 @@ function SkillsList({
   );
 }
 
-export function ExperienceSection() {
+export function ExperienceSection({ heading, experience }: { heading: string; experience: Experience[] }) {
   return (
     <section
       id={homeSectionIds.experience}
@@ -87,7 +81,7 @@ export function ExperienceSection() {
         id="experience-heading"
         className="font-editorial text-[clamp(2rem,6.1cqw,2.875rem)] leading-tight font-bold tracking-[-0.04em] text-pretty after:mt-3 after:block after:h-0.75 after:w-14 after:rounded-full after:bg-brand-clay after:content-['']"
       >
-        Professional experience
+        {heading}
       </h2>
 
       {/* About sets the height of the shared row when the sections sit side by side. */}
@@ -105,8 +99,9 @@ export function ExperienceSection() {
         >
           {experience.map((item) => {
             const mark = companyMarks[item.id];
-            const Icon = mark.icon;
-            const company = mark.useShortName ? mark.label : item.company;
+            const Icon = mark?.icon;
+            const markLabel = item.companyShort || item.company;
+            const company = mark?.useShortName ? markLabel : item.company;
 
             return (
               <li
@@ -120,16 +115,16 @@ export function ExperienceSection() {
                         aria-hidden="true"
                         className={cn(
                           "flex min-h-11 w-fit max-w-full items-center justify-center gap-1.5 rounded-xl px-2.5 py-2 text-sm font-bold tracking-tight @min-[26rem]:row-span-2 @min-[26rem]:min-h-20 @min-[26rem]:w-full @min-[38rem]:row-span-1 @2xl:min-h-22 @2xl:gap-2 @2xl:text-base",
-                          mark.className,
+                          mark?.className ?? "bg-secondary text-secondary-foreground",
                         )}
                       >
                         {Icon && (
                           <Icon
                             strokeWidth={1.75}
-                            className={cn("shrink-0", mark.iconClassName)}
+                            className={cn("shrink-0", mark?.iconClassName)}
                           />
                         )}
-                        <span>{mark.label}</span>
+                        <span>{markLabel}</span>
                       </div>
 
                       <div className="min-w-0">
@@ -161,7 +156,7 @@ export function ExperienceSection() {
 
                     <AccordionContent className="mx-3 border-t border-border/70 pt-3 @2xl:mx-3.5">
                       <p className="text-sm font-medium text-muted-foreground">
-                        {mark.useShortName && <>{item.company} · </>}
+                        {mark?.useShortName && <>{item.company}{item.location && " · "}</>}
                         {item.location}
                       </p>
                       {item.impact.length > 0 && (

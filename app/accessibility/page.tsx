@@ -1,18 +1,19 @@
 import Link from "next/link";
 
 import { LegalPage } from "@/components/legal-page";
-import { contactEmail } from "@/data/contact-info";
 import { homeSectionIds, legalPages } from "@/data/site";
+import { getSiteSettings } from "@/lib/prismic/content";
 import { legalPageMetadata } from "@/lib/seo";
 
 const page = legalPages.accessibility;
 
-export const metadata = legalPageMetadata(
-  page,
-  "Gisele Pecapedra’s accessibility commitment, WCAG 2.2 Level AA target, accessibility features and ways to report barriers.",
-);
+export async function generateMetadata() {
+  const settings = await getSiteSettings();
+  return legalPageMetadata(page, `${settings.name}’s accessibility commitment, WCAG 2.2 Level AA target, accessibility features and ways to report barriers.`, settings);
+}
 
-export default function AccessibilityPage() {
+export default async function AccessibilityPage() {
+  const settings = await getSiteSettings();
   return (
     <LegalPage title={page.title} updated="2026-11-21">
       <section>
@@ -70,7 +71,7 @@ export default function AccessibilityPage() {
         <p>
           If you encounter a barrier, use the{" "}
           <Link href={`/#${homeSectionIds.contact}`}>contact section</Link> or{" "}
-          <a href={`mailto:${contactEmail}`}>email me directly</a>. Please include
+          <a href={`mailto:${settings.email}`}>email me directly</a>. Please include
           the page address and what you were trying to do. If you’re comfortable
           sharing them, details about your browser or assistive technology can
           help me investigate.

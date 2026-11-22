@@ -3,6 +3,8 @@ import { expect, test } from "@playwright/test";
 
 import { createContactDraft } from "@/lib/contact-draft";
 
+import { alphaTitle, coverAlt, homeTitle, owner } from "./fixtures/prismic-content.mjs";
+
 test("supports keyboard navigation between the homepage and a case study", async ({ page }) => {
   await page.goto("/");
   const header = page.getByRole("banner");
@@ -16,7 +18,7 @@ test("supports keyboard navigation between the homepage and a case study", async
   await page.keyboard.press("Tab");
   await expect(page.getByRole("link", { name: "Skip to main content" })).toBeFocused();
   await page.keyboard.press("Tab");
-  await expect(header.getByRole("link", { name: "Gisele Pecapedra" })).toBeFocused();
+  await expect(header.getByRole("link", { name: owner })).toBeFocused();
   await page.keyboard.press("Tab");
   await expect(navigation.getByRole("link", { name: "Home" })).toBeFocused();
   await page.keyboard.press("Tab");
@@ -30,9 +32,9 @@ test("supports keyboard navigation between the homepage and a case study", async
   await expect(page.getByRole("navigation", { name: "Explore" }).getByRole("link", { name: "Case Studies" }))
     .toHaveAttribute("aria-current", "location");
 
-  await page.getByRole("link", { name: "View case study eMed", exact: true }).press("Enter");
-  await expect(page).toHaveURL(/\/projects\/emed$/);
-  await expect(page.getByRole("heading", { level: 1, name: "eMed" })).toBeVisible();
+  await page.getByRole("link", { name: `View case study ${alphaTitle}`, exact: true }).press("Enter");
+  await expect(page).toHaveURL(/\/projects\/alpha$/);
+  await expect(page.getByRole("heading", { level: 1, name: alphaTitle })).toBeVisible();
   await expect(caseStudies).toHaveAttribute("aria-current", "page");
 
   const backLink = page.getByRole("navigation", { name: "Project navigation" })
@@ -52,7 +54,7 @@ test("reduced motion removes the hover lift and accordion animation while retain
   await expect(heroLink).toHaveCSS("translate", "none");
 
   const timeline = page.getByRole("region", { name: "Career timeline" });
-  const trigger = timeline.getByRole("button", { name: "Frontend Engineer at Commerce7", exact: true });
+  const trigger = timeline.getByRole("button", { name: "Example Frontend Engineer at Example Company", exact: true });
   const panel = timeline.locator('[data-slot="accordion-content"]').first();
   await trigger.press("Enter");
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
@@ -87,7 +89,7 @@ test("button and accordion focus indicators stay visible in forced colors", asyn
   await page.keyboard.press("Tab");
 
   const link = page.getByRole("link", { name: "Explore case studies", exact: true });
-  const trigger = page.getByRole("button", { name: "Frontend Engineer at Commerce7", exact: true });
+  const trigger = page.getByRole("button", { name: "Example Frontend Engineer at Example Company", exact: true });
   for (const control of [link, trigger]) {
     await control.focus();
     await expect(control).toHaveCSS("outline-style", "solid");
@@ -286,8 +288,8 @@ test("encodes contact data as a mailto draft", () => {
 test("serves the 1200 × 630 homepage preview advertised by Open Graph and Twitter", async ({ page }) => {
   const path = "/og-cover.png";
   const imageURL = `https://giselepecapedra.com${path}`;
-  const title = "Gisele Pecapedra — UX-driven Frontend Engineer";
-  const alt = `${title}. Accessible interfaces and scalable design systems, with a portrait of Gisele Pecapedra.`;
+  const title = homeTitle;
+  const alt = coverAlt;
   await page.goto("/");
 
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", title);
@@ -317,7 +319,7 @@ test("serves the 1200 × 630 homepage preview advertised by Open Graph and Twitt
 const accessibilityChecks = [
   { name: "homepage in light mode", path: "/", theme: "Light theme", width: 1440 },
   { name: "mobile homepage in dark mode", path: "/#contact", theme: "Dark theme", width: 390 },
-  { name: "case study in dark mode", path: "/projects/coinpay", theme: "Dark theme", width: 1440 },
+  { name: "case study in dark mode", path: "/projects/alpha", theme: "Dark theme", width: 1440 },
 ];
 
 for (const { name, path, theme, width } of accessibilityChecks) {

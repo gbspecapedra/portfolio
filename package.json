@@ -9,10 +9,17 @@
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
     "test:lint": "node --test tests/lint-config.test.mjs",
-    "test:e2e": "playwright test"
+    "test:content": "node --test tests/prismic-content.test.mts tests/prismic-webhook.test.mts",
+    "test:e2e": "node tests/fixtures/run-with-prismic.mjs playwright test",
+    "prismic:typegen": "npm exec --yes --package=prismic@1.30.1 -- prismic gen types",
+    "prismic:sync": "node --env-file-if-exists=.env.local scripts/prismic/sync-models.mjs",
+    "prismic:migrate": "node --env-file-if-exists=.env.local scripts/prismic/migrate.mjs",
+    "build:fixture": "node tests/fixtures/run-with-prismic.mjs next build"
   },
   "dependencies": {
     "@formspree/react": "^3.0.0",
+    "@prismicio/client": "^7.23.1",
+    "@prismicio/next": "^3.0.0",
     "@radix-ui/react-accordion": "^1.3.1",
     "@radix-ui/react-slot": "^1.5.0",
     "class-variance-authority": "^0.7.1",

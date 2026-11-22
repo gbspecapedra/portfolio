@@ -2,6 +2,7 @@ import type { ComponentProps, ReactNode } from "react";
 
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
+import { getSiteSettings } from "@/lib/prismic/content";
 import { cn } from "@/lib/utils";
 
 const mainContentId = "main-content";
@@ -14,18 +15,19 @@ export function SiteMain({
   return <main {...props} id={id} tabIndex={-1} className={cn("scroll-mt-28", className)} />;
 }
 
-export function SiteShell({
+export async function SiteShell({
   children,
   mainId = mainContentId,
 }: {
   children: ReactNode;
   mainId?: string;
 }) {
+  const settings = await getSiteSettings();
   return (
     <>
-      <Navbar mainId={mainId} />
+      <Navbar mainId={mainId} settings={settings} />
       {children}
-      <Footer />
+      <Footer settings={settings} />
     </>
   );
 }

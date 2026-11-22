@@ -1,9 +1,9 @@
 import { expect, test } from "@playwright/test";
 
-import { projects } from "@/data/projects";
+import { fixtureSource, owner } from "./fixtures/prismic-content.mjs";
 
 const origin = "https://giselepecapedra.com";
-const caseStudies = projects.map((project) => ({
+const caseStudies = fixtureSource.projects.map((project) => ({
   ...project,
   path: `/projects/${project.slug}`,
 }));
@@ -20,7 +20,7 @@ test("the first tab stop skips to the main landmark without JavaScript", async (
 }) => {
   for (const path of [
     "/",
-    "/projects/emed",
+    "/projects/alpha",
     "/privacy",
     "/unknown-page",
     "/projects/unknown-project",
@@ -75,7 +75,7 @@ test("serves indexable legal pages with unique metadata without JavaScript", asy
     await expect(
       page.locator('head meta[name="robots"][content*="noindex"]'),
     ).toHaveCount(0);
-    await expect(page).toHaveTitle(`${title} — Gisele Pecapedra`);
+    await expect(page).toHaveTitle(`${title} — ${owner}`);
     await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
       "href",
       `${origin}${path}`,
@@ -132,7 +132,7 @@ test("renders the portfolio profile and links to its case studies without JavaSc
       expect.objectContaining({
         "@type": "Person",
         "@id": `${origin}/#person`,
-        name: "Gisele Pecapedra",
+        name: owner,
       }),
     ]),
   );
@@ -191,7 +191,7 @@ for (const { path, title, subtitle, seoDescription, image } of caseStudies) {
     const canonical = `${origin}${path}`;
     expect(response?.status()).toBe(200);
     expect(response?.headers()["x-robots-tag"] ?? "").not.toMatch(/noindex/i);
-    await expect(page).toHaveTitle(`${title} Case Study — Gisele Pecapedra`);
+    await expect(page).toHaveTitle(`${title} Case Study — ${owner}`);
     await expect(page.locator('head meta[name="description"]')).toHaveAttribute(
       "content",
       seoDescription ?? subtitle,
@@ -300,7 +300,7 @@ test("preloads one responsive hero and serves optimized images without JavaScrip
   page,
   request,
 }) => {
-  for (const path of ["/", "/projects/goplaces"]) {
+  for (const path of ["/", "/projects/alpha"]) {
     await page.goto(path);
     const preload = page.locator('head link[rel="preload"][as="image"]');
     const hero = page.locator('main img[fetchpriority="high"]');
@@ -337,7 +337,7 @@ test("serves security headers on pages and static assets", async ({
 }) => {
   for (const path of [
     "/",
-    "/projects/goplaces",
+    "/projects/alpha",
     "/privacy",
     "/unknown-page",
     "/og-cover.png",
@@ -359,30 +359,30 @@ test("links directly between the two case-study sections about state", async ({
   page,
 }) => {
   await page.goto(
-    "/projects/shipflow#process-step-based-ux-with-explicit-state",
+    "/projects/alpha#process-decision",
   );
   await page
     .getByRole("link", {
-      name: "See how Coinpay UI keeps month selection in the URL.",
+      name: "See the Beta filter.",
     })
     .click();
   await expect(page).toHaveURL(
-    /\/projects\/coinpay#process-navigation-state-via-url-month-selection$/,
+    /\/projects\/beta#context-filter$/,
   );
   await expect(
-    page.locator("#process-navigation-state-via-url-month-selection"),
+    page.locator("#context-filter"),
   ).toBeVisible();
 
   await page
     .getByRole("link", {
-      name: "See how ShipFlow handles state in a multi-step form.",
+      name: "See the Alpha decision.",
     })
     .click();
   await expect(page).toHaveURL(
-    /\/projects\/shipflow#process-step-based-ux-with-explicit-state$/,
+    /\/projects\/alpha#process-decision$/,
   );
   await expect(
-    page.locator("#process-step-based-ux-with-explicit-state"),
+    page.locator("#process-decision"),
   ).toBeVisible();
 });
 
@@ -390,13 +390,13 @@ test("lets readers jump to a case study outcome below the sticky header without 
   page,
 }) => {
   await page.setViewportSize({ width: 320, height: 740 });
-  await page.goto("/projects/shipflow");
+  await page.goto("/projects/alpha");
   const outline = page.getByRole("navigation", { name: "In this case study" });
   await outline
     .getByRole("link", { name: "5. Outcome", exact: true })
     .press("Enter");
 
-  await expect(page).toHaveURL(/\/projects\/shipflow#outcome$/);
+  await expect(page).toHaveURL(/\/projects\/alpha#outcome$/);
   const heading = page.getByRole("heading", {
     name: "5. Outcome",
     exact: true,

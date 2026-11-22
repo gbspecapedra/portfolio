@@ -58,8 +58,8 @@ test("follows system changes through navigation until a manual choice is saved",
 
   await page.emulateMedia({ colorScheme: "dark" });
   await expectTheme(page, "dark");
-  await page.getByRole("link", { name: "View case study eMed", exact: true }).click();
-  await expect(page).toHaveURL(/\/projects\/emed$/);
+  await page.getByRole("link", { name: "View case study Sample Project Alpha", exact: true }).click();
+  await expect(page).toHaveURL(/\/projects\/alpha$/);
   await expectTheme(page, "dark");
   expect(await page.evaluate(() => localStorage.getItem("theme"))).toBeNull();
 

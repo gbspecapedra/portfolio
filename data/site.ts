@@ -1,4 +1,3 @@
-export const siteName = "Gisele Pecapedra";
 export const siteUrl = "https://giselepecapedra.com";
 
 export const legalPages = {
@@ -18,3 +17,7 @@ export const homeSectionIds = {
   about: "about",
   contact: "contact",
 } as const;
+
+export function projectPath(slug: string) {
+  return `/projects/${slug}`;
+}
