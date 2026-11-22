@@ -9,7 +9,7 @@
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
     "test:lint": "node --test tests/lint-config.test.mjs",
-    "test:content": "node --test tests/prismic-content.test.mts",
+    "test:content": "node --test tests/prismic-content.test.mts tests/prismic-webhook.test.mts",
     "test:e2e": "node tests/fixtures/run-with-prismic.mjs playwright test",
     "prismic:typegen": "npm exec --yes --package=prismic@1.30.1 -- prismic gen types",
     "prismic:sync": "node --env-file-if-exists=.env.local scripts/prismic/sync-models.mjs",

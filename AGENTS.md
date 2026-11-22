@@ -163,9 +163,9 @@ Vercel hosting and dashboard setup are documented in `README.md`. The checked-in
 
 | Name | Behavior and source |
 | --- | --- |
-| `PRISMIC_REPOSITORY_NAME` | Must match `7l7juw0m` in `prismic.config.json`. |
+| `PRISMIC_REPOSITORY_NAME` | App builds and requests default to `7l7juw0m` from `prismic.config.json`. Any configured value must match. Model sync and migration commands that contact Prismic require the explicit value. |
 | `PRISMIC_ACCESS_TOKEN` | Optional for the current public Content API and required for private access. Keep it server-side. |
-| `PRISMIC_WEBHOOK_SECRET` | Authenticates publish and unpublish webhooks before invalidating the `prismic` Data Cache tag. Published queries revalidate hourly. |
+| `PRISMIC_WEBHOOK_SECRET` | Authenticates publish and unpublish webhooks before invalidating the `prismic` Data Cache tag. Published queries use an hourly Production fallback and a 60-second Vercel Preview interval. See [the Prismic deployment runbook](docs/prismic-deployment.md). |
 | `PRISMIC_WRITE_TOKEN` | Local model sync and migration scripts only. |
 | `FORMSPREE_FORM_ID` | Optional, trimmed and accepted only when alphanumeric. The server `ContactSection` passes it to `ContactForm` for a browser POST to Formspree. Missing or invalid values fall back to an encoded email draft via `lib/contact-draft.ts`. The form ID is browser-visible. |
 | `GA_MEASUREMENT_ID` | Optional, trimmed and matched against `^G-[A-Z0-9]+$` in `app/layout.tsx`. The client loads the tag only after consent. The measurement ID is browser-visible when supplied. |

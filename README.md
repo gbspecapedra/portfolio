@@ -123,9 +123,9 @@ For local testing, set `FORMSPREE_FORM_ID` in the ignored `.env.local` file. The
 
 | Variable | Where to set it |
 | --- | --- |
-| `PRISMIC_REPOSITORY_NAME` | Set to `7l7juw0m` in the ignored `.env.local` and in Vercel environments that build the portfolio. |
+| `PRISMIC_REPOSITORY_NAME` | The app defaults to `7l7juw0m` from `prismic.config.json`. If set, it must match. Set it explicitly for model sync and migration commands that contact Prismic. |
 | `PRISMIC_ACCESS_TOKEN` | Server-side Content API credential when required by repository visibility. The current API serves published content publicly, so Vercel can leave this unset. Use a Content API credential if access becomes private. |
-| `PRISMIC_WEBHOOK_SECRET` | Set the same secret in Vercel and the Prismic webhook configuration. The endpoint returns 503 when the secret is unset. |
+| `PRISMIC_WEBHOOK_SECRET` | Sensitive server-side secret for signed webhook requests. Match the existing secret on the target environment in Vercel and in Prismic. The endpoint returns 503 when the secret is unset. |
 | `PRISMIC_WRITE_TOKEN` | Local maintenance only. Use an authorized existing write credential for model sync and migration. |
 
 The Content API client and queries live in `lib/prismic/`. `prismic.config.json` defines the repository and routes. `customtypes/` holds model JSON and `prismicio-types.d.ts` is generated. The three Shared Slice models in `slices/` belong to the original starter schema. The portfolio uses fixed section templates.
@@ -138,7 +138,7 @@ The Content API client and queries live in `lib/prismic/`. `prismic.config.json`
 - Create an **Experience** entry with a stable UID and accurate `YYYY-MM` start and end values. Use **Current role** to display “Present.” The site orders the entries newest first.
 - Keep the Homepage, Site Settings and About singletons published with their required fields. A missing singleton or failed CMS request stops pre-rendering with a diagnostic. A missing or unpublished project returns a 404. The sitemap and pre-rendered project list use published data. Newly published project routes generate on request once their UIDs reach the route index. The published-UID check in `proxy.ts` serves the standard server-rendered 404 for unknown projects. The index expires after 15 seconds per server process, and the webhook clears it in its own process. [Next.js issue](https://github.com/vercel/next.js/issues/99287).
 
-Published fetches use Next.js’s Data Cache and the `prismic` tag with an hourly fallback. In Prismic, register a publish and unpublish webhook pointing to `https://giselepecapedra.com/api/revalidate` and set its shared secret. The route validates the repository and secret before expiring the tag. Register a full-site preview URL ending in `/api/preview` for the correct host. Draft Mode bypasses the published cache, marks preview pages noindex and loads the toolbar only in the preview. `/api/exit-preview` ends the session. The app uses fixed section templates, so Page Builder slice thumbnails are outside this preview workflow. [Prismic previews](https://prismic.io/docs/previews) and [Next.js cache revalidation](https://nextjs.org/docs/app/api-reference/functions/revalidateTag).
+Published fetches use Next.js cache tags with an hourly Production fallback and a one-minute revalidation interval on Vercel Preview. Draft Mode uses a validated Prismic ref, bypasses published caching, and marks preview pages noindex. For environment variables, dashboard setup and the differences between Vercel and application 401 responses, see the [Prismic deployment runbook](docs/prismic-deployment.md).
 
 ### Change or migrate models
 
@@ -166,7 +166,7 @@ The dry run uses the archived source snapshot and writes a local plan. The check
 ### Troubleshooting
 
 - If the build reports missing content, verify the configured repository, the singleton publication status, its required fields and Content API access. Use the fixture build to confirm application behavior independently of the live repository.
-- If a published change is missing, check the webhook delivery status and secret in both dashboards. When no webhook is configured, cached content is eligible for refresh after an hour.
+- If a published change is missing, check the webhook delivery status and secret in both dashboards. Production content is eligible for time-based refresh after an hour. Protected Preview uses its separate one-minute interval.
 - If draft content does not appear, open a full-site preview from Prismic and check the registered host and preview path. Draft cookies are scoped to that host. Keep Prismic write credentials in the local maintenance environment.
 
 ## 📌 Assumptions
