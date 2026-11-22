@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/json-ld";
 import { NavButton } from "@/components/navigation/nav-button";
 import { ProjectHero } from "@/components/projects/project-hero";
 import { ProjectSections } from "@/components/projects/project-sections";
+import { SiteMain } from "@/components/site-shell";
 import { getProjectBySlug, projectPath, projects } from "@/data/projects";
 import { homeSectionIds, siteUrl } from "@/data/site";
 import { pageMetadata, personId, websiteId } from "@/lib/seo";
@@ -83,7 +84,7 @@ export default async function ProjectPage({ params }: Props) {
   };
 
   return (
-    <main className="hero-bg bg-background">
+    <SiteMain className="hero-bg bg-background">
       <JsonLd data={projectData} />
       <article
         aria-labelledby="project-title"
@@ -95,6 +96,6 @@ export default async function ProjectPage({ params }: Props) {
           <NavButton />
         </nav>
       </article>
-    </main>
+    </SiteMain>
   );
 }

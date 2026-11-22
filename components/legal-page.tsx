@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { SiteShell } from "@/components/site-shell";
+import { SiteMain, SiteShell } from "@/components/site-shell";
 
 export function LegalPage({
   title,
@@ -19,7 +19,7 @@ export function LegalPage({
 
   return (
     <SiteShell>
-      <main className="bg-background">
+      <SiteMain className="bg-background">
         <article
           aria-labelledby="legal-page-title"
           className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16"
@@ -39,7 +39,7 @@ export function LegalPage({
             {children}
           </div>
         </article>
-      </main>
+      </SiteMain>
     </SiteShell>
   );
 }

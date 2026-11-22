@@ -28,18 +28,17 @@ The goal of this portfolio is not to showcase every skill I have, but to clearly
 ## 🧰 Tech Stack
 
 **Core**
-- Next.js (App Router)
-- React
+- Next.js 16 (App Router)
+- React 19
 - TypeScript
 
 **UI & Styling**
-- Tailwind CSS
-- shadcn/ui
-- Custom design tokens and variants
+- Tailwind CSS 4 with Warm Editorial design tokens
+- Checked-in shadcn/ui components with Radix primitives
 
 **Motion**
-- Intersection Observer–based reveal animations
-- Subtle, performance-safe transitions
+- CSS transitions and accordion animations respect reduced-motion preferences
+- Section links use native hash navigation
 
 **Tooling**
 - ESLint
@@ -54,11 +53,11 @@ The goal of this portfolio is not to showcase every skill I have, but to clearly
 - Scalable case study system
 - Reusable button and interaction patterns
 - Responsive, accessible layouts
-- Performance-aware animations
+- Light and dark theme controls remember the visitor’s selection in browser storage
 
 ## Local development
 
-Use Node.js 26 LTS (the exact version is recorded in `.nvmrc`) and npm. If you use nvm:
+Use the Node.js version pinned in `.nvmrc` and npm. With nvm, install and select that version.
 
 ```sh
 nvm install
@@ -106,11 +105,9 @@ ESLint 10 uses an explicit flat configuration in `eslint.config.mjs`. The bundle
 
 The configuration keeps the official Next.js Core Web Vitals rules through `@next/eslint-plugin-next`, React Hooks checks through `eslint-plugin-react-hooks`, and TypeScript's recommended rules. The original six accessibility checks, including alt text on Next.js `Image`, retain their warning levels. React uses the replacement plugin's recommended TypeScript preset; its rules differ from the previous React preset, and TypeScript handles JSX type errors such as duplicate props. `npm run test:lint` checks valid code and deliberately invalid fixtures to verify these protections.
 
-Use the Node version in `.nvmrc` to avoid engine warnings; if your terminal reports Node 23, run `nvm use` before `npm ci`.
-
 ## Google Analytics
 
-In the Vercel project's **Settings → Environment Variables**, set `GA_MEASUREMENT_ID` to the web stream's Measurement ID and select **Production**. Check that **Enable access to System Environment Variables** is selected, then deploy so the build picks up the value. The ID is supplied to the Google tag in the visitor's browser. [Vercel environment variables](https://vercel.com/docs/environment-variables/managing-environment-variables)
+In the Vercel project's **Settings → Environment Variables**, set `GA_MEASUREMENT_ID` to the web stream's Measurement ID for **Production**. Select **Automatically expose System Environment Variables** so the build can read `VERCEL_ENV`, then deploy. The ID is supplied to the Google tag in the visitor's browser. [Vercel system environment variables](https://vercel.com/docs/environment-variables/system-environment-variables)
 
 Visitors opt in before the Google tag is requested. The footer’s **Manage Cookies** button lets them change that choice. The site saves one versioned analytics preference in browser storage. Withdrawal disables the tag immediately and clears accessible first-party GA cookies. Advertising consent stays denied.
 
@@ -129,10 +126,10 @@ For local testing, set `FORMSPREE_FORM_ID` in the ignored `.env.local` file. The
 ```text
 app/
   page.tsx                       # Portfolio homepage
-  layout.tsx                     # Metadata and theme provider
+  layout.tsx                     # Metadata, theme provider, and cookie consent
   globals.css                    # Design tokens and global styles
   projects/[slug]/
-    layout.tsx                   # Shared case study header and footer
+    layout.tsx                   # Shared SiteShell for case studies
     page.tsx                     # Static project case studies
     not-found.tsx                # Unknown project fallback
 components/
@@ -178,7 +175,7 @@ All project content lives in a structured data file (`projects.ts`).
 ### 🔹 Single dynamic `[slug]` page
 
 **Decision**  
-Use one dynamic route to render all case studies.
+Use one parameterized route to pre-render all case studies from local data at build time.
 
 **Why**
 - Guarantees narrative consistency
@@ -206,12 +203,11 @@ Animations are minimal and purpose-driven.
 ## 🔮 What I’d Do Next
 
 **Short-term**
-- Keyboard navigation audit
+- Screen reader and assistive technology review
 - Optional project filtering
 
 **Mid-term**
 - MDX support for richer storytelling
-- Persisted theme preferences
 - Deeper experience timeline
 
 **Long-term**

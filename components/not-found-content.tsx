@@ -1,15 +1,16 @@
 import { ArrowLeft, CornerDownRight } from "lucide-react";
 import Link from "next/link";
 
+import { SiteMain } from "@/components/site-shell";
 import { Button } from "@/components/ui/button";
 import { homeSectionIds } from "@/data/site";
 
 export function NotFoundContent() {
   return (
-    <main className="hero-bg bg-background">
+    <SiteMain className="hero-bg bg-background">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 sm:gap-12 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16 lg:px-8 lg:py-24">
         <div className="mx-auto max-w-xl text-center lg:mx-0 lg:text-left">
-          <p className="text-xs font-bold tracking-[0.2em] text-brand-clay uppercase">
+          <p className="text-xs font-bold tracking-[0.2em] text-accent-foreground uppercase dark:text-brand-clay">
             Page not found
           </p>
           <div
@@ -78,6 +79,6 @@ export function NotFoundContent() {
           </div>
         </div>
       </div>
-    </main>
+    </SiteMain>
   );
 }

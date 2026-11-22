@@ -10,7 +10,7 @@ import {
   TechnologiesSection,
 } from "@/components/home";
 import { JsonLd } from "@/components/json-ld";
-import { SiteShell } from "@/components/site-shell";
+import { SiteMain, SiteShell } from "@/components/site-shell";
 import { contactLinks } from "@/data/contact-info";
 import { homeSectionIds, siteName, siteUrl } from "@/data/site";
 import {
@@ -65,11 +65,11 @@ const profileData = {
 
 export default function HomePage() {
   return (
-    <SiteShell>
+    <SiteShell mainId={homeSectionIds.home}>
       <JsonLd data={profileData} />
-      <main
+      <SiteMain
         id={homeSectionIds.home}
-        className="hero-bg scroll-mt-28 bg-background"
+        className="hero-bg bg-background"
       >
         <HeroSection />
         <ProjectsSection />
@@ -82,7 +82,7 @@ export default function HomePage() {
           <TechnologiesSection />
           <ContactSection />
         </div>
-      </main>
+      </SiteMain>
     </SiteShell>
   );
 }
