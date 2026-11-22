@@ -15,8 +15,16 @@ const legalPages = [
 
 test.use({ javaScriptEnabled: false });
 
-test("the first tab stop skips to the main landmark without JavaScript", async ({ page }) => {
-  for (const path of ["/", "/projects/emed", "/privacy", "/unknown-page", "/projects/unknown-project"]) {
+test("the first tab stop skips to the main landmark without JavaScript", async ({
+  page,
+}) => {
+  for (const path of [
+    "/",
+    "/projects/emed",
+    "/privacy",
+    "/unknown-page",
+    "/projects/unknown-project",
+  ]) {
     await page.goto(path);
     const skip = page.getByRole("link", { name: "Skip to main content" });
     await page.keyboard.press("Tab");
@@ -27,7 +35,9 @@ test("the first tab stop skips to the main landmark without JavaScript", async (
   }
 });
 
-test("lists only canonical portfolio pages in the sitemap advertised by robots.txt", async ({ request }) => {
+test("lists only canonical portfolio pages in the sitemap advertised by robots.txt", async ({
+  request,
+}) => {
   const robots = await request.get("/robots.txt");
   expect(robots.ok()).toBe(true);
   expect(robots.headers()["content-type"]).toMatch(/^text\/plain\b/);
@@ -40,27 +50,45 @@ test("lists only canonical portfolio pages in the sitemap advertised by robots.t
   const sitemap = await request.get("/sitemap.xml");
   expect(sitemap.ok()).toBe(true);
   expect(sitemap.headers()["content-type"]).toMatch(/xml\b/);
-  const entries = Array.from((await sitemap.text()).matchAll(/<loc>([^<]+)<\/loc>/g), ([, url]) => url);
-  expect(entries.toSorted()).toEqual([
-    `${origin}/`,
-    ...caseStudies.map(({ path }) => `${origin}${path}`),
-    ...legalPages.map(({ path }) => `${origin}${path}`),
-  ].toSorted());
+  const entries = Array.from(
+    (await sitemap.text()).matchAll(/<loc>([^<]+)<\/loc>/g),
+    ([, url]) => url,
+  );
+  expect(entries.toSorted()).toEqual(
+    [
+      `${origin}/`,
+      ...caseStudies.map(({ path }) => `${origin}${path}`),
+      ...legalPages.map(({ path }) => `${origin}${path}`),
+    ].toSorted(),
+  );
 });
 
-test("serves indexable legal pages with unique metadata without JavaScript", async ({ page }) => {
+test("serves indexable legal pages with unique metadata without JavaScript", async ({
+  page,
+}) => {
   const descriptions = new Set<string>();
 
   for (const { path, title } of legalPages) {
     const response = await page.goto(path);
     expect(response?.status()).toBe(200);
     expect(response?.headers()["x-robots-tag"] ?? "").not.toMatch(/noindex/i);
-    await expect(page.locator('head meta[name="robots"][content*="noindex"]')).toHaveCount(0);
+    await expect(
+      page.locator('head meta[name="robots"][content*="noindex"]'),
+    ).toHaveCount(0);
     await expect(page).toHaveTitle(`${title} — Gisele Pecapedra`);
-    await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute("href", `${origin}${path}`);
-    await expect(page.getByRole("main").getByRole("article", { name: title })).toBeVisible();
-    await expect(page.getByRole("heading", { level: 1, name: title })).toBeVisible();
-    const description = await page.locator('head meta[name="description"]').getAttribute("content");
+    await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      `${origin}${path}`,
+    );
+    await expect(
+      page.getByRole("main").getByRole("article", { name: title }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 1, name: title }),
+    ).toBeVisible();
+    const description = await page
+      .locator('head meta[name="description"]')
+      .getAttribute("content");
     expect(description).toBeTruthy();
     descriptions.add(description ?? "");
   }
@@ -68,35 +96,63 @@ test("serves indexable legal pages with unique metadata without JavaScript", asy
   expect(descriptions.size).toBe(3);
 });
 
-test("renders the portfolio profile and links to its case studies without JavaScript", async ({ page }) => {
+test("renders the portfolio profile and links to its case studies without JavaScript", async ({
+  page,
+}) => {
   const response = await page.goto("/");
   expect(response?.status()).toBe(200);
   expect(response?.headers()["x-robots-tag"] ?? "").not.toMatch(/noindex/i);
-  await expect(page.locator('head link[rel="canonical"]')).toHaveJSProperty("href", `${origin}/`);
-  const socialUrl = await page.locator('head meta[property="og:url"]').getAttribute("content");
+  await expect(page.locator('head link[rel="canonical"]')).toHaveJSProperty(
+    "href",
+    `${origin}/`,
+  );
+  const socialUrl = await page
+    .locator('head meta[property="og:url"]')
+    .getAttribute("content");
   expect(new URL(socialUrl ?? "").href).toBe(`${origin}/`);
-  await expect(page.getByRole("main").getByRole("heading", { level: 1 })).toHaveCount(1);
+  await expect(
+    page.getByRole("main").getByRole("heading", { level: 1 }),
+  ).toHaveCount(1);
 
-  const data = JSON.parse(await page.locator('script[type="application/ld+json"]').innerText());
-  expect(data["@graph"]).toEqual(expect.arrayContaining([
-    expect.objectContaining({
-      "@type": "WebSite",
-      "@id": `${origin}/#website`,
-      url: `${origin}/`,
-      publisher: { "@id": `${origin}/#person` },
-    }),
-    expect.objectContaining({ "@type": "ProfilePage", mainEntity: { "@id": `${origin}/#person` } }),
-    expect.objectContaining({ "@type": "Person", "@id": `${origin}/#person`, name: "Gisele Pecapedra" }),
-  ]));
+  const data = JSON.parse(
+    await page.locator('script[type="application/ld+json"]').innerText(),
+  );
+  expect(data["@graph"]).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        "@type": "WebSite",
+        "@id": `${origin}/#website`,
+        url: `${origin}/`,
+        publisher: { "@id": `${origin}/#person` },
+      }),
+      expect.objectContaining({
+        "@type": "ProfilePage",
+        mainEntity: { "@id": `${origin}/#person` },
+      }),
+      expect.objectContaining({
+        "@type": "Person",
+        "@id": `${origin}/#person`,
+        name: "Gisele Pecapedra",
+      }),
+    ]),
+  );
 
   for (const { card, path, title } of caseStudies) {
     if (card) {
-      await expect(page.getByRole("link", { name: `View case study ${title}`, exact: true })).toHaveAttribute("href", path);
+      await expect(
+        page.getByRole("link", {
+          name: `View case study ${title}`,
+          exact: true,
+        }),
+      ).toHaveAttribute("href", path);
     }
   }
 });
 
-test("downloads the résumé with the keyboard on mobile and desktop without JavaScript", async ({ page, request }) => {
+test("downloads the resume with the keyboard on mobile and desktop without JavaScript", async ({
+  page,
+  request,
+}) => {
   const filename = "Gisele-Pecapedra-Resume.pdf";
   const path = `/${filename}`;
   const response = await request.get(path);
@@ -107,7 +163,10 @@ test("downloads the résumé with the keyboard on mobile and desktop without Jav
   for (const width of [320, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/#about");
-    const link = page.getByRole("link", { name: "Download Résumé (PDF)", exact: true });
+    const link = page.getByRole("link", {
+      name: "Download Resume (PDF)",
+      exact: true,
+    });
     await expect(link).toHaveAttribute("href", path);
     await link.focus();
     await expect(link).toBeFocused();
@@ -124,53 +183,92 @@ test("downloads the résumé with the keyboard on mobile and desktop without Jav
 });
 
 for (const { path, title, subtitle, seoDescription, image } of caseStudies) {
-  test(`renders unique metadata and structured data for ${title}`, async ({ page, request }) => {
+  test(`renders unique metadata and structured data for ${title}`, async ({
+    page,
+    request,
+  }) => {
     const response = await page.goto(path);
     const canonical = `${origin}${path}`;
     expect(response?.status()).toBe(200);
     expect(response?.headers()["x-robots-tag"] ?? "").not.toMatch(/noindex/i);
     await expect(page).toHaveTitle(`${title} Case Study — Gisele Pecapedra`);
-    await expect(page.locator('head meta[name="description"]')).toHaveAttribute("content", seoDescription ?? subtitle);
-    await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute("href", canonical);
-    await expect(page.locator('head meta[property="og:url"]')).toHaveAttribute("content", canonical);
-    await expect(page.locator('head meta[property="og:title"]')).toHaveAttribute("content", `${title} Case Study`);
-    await expect(page.locator('head meta[name="twitter:card"]')).toHaveAttribute("content", "summary_large_image");
-    await expect(page.locator('head meta[name="robots"][content*="noindex"]')).toHaveCount(0);
-    await expect(page.getByRole("article", { name: title, exact: true })).toBeVisible();
+    await expect(page.locator('head meta[name="description"]')).toHaveAttribute(
+      "content",
+      seoDescription ?? subtitle,
+    );
+    await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      canonical,
+    );
+    await expect(page.locator('head meta[property="og:url"]')).toHaveAttribute(
+      "content",
+      canonical,
+    );
+    await expect(
+      page.locator('head meta[property="og:title"]'),
+    ).toHaveAttribute("content", `${title} Case Study`);
+    await expect(
+      page.locator('head meta[name="twitter:card"]'),
+    ).toHaveAttribute("content", "summary_large_image");
+    await expect(
+      page.locator('head meta[name="robots"][content*="noindex"]'),
+    ).toHaveCount(0);
+    await expect(
+      page.getByRole("article", { name: title, exact: true }),
+    ).toBeVisible();
 
     const imagePath = image?.src ?? "/og-cover.png";
-    await expect(page.locator('head meta[property="og:image"]')).toHaveAttribute("content", `${origin}${imagePath}`);
-    await expect(page.locator('head meta[name="twitter:image"]')).toHaveAttribute("content", `${origin}${imagePath}`);
+    await expect(
+      page.locator('head meta[property="og:image"]'),
+    ).toHaveAttribute("content", `${origin}${imagePath}`);
+    await expect(
+      page.locator('head meta[name="twitter:image"]'),
+    ).toHaveAttribute("content", `${origin}${imagePath}`);
     const socialImage = await request.get(imagePath);
     expect(socialImage.ok()).toBe(true);
     expect(socialImage.headers()["content-type"]).toMatch(/^image\//);
 
-    const data = JSON.parse(await page.locator('script[type="application/ld+json"]').innerText());
-    expect(data["@graph"]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        "@type": "WebPage",
-        "@id": canonical,
-        name: title,
-        inLanguage: "en",
-        breadcrumb: { "@id": `${canonical}#breadcrumb` },
-        author: { "@id": `${origin}/#person` },
-        isPartOf: { "@id": `${origin}/#website` },
-      }),
-      expect.objectContaining({
-        "@type": "BreadcrumbList",
-        "@id": `${canonical}#breadcrumb`,
-        itemListElement: [
-          expect.objectContaining({ position: 1, item: `${origin}/#projects` }),
-          expect.objectContaining({ position: 2, item: canonical }),
-        ],
-      }),
-    ]));
+    const data = JSON.parse(
+      await page.locator('script[type="application/ld+json"]').innerText(),
+    );
+    expect(data["@graph"]).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          "@type": "WebPage",
+          "@id": canonical,
+          name: title,
+          inLanguage: "en",
+          breadcrumb: { "@id": `${canonical}#breadcrumb` },
+          author: { "@id": `${origin}/#person` },
+          isPartOf: { "@id": `${origin}/#website` },
+        }),
+        expect.objectContaining({
+          "@type": "BreadcrumbList",
+          "@id": `${canonical}#breadcrumb`,
+          itemListElement: [
+            expect.objectContaining({
+              position: 1,
+              item: `${origin}/#projects`,
+            }),
+            expect.objectContaining({ position: 2, item: canonical }),
+          ],
+        }),
+      ]),
+    );
 
-    const webPage = data["@graph"].find((node: { "@type": string }) => node["@type"] === "WebPage");
+    const webPage = data["@graph"].find(
+      (node: { "@type": string }) => node["@type"] === "WebPage",
+    );
     if (image) {
-      await expect(page.locator('head meta[property="og:image:width"]')).toHaveAttribute("content", String(image.width));
-      await expect(page.locator('head meta[property="og:image:height"]')).toHaveAttribute("content", String(image.height));
-      await expect(page.locator('head meta[property="og:image:alt"]')).toHaveAttribute("content", image.alt);
+      await expect(
+        page.locator('head meta[property="og:image:width"]'),
+      ).toHaveAttribute("content", String(image.width));
+      await expect(
+        page.locator('head meta[property="og:image:height"]'),
+      ).toHaveAttribute("content", String(image.height));
+      await expect(
+        page.locator('head meta[property="og:image:alt"]'),
+      ).toHaveAttribute("content", image.alt);
       const dimensions = await page.evaluate(async (src) => {
         const image = new Image();
         image.src = src;
@@ -181,8 +279,16 @@ for (const { path, title, subtitle, seoDescription, image } of caseStudies) {
       expect(webPage.primaryImageOfPage).toEqual({
         "@type": "ImageObject",
         contentUrl: `${origin}${imagePath}`,
-        width: { "@type": "QuantitativeValue", value: image.width, unitText: "px" },
-        height: { "@type": "QuantitativeValue", value: image.height, unitText: "px" },
+        width: {
+          "@type": "QuantitativeValue",
+          value: image.width,
+          unitText: "px",
+        },
+        height: {
+          "@type": "QuantitativeValue",
+          value: image.height,
+          unitText: "px",
+        },
       });
     } else {
       expect(webPage).not.toHaveProperty("primaryImageOfPage");
@@ -190,7 +296,10 @@ for (const { path, title, subtitle, seoDescription, image } of caseStudies) {
   });
 }
 
-test("preloads one responsive hero and serves optimized images without JavaScript", async ({ page, request }) => {
+test("preloads one responsive hero and serves optimized images without JavaScript", async ({
+  page,
+  request,
+}) => {
   for (const path of ["/", "/projects/goplaces"]) {
     await page.goto(path);
     const preload = page.locator('head link[rel="preload"][as="image"]');
@@ -202,60 +311,119 @@ test("preloads one responsive hero and serves optimized images without JavaScrip
     const srcSet = await hero.getAttribute("srcset");
     expect(srcSet).toBeTruthy();
     await expect(preload).toHaveAttribute("imagesrcset", srcSet!);
-    await expect(preload).toHaveAttribute("imagesizes", (await hero.getAttribute("sizes"))!);
-    await expect.poll(() => hero.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
-    const url = await hero.evaluate((image: HTMLImageElement) => image.currentSrc);
+    await expect(preload).toHaveAttribute(
+      "imagesizes",
+      (await hero.getAttribute("sizes"))!,
+    );
+    await expect
+      .poll(() =>
+        hero.evaluate((image: HTMLImageElement) => image.naturalWidth),
+      )
+      .toBeGreaterThan(0);
+    const url = await hero.evaluate(
+      (image: HTMLImageElement) => image.currentSrc,
+    );
     expect(new URL(url).pathname).toBe("/_next/image");
-    const response = await request.get(url, { headers: { Accept: "image/webp" } });
+    const response = await request.get(url, {
+      headers: { Accept: "image/webp" },
+    });
     expect(response.status()).toBe(200);
     expect(response.headers()["content-type"]).toBe("image/webp");
   }
 });
 
-test("serves security headers on pages and static assets", async ({ request }) => {
-  for (const path of ["/", "/projects/goplaces", "/privacy", "/unknown-page", "/og-cover.png"]) {
+test("serves security headers on pages and static assets", async ({
+  request,
+}) => {
+  for (const path of [
+    "/",
+    "/projects/goplaces",
+    "/privacy",
+    "/unknown-page",
+    "/og-cover.png",
+  ]) {
     const response = await request.get(path);
     const headers = response.headers();
     expect(headers["x-powered-by"]).toBeUndefined();
     expect(headers["x-content-type-options"]).toBe("nosniff");
     expect(headers["referrer-policy"]).toBe("strict-origin-when-cross-origin");
-    expect(headers["content-security-policy"]).toContain("frame-ancestors 'none'");
+    expect(headers["content-security-policy"]).toContain(
+      "frame-ancestors 'none'",
+    );
     expect(headers["content-security-policy"]).toContain("base-uri 'none'");
     expect(headers["content-security-policy"]).toContain("object-src 'none'");
   }
 });
 
-test("links directly between the two case-study sections about state", async ({ page }) => {
-  await page.goto("/projects/shipflow#process-step-based-ux-with-explicit-state");
-  await page.getByRole("link", { name: "See how Coinpay UI keeps month selection in the URL." }).click();
-  await expect(page).toHaveURL(/\/projects\/coinpay#process-navigation-state-via-url-month-selection$/);
-  await expect(page.locator("#process-navigation-state-via-url-month-selection")).toBeVisible();
+test("links directly between the two case-study sections about state", async ({
+  page,
+}) => {
+  await page.goto(
+    "/projects/shipflow#process-step-based-ux-with-explicit-state",
+  );
+  await page
+    .getByRole("link", {
+      name: "See how Coinpay UI keeps month selection in the URL.",
+    })
+    .click();
+  await expect(page).toHaveURL(
+    /\/projects\/coinpay#process-navigation-state-via-url-month-selection$/,
+  );
+  await expect(
+    page.locator("#process-navigation-state-via-url-month-selection"),
+  ).toBeVisible();
 
-  await page.getByRole("link", { name: "See how ShipFlow handles state in a multi-step form." }).click();
-  await expect(page).toHaveURL(/\/projects\/shipflow#process-step-based-ux-with-explicit-state$/);
-  await expect(page.locator("#process-step-based-ux-with-explicit-state")).toBeVisible();
+  await page
+    .getByRole("link", {
+      name: "See how ShipFlow handles state in a multi-step form.",
+    })
+    .click();
+  await expect(page).toHaveURL(
+    /\/projects\/shipflow#process-step-based-ux-with-explicit-state$/,
+  );
+  await expect(
+    page.locator("#process-step-based-ux-with-explicit-state"),
+  ).toBeVisible();
 });
 
-test("lets readers jump to a case study outcome below the sticky header without JavaScript", async ({ page }) => {
+test("lets readers jump to a case study outcome below the sticky header without JavaScript", async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 320, height: 740 });
   await page.goto("/projects/shipflow");
   const outline = page.getByRole("navigation", { name: "In this case study" });
-  await outline.getByRole("link", { name: "5. Outcome", exact: true }).press("Enter");
+  await outline
+    .getByRole("link", { name: "5. Outcome", exact: true })
+    .press("Enter");
 
   await expect(page).toHaveURL(/\/projects\/shipflow#outcome$/);
-  const heading = page.getByRole("heading", { name: "5. Outcome", exact: true });
+  const heading = page.getByRole("heading", {
+    name: "5. Outcome",
+    exact: true,
+  });
   await expect(heading).toBeInViewport();
-  expect(await heading.evaluate((element) =>
-    element.getBoundingClientRect().top - document.querySelector("header")!.getBoundingClientRect().bottom,
-  )).toBeGreaterThanOrEqual(0);
+  expect(
+    await heading.evaluate(
+      (element) =>
+        element.getBoundingClientRect().top -
+        document.querySelector("header")!.getBoundingClientRect().bottom,
+    ),
+  ).toBeGreaterThanOrEqual(0);
 });
 
-test("permanently redirects legacy case studies and returns non-indexable 404s for unknown routes", async ({ page, request }) => {
-  const query = new URLSearchParams("utm_source=seo-check&tag=a%2Fb&tag=c+d&empty=");
+test("permanently redirects legacy case studies and returns non-indexable 404s for unknown routes", async ({
+  page,
+  request,
+}) => {
+  const query = new URLSearchParams(
+    "utm_source=seo-check&tag=a%2Fb&tag=c+d&empty=",
+  );
 
   for (const { path } of caseStudies) {
     for (const alias of [`/developer${path}`, `${path}/`]) {
-      const redirect = await request.get(`${alias}?${query}`, { maxRedirects: 0 });
+      const redirect = await request.get(`${alias}?${query}`, {
+        maxRedirects: 0,
+      });
       expect(redirect.status()).toBe(308);
       const location = new URL(redirect.headers().location, redirect.url());
       expect(location.pathname).toBe(path);
@@ -267,7 +435,13 @@ test("permanently redirects legacy case studies and returns non-indexable 404s f
   for (const path of ["/about", "/projects", "/projects/unknown-seo-route"]) {
     const response = await page.goto(path);
     expect(response?.status()).toBe(404);
-    await expect(page.locator('meta[name="robots"][content*="noindex"]').first()).toHaveCount(1);
-    await expect(page.locator('link[rel="canonical"], meta[property^="og:"], meta[name^="twitter:"]')).toHaveCount(0);
+    await expect(
+      page.locator('meta[name="robots"][content*="noindex"]').first(),
+    ).toHaveCount(1);
+    await expect(
+      page.locator(
+        'link[rel="canonical"], meta[property^="og:"], meta[name^="twitter:"]',
+      ),
+    ).toHaveCount(0);
   }
 });
