@@ -48,7 +48,7 @@ export type ProjectSection = {
 export type Project = {
   slug: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   seoTitle?: string;
   seoDescription?: string;
   socialImage?: ProjectImage;

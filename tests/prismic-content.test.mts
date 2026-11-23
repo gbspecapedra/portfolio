@@ -33,6 +33,17 @@ test("keeps optional fields empty and omits broken relationships", () => {
   assert.deepEqual(gamma.sections, []);
 });
 
+test("allows an incomplete draft title and subtitle while validating published content", () => {
+  const missingSubtitle: ProjectDocument = { ...alpha, data: { ...alpha.data, subtitle: [] } };
+  assert.throws(() => mapProject(missingSubtitle), /project\.subtitle/);
+  assert.equal(mapProject(missingSubtitle, true).subtitle, undefined);
+  assert.equal(mapProject(missingSubtitle, true).title, alpha.data.title);
+
+  const untitled = { ...missingSubtitle, data: { ...missingSubtitle.data, title: null } };
+  assert.throws(() => mapProject(untitled), /project\.title/);
+  assert.equal(mapProject(untitled, true).title, "Untitled case study");
+});
+
 test("orders featured projects and roles deterministically and rejects malformed UIDs", () => {
   assert.deepEqual(orderProjects(projects).map(({ uid }) => uid), ["alpha", "gamma", "beta"]);
   assert.deepEqual(orderExperience(roles).map(({ uid }) => uid), ["example-company", "former"]);

@@ -205,11 +205,12 @@ function mapSections(rows: ProjectDocument["data"]["sections"] | undefined): Pro
   return sections;
 }
 
-export function mapProject({ uid, data }: ProjectDocument): Project {
+export function mapProject({ uid, data }: ProjectDocument, draft = false): Project {
+  const subtitle = prose(data.subtitle);
   return {
     slug: uid,
-    title: required(data.title, "project.title"),
-    subtitle: required(prose(data.subtitle), "project.subtitle"),
+    title: draft ? data.title?.trim() || "Untitled case study" : required(data.title, "project.title"),
+    subtitle: draft ? subtitle?.trim() || undefined : required(subtitle, "project.subtitle"),
     seoTitle: data.meta_title ?? undefined,
     seoDescription: data.meta_description ?? undefined,
     socialImage: image(data.social_image),

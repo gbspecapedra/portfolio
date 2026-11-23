@@ -20,7 +20,7 @@ test("isolates draft project access and exits preview", async ({ request, page }
   expect(await (await request.get("/sitemap.xml")).text()).not.toContain(path);
   expect((await request.get("/api/preview")).status()).toBe(400);
   for (const query of ["session=without-ref", "token=invalid", "token=invalid&documentId=id-draft-example",
-    "token=fixture-expired&documentId=id-alpha", "token=fixture-master&documentId=id-alpha"]) {
+    "session=invalid%2Fpath~id", "token=fixture-expired&documentId=id-alpha", "token=fixture-master&documentId=id-alpha"]) {
     const invalid = await request.get(`/api/preview?${query}`, { maxRedirects: 0 });
     expect(invalid.status()).toBe(400);
     expect(invalid.headers()["set-cookie"]).toBeUndefined();
@@ -60,6 +60,47 @@ test("isolates draft project access and exits preview", async ({ request, page }
   const exit = await page.request.get("/api/exit-preview");
   expect(exit.ok()).toBe(true);
   expect(exit.headers()["cache-control"]).toBe("no-store");
+  expect((await page.request.get(path)).status()).toBe(404);
+});
+
+test("opens an incomplete case study from a session-only Prismic editor link", async ({ page, request }) => {
+  const session = "fixture-session~fixture-website";
+  const url = `/api/preview?documentId=id-draft-example&session=${session}`;
+  const path = "/projects/draft-example";
+  const toolbarHandoff = Promise.withResolvers<void>();
+  await page.route("https://static.cdn.prismic.io/prismic.js?**", async (route) => {
+    if (new URL(route.request().url()).searchParams.get("v") !== "5") return route.abort();
+    if (!new URL(page.url()).searchParams.has("session")) return route.abort();
+    await toolbarHandoff.promise;
+    return route.fulfill({
+      contentType: "application/javascript",
+      body: `
+        if (document.cookie.split("; ").includes("${cookie.previewSession}=${session}")) {
+          document.cookie = "${cookie.preview}=fixture-preview; Path=/; SameSite=Lax";
+          window.dispatchEvent(new CustomEvent("prismicPreviewStart", { cancelable: true }));
+        }
+      `,
+    });
+  });
+  await page.context().addCookies([{ name: cookie.preview, value: "fixture-master", url: "http://127.0.0.1:3100" }]);
+  try {
+    const response = await page.goto(url, { waitUntil: "commit" });
+    expect(response?.status()).toBe(200);
+    expect(response?.headers()["cache-control"]).toContain("no-store");
+    expect(response?.headers()["referrer-policy"]).toBe("no-referrer");
+    expect((await page.context().cookies()).map(({ name }) => name)).not.toContain(cookie.preview);
+    expect((await page.request.get(path)).status()).toBe(404);
+  } finally {
+    toolbarHandoff.resolve();
+  }
+  await expect(page).toHaveURL(/\/projects\/draft-example$/);
+  await expect(page.getByRole("heading", { level: 1, name: draftTitle })).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+  await expect(page.locator('meta[name="description"]')).toHaveCount(0);
+  expect((await request.get(path)).status()).toBe(404);
+  await page.goto("/");
+  await expect(page.getByRole("link", { name: `View case study ${draftTitle}` })).toBeVisible();
+  expect((await page.request.get("/api/exit-preview")).status()).toBe(200);
   expect((await page.request.get(path)).status()).toBe(404);
 });
 
