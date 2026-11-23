@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 
-import { draft, published } from "./prismic-content.mjs";
+import { draft, incompleteDraft, published } from "./prismic-content.mjs";
 
 const origin = "https://7l7juw0m.cdn.prismic.io";
 const api = `${origin}/api/v2`;
@@ -48,7 +48,8 @@ globalThis.fetch = async (input, init) => {
   }
   const documentType = /at\(document\.type,\s*"([^"]+)"\)/.exec(types)?.[1];
   const documentId = /at\(document\.id,\s*"([^"]+)"\)/.exec(types)?.[1];
-  const documents = ref === "fixture-preview" || ref === "fixture-publish" ? [...published, draft] : published;
+  const previewProject = { "fixture-preview": incompleteDraft, "fixture-publish": draft }[ref];
+  const documents = previewProject ? [...published, previewProject] : published;
   const results = documents.filter(({ type, uid, id }) =>
     (!documentType || type === documentType) &&
     (!projectUid || uid === projectUid) && (!documentId || id === documentId));

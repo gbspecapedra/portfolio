@@ -16,7 +16,7 @@ export function pageMetadata({
 }: {
   url: string;
   title: string;
-  description: string;
+  description?: string;
   settings: Pick<SiteSettings, "name" | "socialImage">;
   image?: ProjectImage;
 }): Metadata {

@@ -141,3 +141,8 @@ export const draft = {
   ...baseDraft, id: "id-draft-example", uid: "draft-example", url: "/projects/draft-example",
   data: { ...baseDraft.data, title: draftTitle },
 };
+
+export const incompleteDraft = {
+  ...draft,
+  data: { ...draft.data, subtitle: [], show_card: true },
+};

@@ -10,6 +10,7 @@ import { projectPath } from "@/data/site";
 
 export function ProjectCard({ project }: { project: Project }) {
   const { slug, title, subtitle, image, card, meta } = project;
+  const description = card?.pitch ?? subtitle;
   const titleId = `project-title-${slug}`;
   const linkLabelId = `project-link-${slug}`;
 
@@ -44,9 +45,11 @@ export function ProjectCard({ project }: { project: Project }) {
           </div>
         )}
 
-        <p className="mt-2 mb-3 flex-1 text-sm leading-relaxed text-card-foreground">
-          {card?.pitch ?? subtitle}
-        </p>
+        {description && (
+          <p className="mt-2 mb-3 flex-1 text-sm leading-relaxed text-card-foreground">
+            {description}
+          </p>
+        )}
 
         <Button
           asChild

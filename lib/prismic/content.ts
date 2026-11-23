@@ -10,7 +10,10 @@ import {
   orderExperience, orderProjects, validProjectUid,
 } from "./map-content";
 
-const requestClient = cache(async () => createClient(await getPreviewRef()));
+const getPrismicRequest = cache(async () => {
+  const previewRef = await getPreviewRef();
+  return { client: createClient(previewRef), draft: Boolean(previewRef) };
+});
 
 async function query<T>(label: string, fetchDocument: () => Promise<T>) {
   try {
@@ -28,28 +31,28 @@ function singleton<T>(content: T | null, name: string): T {
 }
 
 export const getSiteSettings = cache(async () => {
-  const client = await requestClient();
+  const { client } = await getPrismicRequest();
   return mapSiteSettings(singleton(await query("site settings", () => client.getSingle("site_settings")), "site_settings"));
 });
 
 export const getHomepage = cache(async () => {
-  const client = await requestClient();
+  const { client } = await getPrismicRequest();
   return mapHomepage(singleton(await query("homepage", () => client.getSingle("homepage")), "homepage"));
 });
 
 export const getAbout = cache(async () => {
-  const client = await requestClient();
+  const { client } = await getPrismicRequest();
   return mapAbout(singleton(await query("about", () => client.getSingle("about")), "about"));
 });
 
 export const getExperience = cache(async () => {
-  const client = await requestClient();
+  const { client } = await getPrismicRequest();
   const documents = await query("experience", () => client.getAllByType("experience"));
   return orderExperience(documents ?? []).map(mapExperience);
 });
 
 export const getProjectCards = cache(async () => {
-  const client = await requestClient();
+  const { client, draft } = await getPrismicRequest();
   const documents = await query("project cards", () => client.getAllByType("project", {
     fetch: [
       "project.title", "project.subtitle", "project.image", "project.tags", "project.links",
@@ -57,14 +60,14 @@ export const getProjectCards = cache(async () => {
     ],
   }));
   return orderProjects((documents ?? []).filter(({ uid, data }) => validProjectUid(uid) && data.show_card))
-    .map(mapProject);
+    .map((project) => mapProject(project, draft));
 });
 
 export const getProject = cache(async (uid: string) => {
   if (!validProjectUid(uid)) return null;
-  const client = await requestClient();
+  const { client, draft } = await getPrismicRequest();
   const project = await query("project", () => client.getByUID("project", uid));
-  return project ? mapProject(project) : null;
+  return project ? mapProject(project, draft) : null;
 });
 
 export async function getPublishedProjectUids() {

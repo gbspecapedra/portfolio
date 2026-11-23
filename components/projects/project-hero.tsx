@@ -62,9 +62,11 @@ export function ProjectHero({ project }: { project: Project }) {
           aria-hidden="true"
           className="mt-3 h-0.5 w-16 rounded-full bg-brand-clay"
         />
-        <p className="mt-4 max-w-[56ch] text-lg leading-relaxed text-foreground sm:text-xl">
-          {subtitle}
-        </p>
+        {subtitle && (
+          <p className="mt-4 max-w-[56ch] text-lg leading-relaxed text-foreground sm:text-xl">
+            {subtitle}
+          </p>
+        )}
 
         {facts.length ? (
           <dl className="mt-5 max-w-[56ch] divide-y divide-border border-y text-sm leading-relaxed">
